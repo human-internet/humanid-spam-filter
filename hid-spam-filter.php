@@ -52,13 +52,13 @@ function HIDSFErrorNotice( $message = '' ) {
 	endif;
 }
 
-add_action( 'admin_notices', 'hid_spam_filter\HIDFSErrorNotice', 10, 1 );
+add_action( 'admin_notices', 'hid_spam_filter\\HIDSFErrorNotice', 10, 1 );
 
 /***
  * loads classes / files
  * @since v1.0.0
  ***/
-function HIDSFLoader() {
+function HIDSFLoader(): bool {
 	$error = false;
 
 	$includes = apply_filters( 'hidsf_includes_filter', [] );

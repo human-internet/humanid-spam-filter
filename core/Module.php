@@ -45,7 +45,7 @@ class Module {
 	 */
 	protected function renderContent( $template = '', $echo = true ) {
 
-		$parent_module_folder = KMCF7MS_MODULE_DIR;
+		$parent_module_folder = HIDSF_MODULE_DIR;
 		// Start output buffering.
 		ob_start();
 		ob_implicit_flush( 0 );
