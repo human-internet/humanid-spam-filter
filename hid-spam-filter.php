@@ -46,7 +46,7 @@ function HIDSFErrorNotice( $message = '' ) {
 	if ( trim( $message ) != '' ):
 		?>
         <div class="error notice is-dismissible">
-            <p><b>Human ID Message Filter: </b><?php echo $message ?></p>
+            <p><strong>Human ID Message Filter: </strong><?php echo $message ?></p>
         </div>
 	<?php
 	endif;

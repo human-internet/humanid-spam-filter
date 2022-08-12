@@ -14,6 +14,13 @@ class Module {
 		$module       = str_replace( 'Module', '', $module );
 		$module       = str_replace( 'hid_spam_filter\\', '', $module );
 		$this->module = strtolower( $module );
+
+	}
+
+	/**
+	 * @since v1.0.0
+	 */
+	public function run() {
 		$this->addActions();
 		$this->addFilters();
 		$this->addShortcodes();

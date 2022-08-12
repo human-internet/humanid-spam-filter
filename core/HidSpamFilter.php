@@ -115,8 +115,9 @@ class HidSpamFilter {
 	 */
 	public function initModules() {
 		foreach ( Module::getModules( HIDSF_MODULE_DIR, false ) as $dir ) {
-			$module = 'hid_spam_filter\\' . rtrim( $dir, ".php " );
-			new $module();
+			$module_name = 'hid_spam_filter\\' . rtrim( $dir, ".php " );
+			$module = new $module_name();
+			$module->run();
 		}
 	}
 
