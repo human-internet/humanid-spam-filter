@@ -8,6 +8,6 @@ Still in development <br/>
 2. Copy the extracted folder to the `wp-content/plugins` directory of your WordPress instance
 3. Move into the plugin folder from your terminal 
      ```console
-         $ cd WORDPRESS_PATH/wp-contents/plugins/hid-spam-filter
+         $ cd WORDPRESS_PATH/wp-contents/plugins/humanid-spam-filter
    ```
 5. Run `npm run watch` to auto compile sass files to css
