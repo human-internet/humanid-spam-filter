@@ -1,0 +1,51 @@
+.pointer {
+  cursor: pointer;
+}
+
+.p-relative {
+  position: relative;
+}
+
+.p-absolute {
+  position: absolute;
+}
+
+.pl-20 {
+  padding-left: 20px;
+}
+
+.hid-header {
+  background: #0C4367;
+  height: 300px;
+  position: relative;
+}
+.hid-header img {
+  padding-left: 10px;
+  max-width: 90%;
+}
+.hid-header .hid-header-menu {
+  position: absolute;
+  bottom: 0;
+}
+.hid-header .hid-header-menu ul {
+  margin: 0;
+}
+.hid-header .hid-header-menu ul li {
+  margin: 0 10px 0 0;
+  display: inline-block;
+  padding: 15px 40px;
+  background: #3B678F;
+  font-size: 20px;
+}
+.hid-header .hid-header-menu ul li a {
+  color: #F0F0F1;
+  text-decoration: none;
+}
+.hid-header .hid-header-menu ul li.active {
+  background: #F0F0F1;
+}
+.hid-header .hid-header-menu ul li.active a {
+  color: #0C4367;
+}
+
+/*# sourceMappingURL=app.css.map */

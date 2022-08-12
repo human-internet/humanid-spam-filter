@@ -3,6 +3,7 @@
 namespace hid_spam_filter;
 
 use KMSubMenuPage;
+use KMSetting;
 
 class DashboardModule extends Module {
 	private $blocked;
@@ -13,8 +14,47 @@ class DashboardModule extends Module {
 	}
 
 	/**
+	 * Registers the settings field for the client token and secret
 	 * @since v1.0.0
-	 * Adds settings submenu page
+	 */
+	private function registerSettings() {
+
+		// Check documentation here https://github.com/kofimokome/WordPress-Tools
+
+		$settings = new KMSetting( 'hid-spam-filter' );
+		$settings->add_section( 'hid-spam-filter' );
+		$settings->add_field(
+			array(
+				'type'        => 'text',
+				'id'          => 'hidsf_client_id',
+				'label'       => 'Client ID: ',
+				'placeholder' => 'SERVER_XXXXXXXXXXXXXXXXXXXXXX'
+			)
+		);
+		$settings->add_field(
+			array(
+				'type'        => 'text',
+				'id'          => 'hidsf_client_secret',
+				'label'       => 'Client Secret: ',
+				'placeholder' => 'e6-10mx7WaiYfQbZpZNAJHDp7dOLMxu'
+			)
+		);
+
+		$settings->save();
+	}
+
+	/**
+	 * @since v1.0.0
+	 */
+	protected function addFilters() {
+		parent::addFilters();
+		add_filter( 'hidsf_sub_menu_pages_filter', [ $this, 'addSubMenuPage' ] );
+		// add actions here
+	}
+
+	/**
+	 * @since v1.0.0
+	 * Adds dashboard page
 	 */
 	function addSubMenuPage( $sub_menu_pages ) {
 		$menu_title = 'HID Spam Filter';
@@ -41,18 +81,18 @@ class DashboardModule extends Module {
 
 	/**
 	 * @since v1.0.0
-	 * Displays content on dashboard sub menu page
+	 * Displays content on dashboard page
 	 */
-	function dashboardPageContent() {
+	public function dashboardPageContent() {
 		$this->renderContent( 'index' );
 	}
 
 	/**
+	 * Overrides parent run method
 	 * @since v1.0.0
 	 */
-	protected function addFilters() {
-		parent::addFilters();
-		add_filter( 'hidsf_sub_menu_pages_filter', [ $this, 'addSubMenuPage' ] );
-		// add actions here
+	public function run() {
+		parent::run();
+		$this->registerSettings();
 	}
 }

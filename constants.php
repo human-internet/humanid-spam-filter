@@ -7,6 +7,7 @@ define( 'HIDSF_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HIDSF_TABLE_PREFIX', $wpdb->prefix . 'hidsf_' );
 
 const HIDSF_JS_URL  = HIDSF_URL . 'js';
+const HIDSF_ASSET_URL  = HIDSF_URL . 'assets';
 const HIDSF_CSS_URL = HIDSF_URL . 'css';
 const HIDSF_LIB_DIR    = HIDSF_DIR . 'lib';
 const HIDSF_CORE_DIR   = HIDSF_DIR . 'core';

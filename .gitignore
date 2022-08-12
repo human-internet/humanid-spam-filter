@@ -1,2 +1,4 @@
 sonar-project.properties
 .scannerwork
+.scanner_lock
+/node_modules

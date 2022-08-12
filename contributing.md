@@ -15,3 +15,9 @@ If you would like to contribute to this plugin:
 # Namespacing Rules
 1. All PHP files should namespace hid_spam_filter
 2. Php files in the lib/ directory are exempted from this rule
+
+# Class Rules
+1. Constructor should come immediately after class variables
+2. Private methods should follow the constructor
+3. Protected methods should follow private methods
+4. Public methods should follow protected methods
