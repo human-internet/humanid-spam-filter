@@ -1,0 +1,27 @@
+{
+  "name": "hid-spam-filter",
+  "version": "1.0.0",
+  "description": "Human ID WordPress Spam Filter",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "tests"
+  },
+  "scripts": {
+    "watch": "sass assets/sass/main.scss assets/css/app.css --watch",
+    "dev": "sass assets/sass/main.scss assets/css/app.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/human-internet/wordpress-spam-filter.git"
+  },
+  "author": "kofimokome",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/human-internet/wordpress-spam-filter/issues"
+  },
+  "homepage": "https://github.com/human-internet/wordpress-spam-filter#readme",
+  "dependencies": {
+    "sass": "^1.54.4"
+  }
+}
