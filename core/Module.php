@@ -1,6 +1,6 @@
 <?php
 
-namespace hid_spam_filter;
+namespace humanid_spam_filter;
 
 use Exception;
 
@@ -12,7 +12,7 @@ class Module {
 	public function __construct() {
 		$module       = get_called_class();
 		$module       = str_replace( 'Module', '', $module );
-		$module       = str_replace( 'hid_spam_filter\\', '', $module );
+		$module       = str_replace( 'humanid_spam_filter\\', '', $module );
 		$this->module = strtolower( $module );
 
 	}

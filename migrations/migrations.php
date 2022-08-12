@@ -1,6 +1,6 @@
 <?php
 
-namespace hid_spam_filter;
+namespace humanid_spam_filter;
 
 // Create users table
 $memberships = new Migration( 'users' );

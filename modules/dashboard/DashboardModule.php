@@ -1,16 +1,16 @@
 <?php
 
-namespace hid_spam_filter;
+namespace humanid_spam_filter;
 
 use KMSubMenuPage;
 use KMSetting;
 
 class DashboardModule extends Module {
-	private $blocked;
+	private string $blocked;
 
 	public function __construct() {
 		parent::__construct();
-		$this->blocked = get_option( "hidsf_messages_blocked_today" );
+		$this->blocked = get_option( "hidsf_blocked_today" );
 	}
 
 	/**
@@ -27,7 +27,7 @@ class DashboardModule extends Module {
 			array(
 				'type'        => 'text',
 				'id'          => 'hidsf_client_id',
-				'label'       => 'Client ID: ',
+				'label'       => __( 'Client ID', HIDSF_TEXT_DOMAIN ),
 				'placeholder' => 'SERVER_XXXXXXXXXXXXXXXXXXXXXX'
 			)
 		);
@@ -35,7 +35,7 @@ class DashboardModule extends Module {
 			array(
 				'type'        => 'text',
 				'id'          => 'hidsf_client_secret',
-				'label'       => 'Client Secret: ',
+				'label'       => __( 'Client Secret', HIDSF_TEXT_DOMAIN ),
 				'placeholder' => 'e6-10mx7WaiYfQbZpZNAJHDp7dOLMxu'
 			)
 		);

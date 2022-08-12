@@ -1,29 +1,27 @@
 <?php
 
-namespace hid_spam_filter;
+namespace humanid_spam_filter;
 
 use KMMenuPage;
 
 class HidSpamFilter {
-	private $blocked;
-	private static $version;
+	private string $blocked;
+	private static string $version;
 
 	public function __construct() {
-		// do something here
+		$this->blocked = get_option( "hidsf_blocked_today" );
 		self::$version = '1.0.0';
-		$this->blocked = get_option( "kmcfmf_messages_blocked_today" );
 	}
 
 	/**
-	 * Todo: Add Description
+	 * Register plugins options
 	 * @since    1.0.0
-	 * @access   public
 	 */
 	private function addOptions() {
 
 		$option_names = array(
 			'hidsf_is_permalink_refreshed',
-			'hidsf_messages_blocked_today',
+			'hidsf_blocked_today',
 		);
 
 		foreach ( $option_names as $option_name ) {
@@ -40,7 +38,7 @@ class HidSpamFilter {
 	 * @since v1.0.0
 	 * Returns the version number of the plugin
 	 */
-	public static function getVersion() {
+	public static function getVersion(): string {
 		return self::$version;
 	}
 
@@ -115,8 +113,8 @@ class HidSpamFilter {
 	 */
 	public function initModules() {
 		foreach ( Module::getModules( HIDSF_MODULE_DIR, false ) as $dir ) {
-			$module_name = 'hid_spam_filter\\' . rtrim( $dir, ".php " );
-			$module = new $module_name();
+			$module_name = 'humanid_spam_filter\\' . rtrim( $dir, ".php " );
+			$module      = new $module_name();
 			$module->run();
 		}
 	}

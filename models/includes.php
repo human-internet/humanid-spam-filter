@@ -1,6 +1,6 @@
 <?php
 
-namespace hid_spam_filter;
+namespace humanid_spam_filter;
 
 /**
  * Add models to be included
@@ -14,4 +14,4 @@ function addModels( $includes ): array {
 	return array_merge( $includes, $models );
 }
 
-add_filter( 'hidsf_includes_filter', 'hid_spam_filter\\addModels' );
+add_filter( 'hidsf_includes_filter', 'humanid_spam_filter\\addModels' );

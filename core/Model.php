@@ -1,6 +1,6 @@
 <?php
 
-namespace hid_spam_filter;
+namespace humanid_spam_filter;
 
 use Plural;
 
@@ -27,7 +27,7 @@ class Model {
 		if ( $table_name == '' ) {
 			$model      = get_called_class();
 			$table_name = strtolower( preg_replace( '/(?<!^)[A-Z]/', '_$0', $model ) );
-			$table_name = strtolower( str_replace( 'hid_spam_filter\\', '', $table_name ) );
+			$table_name = strtolower( str_replace( 'humanid_spam_filter\\', '', $table_name ) );
 			$table_name = ltrim( $table_name, '_' );
 			$table_name = Plural( $table_name );
 

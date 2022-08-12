@@ -9,7 +9,8 @@
   },
   "scripts": {
     "watch": "sass assets/sass/main.scss assets/css/app.css --watch",
-    "dev": "sass assets/sass/main.scss assets/css/app.css"
+    "dev": "sass assets/sass/main.scss assets/css/app.css",
+    "translate": "node get-translation-strings.js"
   },
   "repository": {
     "type": "git",
@@ -23,5 +24,8 @@
   "homepage": "https://github.com/human-internet/wordpress-spam-filter#readme",
   "dependencies": {
     "sass": "^1.54.4"
+  },
+  "devDependencies": {
+    "wp-pot": "^1.10.2"
   }
 }

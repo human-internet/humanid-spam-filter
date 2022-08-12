@@ -2,7 +2,7 @@
 /**
  * @link              www.human-id.org
  * @since             1.0.0
- * @package           hid_spam_filter
+ * @package           humanid_spam_filter
  *
  * @wordpress-plugin
  * Plugin Name: Human ID Spam Filter
@@ -17,7 +17,7 @@
  * Domain Path: /languages
  */
 
-namespace hid_spam_filter;
+namespace humanid_spam_filter;
 
 defined( 'ABSPATH' ) or die( 'Giving To Cesar What Belongs To Caesar' );
 
@@ -46,13 +46,13 @@ function HIDSFErrorNotice( $message = '' ) {
 	if ( trim( $message ) != '' ):
 		?>
         <div class="error notice is-dismissible">
-            <p><strong>Human ID Message Filter: </strong><?php echo $message ?></p>
+            <p><strong>Human ID Spam Filter: </strong><?php echo $message ?></p>
         </div>
 	<?php
 	endif;
 }
 
-add_action( 'admin_notices', 'hid_spam_filter\\HIDSFErrorNotice', 10, 1 );
+add_action( 'admin_notices', 'humanid_spam_filter\\HIDSFErrorNotice', 10, 1 );
 
 /***
  * loads classes / files
@@ -65,7 +65,7 @@ function HIDSFLoader(): bool {
 
 	foreach ( $includes as $file ) {
 		if ( ! $filepath = file_exists( $file ) ) {
-			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', 'humanid-spam-filter' ), $file ) );
+			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', HIDSF_TEXT_DOMAIN ), $file ) );
 			$error = true;
 		} else {
 			include_once $file;
@@ -78,10 +78,10 @@ function HIDSFLoader(): bool {
 /**
  * Starts the spam filter
  * @since v1.0.0
-*/
+ */
 function HIDSFStart() {
 	Migration::runUpdateMigrations();
-    //todo: create redirect urls
+	//todo: create redirect urls
 	$spam_filter = new HidSpamFilter();
 	$spam_filter->start();
 }
@@ -94,29 +94,28 @@ if ( ! HIDSFLoader() ) {
 
 // remove options upon deactivation
 
-register_deactivation_hook( __FILE__, 'hid_spam_filter\\HIDSFDeactivation' );
+register_deactivation_hook( __FILE__, 'humanid_spam_filter\\HIDSFDeactivation' );
 
 /**
  * Set of actions to be performed on deactivation
  * @since v1.0.0
-*/
+ */
 function HIDSFDeactivation() {
 	// set options to remove here
 }
 
 
-register_uninstall_hook( __FILE__, 'hid_spam_filter\\HIDSFUninstall' );
+register_uninstall_hook( __FILE__, 'humanid_spam_filter\\HIDSFUninstall' );
 
 /**
  * Set of actions to be performed on uninstallation
  * @since v1.0.0
  */
 function HIDSFUninstall() {
-	// set options to remove here
 	Migration::dropAll();
 }
 
-register_activation_hook( __FILE__, 'hid_spam_filter\\HIDSFActivation' );
+register_activation_hook( __FILE__, 'humanid_spam_filter\\HIDSFActivation' );
 
 /**
  * Set of actions to be performed on activation
@@ -128,4 +127,4 @@ function HIDSFActivation() {
 }
 
 // todo: for future use
-load_plugin_textdomain( 'humanid-spam-filter', false, basename( dirname( __FILE__ ) ) . '/languages' );
+load_plugin_textdomain( HIDSF_TEXT_DOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages' );

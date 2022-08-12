@@ -13,7 +13,7 @@ If you would like to contribute to this plugin:
 5. Module classes should end with Module. e.g JobModule
 
 # Namespacing Rules
-1. All PHP files should namespace hid_spam_filter
+1. All PHP files should namespace humanid_spam_filter
 2. Php files in the lib/ directory are exempted from this rule
 
 # Class Rules
