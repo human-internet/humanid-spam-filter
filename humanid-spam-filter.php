@@ -13,7 +13,7 @@
  * Author URI: www.kofimokome.stream
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain: hid-spam-filter
+ * Text Domain: humanid-spam-filter
  * Domain Path: /languages
  */
 
@@ -65,7 +65,7 @@ function HIDSFLoader(): bool {
 
 	foreach ( $includes as $file ) {
 		if ( ! $filepath = file_exists( $file ) ) {
-			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', 'hid-spam-filter' ), $file ) );
+			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', 'humanid-spam-filter' ), $file ) );
 			$error = true;
 		} else {
 			include_once $file;
@@ -128,4 +128,4 @@ function HIDSFActivation() {
 }
 
 // todo: for future use
-load_plugin_textdomain( 'hid-spam-filter', false, basename( dirname( __FILE__ ) ) . '/languages' );
+load_plugin_textdomain( 'humanid-spam-filter', false, basename( dirname( __FILE__ ) ) . '/languages' );

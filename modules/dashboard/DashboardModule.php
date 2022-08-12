@@ -21,8 +21,8 @@ class DashboardModule extends Module {
 
 		// Check documentation here https://github.com/kofimokome/WordPress-Tools
 
-		$settings = new KMSetting( 'hid-spam-filter' );
-		$settings->add_section( 'hid-spam-filter' );
+		$settings = new KMSetting( 'humanid-spam-filter' );
+		$settings->add_section( 'humanid-spam-filter' );
 		$settings->add_field(
 			array(
 				'type'        => 'text',
@@ -67,7 +67,7 @@ class DashboardModule extends Module {
 				'page_title' => $menu_title,
 				'menu_title' => $menu_title,
 				'capability' => 'manage_options',
-				'menu_slug'  => 'hid-spam-filter',
+				'menu_slug'  => 'humanid-spam-filter',
 				'function'   => array(
 					$this,
 					'dashboardPageContent'

@@ -97,7 +97,7 @@ class HidSpamFilter {
 			'page_title' => 'HID Spam Filter',
 			'menu_title' => $menu_title,
 			'capability' => 'read',
-			'menu_slug'  => 'hid-spam-filter',
+			'menu_slug'  => 'humanid-spam-filter',
 			'icon_url'   => 'dashicons-filter',
 			'position'   => null,
 			'function'   => null

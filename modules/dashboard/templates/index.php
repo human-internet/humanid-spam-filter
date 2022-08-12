@@ -30,8 +30,8 @@ $link_to_filters = admin_url( 'admin.php' ) . '?page=kmcf7-message-filter-option
         <form method="post" action="options.php">
 		    <?php
 
-		    settings_fields( 'hid-spam-filter' );
-		    do_settings_sections( 'hid-spam-filter' );
+		    settings_fields( 'humanid-spam-filter' );
+		    do_settings_sections( 'humanid-spam-filter' );
 
 		    submit_button();
 		    ?>

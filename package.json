@@ -1,5 +1,5 @@
 {
-  "name": "hid-spam-filter",
+  "name": "humanid-spam-filter",
   "version": "1.0.0",
   "description": "Human ID WordPress Spam Filter",
   "main": "index.js",
