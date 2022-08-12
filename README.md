@@ -1,3 +1,5 @@
+![Human ID logo](assets/images/humanId.png)
+
 # Human ID Spam Filter
 
 WordPress plugin to block spam <br/>
