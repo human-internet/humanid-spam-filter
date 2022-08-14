@@ -20,7 +20,7 @@ class HidSpamFilter {
 	private function addOptions() {
 
 		$option_names = array(
-			'hidsf_is_permalink_refreshed',
+			'hidsf_is_permalink_updated',
 			'hidsf_blocked_today',
 		);
 
@@ -92,11 +92,11 @@ class HidSpamFilter {
 		}
 
 		$menu_page      = new KMMenuPage( array(
-			'page_title' => 'HID Spam Filter',
+			'page_title' => 'HumanID Spam Filter',
 			'menu_title' => $menu_title,
 			'capability' => 'read',
 			'menu_slug'  => 'humanid-spam-filter',
-			'icon_url'   => 'dashicons-filter',
+			'icon_url'   => HIDSF_ASSET_URL . '/images/humanid_white.png',
 			'position'   => null,
 			'function'   => null
 		) );

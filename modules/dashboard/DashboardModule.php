@@ -14,6 +14,20 @@ class DashboardModule extends Module {
 	}
 
 	/**
+	 * Check if the "I have updated permalink" button is clicked
+	 * @since v1.0.0
+	 */
+	private function checkIfPermalinkIsUpdated() {
+		if ( isset( $_GET['updatePermalink'] ) ) {
+			$updatePermalink = $_GET['updatePermalink'];
+			$updatePermalink = strip_tags( (string) wp_unslash( $updatePermalink ) );
+			if ( $updatePermalink == 'yes' ) {
+				update_option( 'hidsf_is_permalink_updated', 1 );
+			}
+		}
+	}
+
+	/**
 	 * Registers the settings field for the client token and secret
 	 * @since v1.0.0
 	 */
@@ -57,7 +71,7 @@ class DashboardModule extends Module {
 	 * Adds dashboard page
 	 */
 	function addSubMenuPage( $sub_menu_pages ) {
-		$menu_title = 'HID Spam Filter';
+		$menu_title = 'HumanID Spam Filter';
 		if ( $this->blocked > 0 ) {
 			$menu_title .= " <span class='update-plugins count-1'><span class='update-count'>$this->blocked </span></span>";
 		}
@@ -94,5 +108,6 @@ class DashboardModule extends Module {
 	public function run() {
 		parent::run();
 		$this->registerSettings();
+		$this->checkIfPermalinkIsUpdated();
 	}
 }

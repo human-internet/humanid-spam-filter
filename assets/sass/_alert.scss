@@ -1,0 +1,18 @@
+.hid-alert {
+  border: solid white 2px;
+  border-radius: 5px;
+  padding: 10px 15px;
+  width: fit-content;
+
+  &.alert-danger {
+    border-color: red;
+  }
+
+  &.alert-success {
+    border-color: green;
+  }
+
+  &.alert-info {
+    border-color: dodgerblue;
+  }
+}

@@ -14,6 +14,34 @@
   padding-left: 20px;
 }
 
+.pt-20 {
+  padding-top: 20px;
+}
+
+.margin-top-20 {
+  margin-top: 20px;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.hid-alert {
+  border: solid white 2px;
+  border-radius: 5px;
+  padding: 10px 15px;
+  width: fit-content;
+}
+.hid-alert.alert-danger {
+  border-color: red;
+}
+.hid-alert.alert-success {
+  border-color: green;
+}
+.hid-alert.alert-info {
+  border-color: dodgerblue;
+}
+
 .hid-header {
   background: #0C4367;
   height: 300px;
