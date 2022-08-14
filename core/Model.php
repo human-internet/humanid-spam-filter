@@ -40,7 +40,7 @@ class Model {
 	}
 
 	/**
-	 * @since v1.0
+	 * @since v1.0.0
 	 * Saves a new model in the database
 	 */
 	public function save(): bool {
@@ -75,7 +75,7 @@ class Model {
 	}
 
 	/**
-	 * @since v1.0
+	 * @since v1.0.0
 	 * Finds a model in the database
 	 * Returns boolean|object
 	 */
@@ -84,7 +84,7 @@ class Model {
 	}
 
 	/**
-	 * @since v1.0
+	 * @since v1.0.0
 	 * Finds a model by name in the database
 	 * Returns boolean|object
 	 */
@@ -93,7 +93,7 @@ class Model {
 	}
 
 	/**
-	 * @since v1.0
+	 * @since v1.0.0
 	 * Hard delete a model from the database
 	 * Also does soft delete if table has deleted column
 	 */
@@ -110,7 +110,7 @@ class Model {
 	}
 
 	/**
-	 * @since v1.0
+	 * @since v1.0.0
 	 * Soft deletes a model from the database
 	 */
 	public function softDelete(): bool {
@@ -123,7 +123,7 @@ class Model {
 
 	/**
 	 * @return array<Model>
-	 * @since v1.0
+	 * @since v1.0.0
 	 * Gets all data in the database
 	 */
 	public static function all(): array {
@@ -131,7 +131,10 @@ class Model {
 	}
 
 	public static function where( string $field, string $comparison, $value, $add_table_name = true ): Model {
-		$table_name  = $add_table_name ? self::getTableName() . '.' : '';
+		$table_name = $add_table_name ? self::getTableName() . '.' : '';
+		if ( ! is_numeric( $value ) ) {
+			$value = "'" . $value . "'";
+		}
 		self::$where = " WHERE " . $table_name . $field . " " . $comparison . " " . $value;
 
 		return new static();

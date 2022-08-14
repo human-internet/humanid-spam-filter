@@ -26,6 +26,14 @@
   width: 100%;
 }
 
+.border-danger {
+  border-color: red !important;
+}
+
+.text-danger {
+  color: red !important;
+}
+
 .hid-alert {
   border: solid white 2px;
   border-radius: 5px;

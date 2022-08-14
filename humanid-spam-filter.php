@@ -26,6 +26,7 @@ require HIDSF_CORE_DIR . '/HidSpamFilter.php';
 require HIDSF_CORE_DIR . '/Module.php';
 require HIDSF_CORE_DIR . '/Migration.php';
 require HIDSF_CORE_DIR . '/Model.php';
+require HIDSF_CORE_DIR . '/Validator.php';
 
 
 /**

@@ -71,14 +71,14 @@ class DashboardModule extends Module {
 	 * Adds dashboard page
 	 */
 	function addSubMenuPage( $sub_menu_pages ) {
-		$menu_title = 'HumanID Spam Filter';
+		$menu_title = 'HID Spam Filter';
 		if ( $this->blocked > 0 ) {
 			$menu_title .= " <span class='update-plugins count-1'><span class='update-count'>$this->blocked </span></span>";
 		}
 
 		$dashboard_page = new KMSubMenuPage(
 			array(
-				'page_title' => $menu_title,
+				'page_title' => "HumanID Spam Filter",
 				'menu_title' => $menu_title,
 				'capability' => 'manage_options',
 				'menu_slug'  => 'humanid-spam-filter',

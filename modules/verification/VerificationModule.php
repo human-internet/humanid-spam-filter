@@ -3,8 +3,14 @@
 namespace humanid_spam_filter;
 
 class VerificationModule extends Module {
+	/**
+	 * @since v1.0.0
+	 */
 	protected function addActions() {
 		parent::addActions();
+		add_action( 'comment_post', [ $this, 'saveComment' ] );
+//		add_filter( 'preprocess_comment', [ $this, 'saveComment' ] );
+
 
 		// Add verification success redirect link
 		add_action( 'init', function () {
@@ -31,5 +37,13 @@ class VerificationModule extends Module {
 
 			return HIDSF_MODULE_DIR . '/verification/templates/failure.php';
 		} );
+	}
+
+	/**
+	 * Add human id to the comment
+	 * @since v1.0.0
+	 */
+	public function saveComment( $comment_id ) {
+		add_comment_meta( $comment_id, 'human_id', '2xcv43' );
 	}
 }

@@ -3,6 +3,7 @@ namespace humanid_spam_filter;
 
 $link_to_permalinks    = admin_url() . 'options-permalink.php';
 $link_to_dashboard     = admin_url( 'admin.php' ) . '?page=humanid-spam-filter';
+$link_to_users_page    = admin_url( 'admin.php' ) . '?page=humanid-spam-filter-users';
 $link_to_success_page  = home_url() . '/hid-verification-successful';
 $link_to_failure_page  = home_url() . '/hid-verification-failed';
 $is_permalinks_updated = get_option( 'hidsf_is_permalink_updated', 0 );
@@ -20,10 +21,10 @@ $is_permalinks_updated = get_option( 'hidsf_is_permalink_updated', 0 );
         <div class="hid-header-menu">
             <ul>
                 <li class="active">
-                    <a href="" class="active">Home</a>
+                    <a href="#" class="active"><?php _e( "Home", HIDSF_TEXT_DOMAIN ) ?></a>
                 </li>
                 <li>
-                    <a href=""><?php _e( 'Users', HIDSF_TEXT_DOMAIN ) ?></a>
+                    <a href="<?php echo $link_to_users_page ?>"><?php _e( 'Users', HIDSF_TEXT_DOMAIN ) ?></a>
                 </li>
             </ul>
         </div>
