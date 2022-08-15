@@ -2,6 +2,8 @@
 
 namespace humanid_spam_filter;
 
+use function cli\render;
+
 class VerificationModule extends Module {
 	/**
 	 * @since v1.0.0
@@ -81,5 +83,12 @@ class VerificationModule extends Module {
 	 */
 	public function saveComment( $comment_id ) {
 		add_comment_meta( $comment_id, 'human_id', '2xcv43' );
+	}
+
+	/**
+	 * @since v1.0.0
+	*/
+	public function addModal() {
+		$this->renderContent( 'popup' );
 	}
 }

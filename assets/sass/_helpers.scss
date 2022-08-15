@@ -11,6 +11,26 @@
   position: absolute;
 }
 
+.d-flex {
+  display: flex;
+
+  &.flex-column {
+    flex-direction: column;
+  }
+
+  &.align-items-center {
+    align-items: center;
+  }
+
+  &.justify-content-center {
+    justify-content: center;
+  }
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
 .pl-20 {
   padding-left: 20px;
 }
@@ -23,6 +43,10 @@
   margin-top: 20px;
 }
 
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
 .w-100 {
   width: 100%;
 }
@@ -33,4 +57,16 @@
 
 .text-danger {
   color: red !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-main {
+  color: $main_color
+}
+
+.text-main-light {
+  color: $main_color_light
 }

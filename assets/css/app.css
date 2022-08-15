@@ -10,6 +10,23 @@
   position: absolute;
 }
 
+.d-flex {
+  display: flex;
+}
+.d-flex.flex-column {
+  flex-direction: column;
+}
+.d-flex.align-items-center {
+  align-items: center;
+}
+.d-flex.justify-content-center {
+  justify-content: center;
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
 .pl-20 {
   padding-left: 20px;
 }
@@ -22,6 +39,10 @@
   margin-top: 20px;
 }
 
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
 .w-100 {
   width: 100%;
 }
@@ -32,6 +53,18 @@
 
 .text-danger {
   color: red !important;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-main {
+  color: #0C4367;
+}
+
+.text-main-light {
+  color: #3B678F;
 }
 
 .hid-alert {
@@ -48,6 +81,31 @@
 }
 .hid-alert.alert-info {
   border-color: dodgerblue;
+}
+
+.hid-modal {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100vh !important;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: opacity(1);
+}
+.hid-modal .hid-modal-content {
+  z-index: 99999;
+  padding: 10px 20px;
+  border-radius: 6px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  background: white;
+}
+
+.hid-modal-large .hid-modal-content {
+  width: 700px;
 }
 
 .hid-header {
