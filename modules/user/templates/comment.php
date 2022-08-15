@@ -11,14 +11,14 @@ if ( sizeof( $user ) > 0 ) {
 }
 ?>
 <?php if ( $human_id ): ?>
-    <!--	--><?php //echo $human_id ?><!-- <br>-->
+	<?php echo $human_id ?> <br>
     <input type="hidden" name="human_id" class="human_id" value="<?php echo $human_id ?>">
     <button class="button <?php echo $is_blocked ? '' : 'hidden' ?>" id="<?php echo $human_id ?>-block">
-		<?php _e( "Unblock User", HIDSF_TEXT_DOMAIN ) ?>
+		<?php _e( "Allow user to comment", HIDSF_TEXT_DOMAIN ) ?>
     </button>
     <button class="button border-danger text-danger <?php echo $is_blocked ? 'hidden' : '' ?>"
             id="<?php echo $human_id ?>-unblock">
-		<?php _e( "Block User", HIDSF_TEXT_DOMAIN ) ?>
+		<?php _e( "Block user from commenting", HIDSF_TEXT_DOMAIN ) ?>
     </button>
 <?php endif; ?>
 
@@ -28,22 +28,28 @@ if ( sizeof( $user ) > 0 ) {
             $("#<?php echo $human_id?>-block").click(async function (e) {
                 e.preventDefault()
                 try {
+                    $(this).html('<?php _e( "please wait...", HIDSF_TEXT_DOMAIN ) ?>')
                     await updateUser('<?php echo $human_id?>', false)
                     $(this).hide();
                     $("#<?php echo $human_id?>-unblock").show()
                 } catch (e) {
                     alert('<?php _e( "An error occurred. Please try again", HIDSF_TEXT_DOMAIN )?>');
+                } finally {
+                    $(this).html('<?php _e( "Block user from commenting", HIDSF_TEXT_DOMAIN ) ?>')
                 }
             })
 
             $("#<?php echo $human_id?>-unblock").click(async function (e) {
                 e.preventDefault()
                 try {
+                    $(this).html('<?php _e( "please wait...", HIDSF_TEXT_DOMAIN ) ?>')
                     await updateUser('<?php echo $human_id?>', true)
                     $(this).hide();
                     $("#<?php echo $human_id?>-block").show()
                 } catch (e) {
                     alert('<?php _e( "An error occurred. Please try again", HIDSF_TEXT_DOMAIN )?>');
+                } finally {
+                    $(this).html('<?php _e( "Allow user to comment", HIDSF_TEXT_DOMAIN ) ?>')
                 }
             })
         })

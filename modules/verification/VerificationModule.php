@@ -9,6 +9,7 @@ class VerificationModule extends Module {
 	protected function addActions() {
 		parent::addActions();
 		add_action( 'comment_post', [ $this, 'saveComment' ] );
+		add_action( 'wp_footer', [ $this, 'addModal' ] );
 //		add_filter( 'preprocess_comment', [ $this, 'saveComment' ] );
 
 
@@ -36,6 +37,41 @@ class VerificationModule extends Module {
 			}
 
 			return HIDSF_MODULE_DIR . '/verification/templates/failure.php';
+		} );
+
+		// Add verification popup
+		add_action( 'init', function () {
+			add_rewrite_rule( 'hid-verification', 'index.php?hid-verification=$matches[0]', 'top' );
+		} );
+
+		add_action( 'template_include', function ( $template ) {
+			if ( get_query_var( 'hid-verification' ) == false || get_query_var( 'hid-verification' ) == '' ) {
+				return $template;
+			}
+
+			return HIDSF_MODULE_DIR . '/verification/templates/popup.php';
+		} );
+	}
+
+	/**
+	 * @since v1.0.0
+	 */
+	protected function addFilters() {
+		parent::addFilters();
+		add_filter( 'query_vars', function ( $query_vars ) {
+			$query_vars[] = 'hid-verification';
+
+			return $query_vars;
+		} );
+		add_filter( 'query_vars', function ( $query_vars ) {
+			$query_vars[] = 'hid-verification-failed';
+
+			return $query_vars;
+		} );
+		add_filter( 'query_vars', function ( $query_vars ) {
+			$query_vars[] = 'hid-verification-successful';
+
+			return $query_vars;
 		} );
 	}
 

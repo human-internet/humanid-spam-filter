@@ -1,7 +1,7 @@
 <?php
 namespace humanid_spam_filter;
 
-$link_to_dashboard     = admin_url( 'admin.php' ) . '?page=humanid-spam-filter';
+$link_to_dashboard = admin_url( 'admin.php' ) . '?page=humanid-spam-filter';
 ?>
 <style>
     #wpcontent {
@@ -26,8 +26,6 @@ $link_to_dashboard     = admin_url( 'admin.php' ) . '?page=humanid-spam-filter';
     </div>
     <div class="pl-20 margin-top-20">
 
-        <h1><?php _e( 'Human ID Account Configuration', HIDSF_TEXT_DOMAIN ) ?> </h1>
-        <strong><?php _e( "You need to create a HumanID account. If you don't have one, you can create it <a href='https://developers.human-id.org/' target='_blank'>here</a>", HIDSF_TEXT_DOMAIN ) ?></strong>
 
     </div>
 
