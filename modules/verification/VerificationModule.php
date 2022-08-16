@@ -2,6 +2,7 @@
 
 namespace humanid_spam_filter;
 
+use Exception;
 use function cli\render;
 
 class VerificationModule extends Module {
@@ -174,13 +175,14 @@ class VerificationModule extends Module {
 
 	/**
 	 * Generates a random key
+	 * @throws Exception
 	 * @since v1.0.0
 	 */
 	public static function generateRandomKey( $length = 10 ): string {
 		$keys      = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		$randomKey = '';
 		for ( $i = 0; $i < $length; $i ++ ) {
-			$index     = rand( 0, strlen( $keys ) - 1 );
+			$index     = random_int( 0, strlen( $keys ) - 1 );
 			$randomKey .= $keys[ $index ];
 		}
 

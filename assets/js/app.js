@@ -32,7 +32,6 @@ jQuery(function ($) {
                 data: formData,
                 success: function (e) {
                     const handle = window.open(e, "Human_ID_Verification", 'width=100,height=100');
-                    window.opener
                     if (handle) {
                         if (window.focus) {
                             handle.focus()
