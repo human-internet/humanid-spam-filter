@@ -1,8 +1,12 @@
 jQuery(function ($) {
     $(document).ready(function () {
         $("#commentform").submit(function (e) {
+            console.log("we are here o")
             const comment = $("#commentform #comment").val().trim()
-            if (comment.length > 0) {
+            const human_id_key = $("#commentform #human_id_key").val().trim()
+            if (comment.length > 0 && human_id_key.length === 0) {
+                console.log("blocked")
+                console.log({comment, human_id_key});
                 e.preventDefault();
                 $("#human-id-verification-modal").show();
             }
@@ -13,35 +17,59 @@ jQuery(function ($) {
         })
 
         $("#start-human-id-verification").click(function () {
-            //POST https://core.human-id.org/v0.0.3/server/users/web-login
-            const headers = {
-                "client-id": hid_ajax_object.client_id,
-                "client-secret": hid_ajax_object.client_secret
-            }
-            jQuery.ajax({
-                headers: headers,
+            $("#start-human-id-verification").hide()
+            $("#hid-verification-pending").show()
+            $("#hid-verification-error-message").hide()
+
+            let formData = new FormData();
+            formData.append("action", 'hidsf_get_login_url');
+
+            return jQuery.ajax({
                 type: "POST",
-                contentType: "application/json",
+                contentType: false,
                 processData: false,
-                url: "https://core.human-id.org/v0.0.3/server/users/web-login",
+                url: hid_ajax_object.ajax_url,
+                data: formData,
                 success: function (e) {
-                    console.log("received", e)
-                    return true
+                    const handle = window.open(e, "Human_ID_Verification", 'width=100,height=100');
+                    window.opener
+                    if (handle) {
+                        if (window.focus) {
+                            handle.focus()
+                        }
+                    } else {
+                        showErrorMessage("Please allow popups for this site");
+                    }
                 },
-                error: function () {
-                    return false;
+                error: function (e) {
+                    if (e.responseJSON) {
+                        showErrorMessage(e.responseJSON.data)
+                    } else {
+                        showErrorMessage("An error occurred. Please try again")
+                    }
                 }
             });
-
-            // const handle = window.open("http://google.com", "Human_ID_Verification", 'width=100,height=100');
-            // if (handle) {
-            //     if (window.focus) {
-            //         handle.focus()
-            //     }
-            // }
-            // else {
-            //         alert("Please enable popup")
-            //     }
         })
     })
 })
+
+function showErrorMessage(message) {
+    jQuery(function ($) {
+        $("#hid-verification-error-message").html(message)
+        $("#hid-verification-error-message").show()
+        $("#start-human-id-verification").show()
+        $("#hid-verification-pending").hide()
+    });
+}
+
+function verificationSuccess(token) {
+    jQuery(function ($) {
+        $("#human_id_key").val(token)
+        $("#human-id-verification-modal").hide();
+        $("#commentform #submit").click()
+    });
+}
+
+function verificationFailed(message) {
+    showErrorMessage(message);
+}

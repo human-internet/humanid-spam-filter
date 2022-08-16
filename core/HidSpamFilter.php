@@ -73,13 +73,9 @@ class HidSpamFilter {
 
 		wp_enqueue_script( 'humanid_spam_filter_js', plugins_url( 'assets/js/app.js', dirname( __FILE__ ) ), array( 'jquery' ), '1.0.0', true );
 
-		$client_secret = get_option( 'hidsf_client_secret', '' );
-		$client_id     = get_option( 'hidsf_client_id', '' );
 		wp_localize_script( 'humanid_spam_filter_js', 'hid_ajax_object',
 			[
 				'ajax_url'      => admin_url( 'admin-ajax.php' ),
-				'client_secret' => $client_secret,
-				'client_id'     => $client_id,
 			] );
 	}
 

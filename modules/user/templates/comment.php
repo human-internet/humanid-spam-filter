@@ -11,13 +11,12 @@ if ( sizeof( $user ) > 0 ) {
 }
 ?>
 <?php if ( $human_id ): ?>
-	<?php echo $human_id ?> <br>
-    <input type="hidden" name="human_id" class="human_id" value="<?php echo $human_id ?>">
-    <button class="button <?php echo $is_blocked ? '' : 'hidden' ?>" id="<?php echo $human_id ?>-block">
+<!--	--><?php //echo $human_id ?><!-- <br>-->
+<!--    <input type="hidden" name="human_id" class="human_id" value="--><?php //echo $human_id ?><!--">-->
+    <button class="button <?php echo $human_id ?>-block <?php echo $is_blocked ? '' : 'hidden' ?>">
 		<?php _e( "Allow user to comment", HIDSF_TEXT_DOMAIN ) ?>
     </button>
-    <button class="button border-danger text-danger <?php echo $is_blocked ? 'hidden' : '' ?>"
-            id="<?php echo $human_id ?>-unblock">
+    <button class="button border-danger text-danger <?php echo $human_id ?>-unblock <?php echo $is_blocked ? 'hidden' : '' ?>">
 		<?php _e( "Block user from commenting", HIDSF_TEXT_DOMAIN ) ?>
     </button>
 <?php endif; ?>
@@ -25,31 +24,31 @@ if ( sizeof( $user ) > 0 ) {
 <script>
     jQuery(function ($) {
         $(document).ready(function () {
-            $("#<?php echo $human_id?>-block").click(async function (e) {
+            $(".<?php echo $human_id?>-block").click(async function (e) {
                 e.preventDefault()
                 try {
                     $(this).html('<?php _e( "please wait...", HIDSF_TEXT_DOMAIN ) ?>')
                     await updateUser('<?php echo $human_id?>', false)
-                    $(this).hide();
-                    $("#<?php echo $human_id?>-unblock").show()
+                    $(".<?php echo $human_id?>-unblock").show()
+                    $(".<?php echo $human_id?>-block").hide()
                 } catch (e) {
                     alert('<?php _e( "An error occurred. Please try again", HIDSF_TEXT_DOMAIN )?>');
                 } finally {
-                    $(this).html('<?php _e( "Block user from commenting", HIDSF_TEXT_DOMAIN ) ?>')
+                    $(".<?php echo $human_id?>-unblock").html('<?php _e( "Block user from commenting", HIDSF_TEXT_DOMAIN ) ?>')
                 }
             })
 
-            $("#<?php echo $human_id?>-unblock").click(async function (e) {
+            $(".<?php echo $human_id?>-unblock").click(async function (e) {
                 e.preventDefault()
                 try {
                     $(this).html('<?php _e( "please wait...", HIDSF_TEXT_DOMAIN ) ?>')
                     await updateUser('<?php echo $human_id?>', true)
-                    $(this).hide();
-                    $("#<?php echo $human_id?>-block").show()
+                    $(".<?php echo $human_id?>-unblock").hide()
+                    $(".<?php echo $human_id?>-block").show()
                 } catch (e) {
                     alert('<?php _e( "An error occurred. Please try again", HIDSF_TEXT_DOMAIN )?>');
                 } finally {
-                    $(this).html('<?php _e( "Allow user to comment", HIDSF_TEXT_DOMAIN ) ?>')
+                    $(".<?php echo $human_id?>-block").html('<?php _e( "Allow user to comment", HIDSF_TEXT_DOMAIN ) ?>')
                 }
             })
         })
