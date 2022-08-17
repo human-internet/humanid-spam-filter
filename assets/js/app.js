@@ -1,7 +1,6 @@
 jQuery(function ($) {
     $(document).ready(function () {
         $("#commentform").submit(function (e) {
-            console.log("we are here o")
             const comment = $("#commentform #comment").val().trim()
             const human_id_key = $("#commentform #human_id_key").val().trim()
             if (comment.length > 0 && human_id_key.length === 0) {
