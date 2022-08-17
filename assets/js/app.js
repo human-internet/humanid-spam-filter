@@ -5,8 +5,6 @@ jQuery(function ($) {
             const comment = $("#commentform #comment").val().trim()
             const human_id_key = $("#commentform #human_id_key").val().trim()
             if (comment.length > 0 && human_id_key.length === 0) {
-                console.log("blocked")
-                console.log({comment, human_id_key});
                 e.preventDefault();
                 $("#human-id-verification-modal").show();
             }
@@ -14,6 +12,8 @@ jQuery(function ($) {
 
         $("#close-human-id-verification").click(function () {
             $("#human-id-verification-modal").hide();
+            $("#start-human-id-verification").show()
+            $("#hid-verification-pending").hide()
         })
 
         $("#start-human-id-verification").click(function () {
