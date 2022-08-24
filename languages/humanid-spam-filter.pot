@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-08-12 21:45+0000\n"
+"POT-Creation-Date: 2022-08-24 02:33+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -14,26 +14,150 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../humanid-spam-filter.php:68
+#: ../humanid-spam-filter.php:69
 msgid "Error locating <b>%s</b> for inclusion"
 msgstr ""
 
-#: ../modules/dashboard/DashboardModule.php:30
+#: ../modules/dashboard/DashboardModule.php:44
 msgid "Client ID"
 msgstr ""
 
-#: ../modules/dashboard/DashboardModule.php:38
+#: ../modules/dashboard/DashboardModule.php:52
 msgid "Client Secret"
 msgstr ""
 
-#: ../modules/dashboard/templates/index.php:21
+#: ../modules/user/UserModule.php:32
+msgid "Human ID"
+msgstr ""
+
+#: ../modules/user/UserModule.php:54, ../modules/user/templates/index.php:22
 msgid "Users"
 msgstr ""
 
-#: ../modules/dashboard/templates/index.php:27
+#: ../modules/user/UserModule.php:101
+msgid "Invalid human id"
+msgstr ""
+
+#: ../modules/user/UserModule.php:99
+msgid "User updated"
+msgstr ""
+
+#: ../modules/verification/VerificationModule.php:114, ../modules/verification/VerificationModule.php:119
+msgid "<strong>Error</strong>: Please verify your humanity."
+msgstr ""
+
+#: ../modules/verification/VerificationModule.php:114, ../modules/verification/VerificationModule.php:119, ../modules/verification/VerificationModule.php:126
+msgid "Back"
+msgstr ""
+
+#: ../modules/verification/VerificationModule.php:126
+msgid "<strong>Error</strong>: You are not allowed to post a comment."
+msgstr ""
+
+#: ../modules/verification/VerificationModule.php:156, ../modules/user/templates/comment.php:35, ../modules/user/templates/comment.php:49, ../modules/verification/templates/popup.php:37, ../modules/verification/templates/success.php:23
+msgid "An error occurred. Please try again"
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:25, ../modules/user/templates/index.php:19
+msgid "Home"
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:69, ../modules/dashboard/templates/index.php:38
+msgid "Update Permalinks"
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:70
+msgid "WordPress permalink update is required for this plugin to work. Please follow the steps below:"
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:72
+msgid "Click on the button below."
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:74, ../modules/dashboard/templates/index.php:48
+msgid "Go to permalinks"
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:76
+msgid "Click the Save Changes button."
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:80
+msgid "Yes, I have updated the permalinks"
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:53
+msgid "HumanID Redirect Urls"
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:54
+msgid "Use the urls below as the success and failure redirect urls:"
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:57
+msgid "Success link:"
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:61
+msgid "Failure link:"
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:39
+msgid "Human ID spam filter will not work with your current permalink structure. Please select one of the structures below:"
+msgstr ""
+
+#: ../modules/dashboard/templates/index.php:85
 msgid "Human ID Account Configuration"
 msgstr ""
 
-#: ../modules/dashboard/templates/index.php:28
-msgid "You need to create a HumanID account. If you don't have one, you can create it <a href='' target='_blank'>here</a>"
+#: ../modules/dashboard/templates/index.php:86
+msgid "You need to create a HumanID account. If you don't have one, you can create it <a href='https://developers.human-id.org/' target='_blank'>here</a>"
+msgstr ""
+
+#: ../modules/user/templates/comment.php:17, ../modules/user/templates/comment.php:51
+msgid "Allow user to comment"
+msgstr ""
+
+#: ../modules/user/templates/comment.php:20, ../modules/user/templates/comment.php:37
+msgid "Block user from commenting"
+msgstr ""
+
+#: ../modules/user/templates/comment.php:30, ../modules/user/templates/comment.php:44
+msgid "please wait..."
+msgstr ""
+
+#: ../modules/verification/templates/failure.php:17, ../modules/verification/templates/success.php:46
+msgid "Invalid Request"
+msgstr ""
+
+#: ../modules/verification/templates/popup.php:14
+msgid "Hello, <br>Thanks for writing a <br/>comment"
+msgstr ""
+
+#: ../modules/verification/templates/popup.php:15
+msgid "Before your comment is posted, <br/> please take a few seconds to anonymously <br/>verify your humanity :"
+msgstr ""
+
+#: ../modules/verification/templates/popup.php:25
+msgid "Please complete the plugin setup"
+msgstr ""
+
+#: ../modules/verification/templates/popup.php:21
+msgid "Please set your client id and client secret"
+msgstr ""
+
+#: ../modules/verification/templates/popup.php:33
+msgid "Verifying your humanity.."
+msgstr ""
+
+#: ../modules/verification/templates/popup.php:40
+msgid "P.S Your phone number will not be stored"
+msgstr ""
+
+#: ../modules/verification/templates/popup.php:43
+msgid "Cancel"
+msgstr ""
+
+#: ../modules/verification/templates/success.php:9
+msgid "Please wait..."
 msgstr ""

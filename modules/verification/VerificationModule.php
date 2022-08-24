@@ -111,20 +111,19 @@ class VerificationModule extends Module {
 	 */
 	public function validateComment( $comment_data ) {
 		if ( ! isset( $_POST['human_id_key'] ) ) {
-
-			wp_die( __( '<strong>Error</strong>: Please verify your humanity. <p><a href="javascript:history.back()">« Back</a></p>', HIDSF_TEXT_DOMAIN ) );
+			wp_die( __( '<strong>Error</strong>: Please verify your humanity.', HIDSF_TEXT_DOMAIN ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', HIDSF_TEXT_DOMAIN ) . '</a></p>' );
 		}
 		$human_id_key = wp_filter_nohtml_kses( $_POST['human_id_key'] );
 		$human_id     = get_option( $human_id_key, '' );
 		if ( trim( $human_id ) == '' ) {
-			wp_die( __( '<strong>Error</strong>: Please verify your humanity. <p><a href="javascript:history.back()">« Back</a></p>', HIDSF_TEXT_DOMAIN ) );
+			wp_die( __( '<strong>Error</strong>: Please verify your humanity.', HIDSF_TEXT_DOMAIN ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', HIDSF_TEXT_DOMAIN ) . '</a></p>' );
 		}
 
 		$user = User::where( 'human_id', '=', $human_id )->get();
 		if ( sizeof( $user ) > 0 ) {
 			$user = $user[0];
 			if ( $user->blocked == 1 ) {
-				wp_die( __( '<strong>Error</strong>: You are not allowed to post a comment. <p><a href="javascript:history.back()">« Back</a></p>', HIDSF_TEXT_DOMAIN ) );
+				wp_die( __( '<strong>Error</strong>: You are not allowed to post a comment.', HIDSF_TEXT_DOMAIN ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', HIDSF_TEXT_DOMAIN ) . '</a></p>' );
 			}
 		}
 
