@@ -6,11 +6,11 @@
  *
  * @wordpress-plugin
  * Plugin Name: Human ID Spam Filter
- * Plugin URI: https://github.com/human-internet/wordpress-spam-filter
+ * Plugin URI: https://github.com/human-internet/humanid-spam-filter
  * Description: [Short description]
  * Version: 1.0.0
- * Author: Kofi Mokome
- * Author URI: www.kofimokome.stream
+ * Author: Human ID
+ * Author URI: https://human-id.org/
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: humanid-spam-filter
