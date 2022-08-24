@@ -4,6 +4,7 @@ namespace humanid_spam_filter;
 $client_secret     = get_option( 'hidsf_client_secret', '' );
 $client_id         = get_option( 'hidsf_client_id', '' );
 $link_to_dashboard = admin_url( 'admin.php' ) . '?page=humanid-spam-filter';
+$structure         = get_option( 'permalink_structure' );
 
 ?>
 
@@ -18,6 +19,10 @@ $link_to_dashboard = admin_url( 'admin.php' ) . '?page=humanid-spam-filter';
 				<?php if ( trim( $client_secret ) == '' && trim( $client_id ) == '' ): ?>
                     <a class="hid-alert alert-danger text-danger" href="<?php echo $link_to_dashboard ?>">
 						<?php _e( "Please set your client id and client secret", HIDSF_TEXT_DOMAIN ) ?>
+                    </a>
+				<?php elseif ( trim( $structure ) == '' ): ?>
+                    <a class="hid-alert alert-danger text-danger" href="<?php echo $link_to_dashboard ?>">
+						<?php _e( "Please complete the plugin setup", HIDSF_TEXT_DOMAIN ) ?>
                     </a>
 				<?php else: ?>
                     <img src="<?php echo HIDSF_ASSET_URL . '/images/anonymous_login.png' ?>" alt="" class="pointer"

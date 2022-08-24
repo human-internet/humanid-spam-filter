@@ -18,7 +18,7 @@ class UserModule extends Module {
 	 */
 	protected function addFilters() {
 		parent::addFilters();
-		add_filter( 'hidsf_sub_menu_pages_filter', [ $this, 'addSubMenuPage' ] );
+//		add_filter( 'hidsf_sub_menu_pages_filter', [ $this, 'addSubMenuPage' ] );
 
 		add_filter( 'manage_comments_custom_column', [ $this, 'showCustomColumnOnCommentsPage' ], 10, 2 );
 		add_filter( 'manage_edit-comments_columns', [ $this, 'addCustomColumnToCommentsPage' ] );

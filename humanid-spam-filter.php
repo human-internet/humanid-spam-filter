@@ -82,7 +82,6 @@ function HIDSFLoader(): bool {
  */
 function HIDSFStart() {
 	Migration::runUpdateMigrations();
-	//todo: create redirect urls
 	$spam_filter = new HidSpamFilter();
 	$spam_filter->start();
 }
