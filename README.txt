@@ -4,16 +4,18 @@ Donate link: https://human-id.org/donate/
 Tags: anti-spam,comment spam,spam protection
 Requires at least: 5.7
 Tested up to: 6.0
-Stable tag: 1.0.0
+Stable tag: 1.0.0-alpha
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-[Add Short Description].
+Protects your blog posts against spams.
 
 == Description ==
 
-[Add project description here]
+humanID is an anonymous, bot-resistant authentication for safer online communities.
+Non-profit and open source, the project was started in 2022 by the Foundation for a Human Internet. With the help of Mozilla and Harvard, we’re on a mission to #FixTheInternet
+Human ID Spam Filter stops spammers and spam bots from commenting on your posts.
 
 == Installation ==
 
@@ -26,8 +28,6 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 = 1.0.0 =
 * Initial release
-
-
 
 == Screenshots ==
 

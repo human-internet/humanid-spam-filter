@@ -10,7 +10,7 @@ class HidSpamFilter {
 
 	public function __construct() {
 		$this->blocked = get_option( "hidsf_blocked_today" );
-		self::$version = '1.0.0';
+		self::$version = '1.0.0-alpha';
 	}
 
 	/**

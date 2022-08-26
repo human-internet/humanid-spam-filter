@@ -2,8 +2,7 @@
 
 # Human ID Spam Filter
 
-WordPress plugin to block spam <br/>
-Still in development <br/>
+Human ID Spam Filter stops spammers and spam bots from commenting on your WordPress posts.
 
 ## Requirement
 
