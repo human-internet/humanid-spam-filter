@@ -30,7 +30,7 @@ jQuery(function ($) {
                 url: hid_ajax_object.ajax_url,
                 data: formData,
                 success: function (e) {
-                    const handle = window.open(e, "Human_ID_Verification", 'width=100,height=100');
+                    const handle = window.open(e, "Human_ID_Verification", 'width=900,height=650');
                     if (handle) {
                         if (window.focus) {
                             handle.focus()
