@@ -1,4 +1,4 @@
-=== Human ID Spam Filter ===
+=== HumanID Spam Filter ===
 Contributors: kofimokome
 Donate link: https://human-id.org/donate/
 Tags: anti-spam,comment spam,spam protection
@@ -13,9 +13,9 @@ Protects your blog posts against spams.
 
 == Description ==
 
-humanID is an anonymous, bot-resistant authentication for safer online communities.
+HumanID is an anonymous, bot-resistant authentication for safer online communities.
 Non-profit and open source, the project was started in 2022 by the Foundation for a Human Internet. With the help of Mozilla and Harvard, we’re on a mission to #FixTheInternet
-Human ID Spam Filter stops spammers and spam bots from commenting on your posts.
+HumanID Spam Filter stops spammers and spam bots from commenting on your posts.
 
 == Installation ==
 
