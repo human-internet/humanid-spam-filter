@@ -31,12 +31,12 @@ if ( isset( $_GET['et'] ) ) {
 			$human_id = $body->data->appUserId;
 			update_option( $random_key, $human_id ); ?>
             <script>
-                window.opener.verificationSuccess("<?php echo $random_key?>")
+                window.opener.verificationSuccess("<?php echo esc_attr( $random_key )?>")
                 window.close();
             </script>
 		<?php else: ?>
             <script>
-                window.opener.verificationFailed(" <?php echo $body->message->data?>")
+                window.opener.verificationFailed(" <?php echo esc_attr( $body->message->data )?>")
                 window.close();
             </script>
 		<?php endif;

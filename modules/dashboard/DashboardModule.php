@@ -19,8 +19,7 @@ class DashboardModule extends Module {
 	 */
 	private function checkIfPermalinkIsUpdated() {
 		if ( isset( $_GET['updatePermalink'] ) ) {
-			$updatePermalink = $_GET['updatePermalink'];
-			$updatePermalink = strip_tags( (string) wp_unslash( $updatePermalink ) );
+			$updatePermalink = sanitize_text_field($_GET['updatePermalink']);
 			if ( $updatePermalink == 'yes' ) {
 				update_option( 'hidsf_is_permalink_updated', 1 );
 			}

@@ -89,8 +89,8 @@ class UserModule extends Module {
 		], $_POST );
 
 		if ( $validator->validate() ) {
-			$human_id = $_POST['human_id'];
-			$status   = $_POST['status'] == 'true';
+			$human_id = sanitize_text_field($_POST['human_id']);
+			$status   = sanitize_text_field($_POST['status'] == 'true');
 			$user     = User::where( 'human_id', '=', $human_id )->get();
 			if ( sizeof( $user ) > 0 ) {
 				$user          = $user[0];

@@ -145,12 +145,16 @@ class Migration {
 		if ( $this->is_update ) {
 			$this->update();
 		} else {
-			$query = "CREATE TABLE IF NOT EXISTS `" . $this->table_name . "`(";
+			$column_string = '';
 			foreach ( $this->columns as $column ) {
-				$query .= $column->toString() . ',';
+				$column_string .= $column->toString() . ',';
 			}
-			$query = rtrim( $query, ", " );
-			$query .= ')';
+			$column_string = rtrim( $column_string, ", " );
+			$query         = $wpdb->prepare( "CREATE TABLE IF NOT EXISTS `%s`(%s)", [
+				$this->table_name,
+				$column_string
+			] );
+
 			$wpdb->query( $query );
 
 		}
@@ -165,7 +169,7 @@ class Migration {
 		$last_revision_run = get_option( HIDSF_TABLE_PREFIX . '_last_revision', 0 );
 		if ( $last_revision_run < $this->revision_id ) {
 			foreach ( $this->columns as $column ) {
-				$query = "ALTER TABLE `" . $this->table_name . '`' . $column->toString();
+				$query = $wpdb->prepare( "ALTER TABLE `%s` %s", [ $this->table_name, $column->toString() ] );
 				$wpdb->query( $query );
 			}
 			update_option( HIDSF_TABLE_PREFIX . '_last_revision', $this->revision_id );
@@ -183,7 +187,8 @@ class Migration {
 	public function down() {
 		global $wpdb;
 		if ( ! $this->is_update ) {
-			$wpdb->query( "DROP TABLE IF EXISTS " . $this->table_name );
+			$query = $wpdb->prepare( "DROP TABLE IF EXISTS %s", [ $this->table_name ] );
+			$wpdb->query( $query );
 		}
 	}
 
@@ -198,10 +203,20 @@ class Migration {
 	 */
 	public static function addColumn( string $table, string $field, string $type, string $default = '' ) {
 		global $wpdb;
-		$results = $wpdb->get_results( "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '$table' AND column_name = '$field'" );
+		$query   = $wpdb->prepare( "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '%s' AND column_name = '%s'", [
+			$table,
+			$field
+		] );
+		$results = $wpdb->get_results( $query );
 		if ( empty( $results ) ) {
 			$default_string = is_numeric( $default ) ? "DEFAULT $default" : "DEFAULT " . "'$default'";
-			$wpdb->query( "ALTER TABLE  {$table}  ADD  {$field}  {$type}  NOT NULL {$default_string}" );
+			$query          = $wpdb->prepare( "ALTER TABLE  %s  ADD  %s  %s  NOT NULL %s", [
+				$table,
+				$field,
+				$type,
+				$default_string
+			] );
+			$wpdb->query( $query );
 		}
 	}
 

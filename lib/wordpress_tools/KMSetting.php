@@ -82,25 +82,26 @@ if ( ! class_exists( 'KMSetting' ) ) {
 		 * @since 1.0.0
 		 */
 		public function default_field_callback( $data ) {
+			$tip = __( $data['tip'] );
 			switch ( $data['type'] ) {
 				case 'text':
 					echo "<p><input type='text' name='{$data['id']}' value='" . get_option( $data['id'] ) . "' class='{$data['input_class']}' placeholder='{$data['placeholder']}'></p>";
-					echo "<strong>{$data['tip']} </strong>";
+					echo "<strong>{$tip}</strong>";
 					break;
 				case 'number':
 					echo "<p><input type='number' name='{$data['id']}' value='" . get_option( $data['id'] ) . "' min='" . $data['min'] . "' max='" . $data['max'] . "' class='{$data['input_class']}'  placeholder='{$data['placeholder']}'></p>";
-					echo "<strong>{$data['tip']} </strong>";
+					echo "<strong>{$tip}</strong>";
 					break;
 				case 'textarea':
 					echo "<p><textarea name='{$data['id']}' id='{$data['id']}' cols='80'
                   rows='8'
                   placeholder='{$data['placeholder']}' class='{$data['input_class']}' autocomplete='{$data['autocomplete']}'>" . get_option( $data['id'] ) . "</textarea></p>";
-					echo "<strong>{$data['tip']} </strong>";
+					echo "<strong>{$tip}</strong>";
 					break;
 				case 'checkbox':
 					$state = get_option( $data['id'] ) == 'on' ? 'checked' : '';
 					echo "<p><input type='checkbox' name='{$data['id']}' id='{$data['id']}' " . $state . " class='{$data['input_class']}'></p>";
-					echo "<strong>{$data['tip']} </strong>";
+					echo "<strong>{$tip}</strong>";
 					break;
 				case 'select':
 					$selected_value = get_option( $data['id'] );
@@ -110,7 +111,7 @@ if ( ! class_exists( 'KMSetting' ) ) {
 					<?php
 					endforeach;
 					echo "</select></p>";
-					echo "<strong>{$data['tip']} </strong>";
+					echo "<strong>{$tip}</strong>";
 					break;
 				default:
 					echo "<< <span style='color: red;'>Please enter a valid field type</span> >>";

@@ -281,7 +281,7 @@ class Model {
 		}
 
 		if ( self::$per_page > 0 || self::$per_page == - 1 ) { // check if the query requires pagination
-			$total_query = "SELECT COUNT(*) as total FROM " . $db_name . $additions;
+			$total_query = $wpdb->prepare( "SELECT COUNT(*) as total FROM %s%s", [ $db_name, $additions ] );
 			$total       = intval( $wpdb->get_var( $total_query ) );
 			$query       .= $additions;
 
