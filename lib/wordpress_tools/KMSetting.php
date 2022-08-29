@@ -82,7 +82,7 @@ if ( ! class_exists( 'KMSetting' ) ) {
 		 * @since 1.0.0
 		 */
 		public function default_field_callback( $data ) {
-			$tip = __( $data['tip'] );
+			$tip = esc_attr( $data['tip'] );
 			switch ( $data['type'] ) {
 				case 'text':
 					echo "<p><input type='text' name='{$data['id']}' value='" . get_option( $data['id'] ) . "' class='{$data['input_class']}' placeholder='{$data['placeholder']}'></p>";
