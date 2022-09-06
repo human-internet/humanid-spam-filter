@@ -123,7 +123,7 @@ class VerificationModule extends Module {
 		if ( sizeof( $user ) > 0 ) {
 			$user = $user[0];
 			if ( $user->blocked == 1 ) {
-				wp_die( __( '<strong>Error</strong>: You are not allowed to post a comment.', HIDSF_TEXT_DOMAIN ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', HIDSF_TEXT_DOMAIN ) . '</a></p>' );
+				wp_die( __( '<strong>Error</strong>: This website has blocked you from posting comments.', HIDSF_TEXT_DOMAIN ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', HIDSF_TEXT_DOMAIN ) . '</a></p>' );
 			}
 		}
 

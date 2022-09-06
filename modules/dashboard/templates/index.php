@@ -82,7 +82,7 @@ $structure             = get_option( 'permalink_structure' );
             </div>
 		<?php endif; ?>
 
-        <h1><?php _e( 'Human ID Account Configuration', HIDSF_TEXT_DOMAIN ) ?> </h1>
+        <h1><?php _e( 'humanID Account Configuration', HIDSF_TEXT_DOMAIN ) ?> </h1>
         <strong><?php _e( "You need to create a humanID account. If you don't have one, you can create it <a href='https://developers.human-id.org/' target='_blank'>here</a>", HIDSF_TEXT_DOMAIN ) ?></strong>
 		<?php settings_errors(); ?>
         <form method="post" action="options.php">
