@@ -24,7 +24,7 @@ if ( ! class_exists( 'KMMenuPage' ) ) {
 		 * @since 1.0.0
 		 */
 		public function __construct( $data ) {
-			$default_data     = array(
+			$default_data = array(
 				'page_title' => '',
 				'menu_title' => '',
 				'capability' => '',
@@ -33,13 +33,20 @@ if ( ! class_exists( 'KMMenuPage' ) ) {
 				'position'   => null,
 				'function'   => ''
 			);
-			$data             = array_merge( $default_data, $data );
-			$this->page_title = $data['page_title'];
-			$this->menu_title = $data['menu_title'];
-			$this->capability = $data['capability'];
-			$this->menu_slug  = $data['menu_slug'];
-			$this->icon_url   = $data['icon_url'];
-			$this->position   = $data['position'];
+			$data         = array_merge( $default_data, $data );
+			$page_title   = sanitize_text_field( $data['page_title'] );
+			$menu_title   = sanitize_text_field( $data['menu_title'] );
+			$capability   = sanitize_text_field( $data['capability'] );
+			$menu_slug    = sanitize_text_field( $data['menu_slug'] );
+			$icon_url     = sanitize_text_field( $data['icon_url'] );
+			$position     = sanitize_text_field( $data['position'] );
+
+			$this->page_title = $page_title;
+			$this->menu_title = $menu_title;
+			$this->capability = $capability;
+			$this->menu_slug  = $menu_slug;
+			$this->icon_url   = $icon_url;
+			$this->position   = $position;
 			$this->function   = $data['function'] == '' ? array( $this, 'default_function' ) : $data['function'];
 
 			$this->sub_menu_pages = array();

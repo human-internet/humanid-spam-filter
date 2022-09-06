@@ -29,7 +29,7 @@ class UserModule extends Module {
 	 * @since v1.0.0
 	 */
 	public function addCustomColumnToCommentsPage( $columns ) {
-		$columns['human_id'] = __( 'Human ID', HIDSF_TEXT_DOMAIN );
+		$columns['human_id'] = __( 'humanID', HIDSF_TEXT_DOMAIN );
 
 		return $columns;
 	}
@@ -98,7 +98,7 @@ class UserModule extends Module {
 				$user->save();
 				echo json_encode( __( "User updated", HIDSF_TEXT_DOMAIN ) );
 			} else {
-				wp_send_json_error( __( 'Invalid human id', HIDSF_TEXT_DOMAIN ), 400 );
+				wp_send_json_error( __( 'Invalid humanID', HIDSF_TEXT_DOMAIN ), 400 );
 			}
 		}
 		wp_die();

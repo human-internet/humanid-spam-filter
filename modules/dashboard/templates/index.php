@@ -36,7 +36,7 @@ $structure             = get_option( 'permalink_structure' );
 			<?php if ( trim( $structure ) == '' ): ?>
                 <div class="hid-alert alert-danger">
                     <h1><?php _e( "Update Permalinks", HIDSF_TEXT_DOMAIN ) ?></h1>
-					<?php _e( "Human ID spam filter will not work with your current permalink structure. Please select one of the structures below:", HIDSF_TEXT_DOMAIN ) ?>
+					<?php _e( "humanID spam filter will not work with your current permalink structure. Please select one of the structures below:", HIDSF_TEXT_DOMAIN ) ?>
                     <ol>
                         <li>Day and name</li>
                         <li>Month and name</li>
@@ -50,7 +50,7 @@ $structure             = get_option( 'permalink_structure' );
                 </div>
 			<?php else: ?>
                 <div class="hid-alert alert-info">
-                    <h1><?php _e( "HumanID Redirect Urls", HIDSF_TEXT_DOMAIN ) ?></h1>
+                    <h1><?php _e( "humanID Redirect Urls", HIDSF_TEXT_DOMAIN ) ?></h1>
 					<?php _e( "Use the urls below as the success and failure redirect urls:", HIDSF_TEXT_DOMAIN ) ?>
                     <ol>
                         <li>
@@ -83,7 +83,7 @@ $structure             = get_option( 'permalink_structure' );
 		<?php endif; ?>
 
         <h1><?php _e( 'Human ID Account Configuration', HIDSF_TEXT_DOMAIN ) ?> </h1>
-        <strong><?php _e( "You need to create a HumanID account. If you don't have one, you can create it <a href='https://developers.human-id.org/' target='_blank'>here</a>", HIDSF_TEXT_DOMAIN ) ?></strong>
+        <strong><?php _e( "You need to create a humanID account. If you don't have one, you can create it <a href='https://developers.human-id.org/' target='_blank'>here</a>", HIDSF_TEXT_DOMAIN ) ?></strong>
 		<?php settings_errors(); ?>
         <form method="post" action="options.php">
 			<?php

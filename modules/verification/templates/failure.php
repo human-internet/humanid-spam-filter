@@ -3,7 +3,7 @@
 namespace humanid_spam_filter;
 
 if ( isset( $_GET['message'] ) ) {
-	$message = $_GET['message'];
+	$message = sanitize_text_field( $_GET['message'] );
 	$message = strip_tags( (string) wp_unslash( $message ) );
 	?>
     <script>

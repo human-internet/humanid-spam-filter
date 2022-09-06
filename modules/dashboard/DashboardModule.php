@@ -19,7 +19,7 @@ class DashboardModule extends Module {
 	 */
 	private function checkIfPermalinkIsUpdated() {
 		if ( isset( $_GET['updatePermalink'] ) ) {
-			$updatePermalink = sanitize_text_field($_GET['updatePermalink']);
+			$updatePermalink = sanitize_text_field( $_GET['updatePermalink'] );
 			if ( $updatePermalink == 'yes' ) {
 				update_option( 'hidsf_is_permalink_updated', 1 );
 			}
@@ -70,14 +70,14 @@ class DashboardModule extends Module {
 	 * Adds dashboard page
 	 */
 	function addSubMenuPage( $sub_menu_pages ) {
-		$menu_title = 'HID Spam Filter';
+		$menu_title = 'hID Spam Filter';
 		if ( $this->blocked > 0 ) {
-			$menu_title .= " <span class='update-plugins count-1'><span class='update-count'>$this->blocked </span></span>";
+			$menu_title .= " <span class='update-plugins count-1'><span class='update-count'> $this->blocked </span></span>";
 		}
 
 		$dashboard_page = new KMSubMenuPage(
 			array(
-				'page_title' => "HumanID Spam Filter",
+				'page_title' => "humanID Spam Filter",
 				'menu_title' => $menu_title,
 				'capability' => 'manage_options',
 				'menu_slug'  => 'humanid-spam-filter',

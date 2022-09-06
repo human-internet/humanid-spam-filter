@@ -21,6 +21,7 @@ if ( ! class_exists( 'KMSetting' ) ) {
 		 * @since 1.0.0
 		 */
 		public function __construct( $menu_slug ) {
+			$menu_slug       = sanitize_text_field( $menu_slug );
 			$this->menu_slug = $menu_slug;
 			$this->fields    = array();
 			$this->sections  = array();
@@ -66,15 +67,19 @@ if ( ! class_exists( 'KMSetting' ) ) {
 			}
 
 			foreach ( $this->fields as $field ) {
+				$id         = sanitize_text_field( $field['id'] );
+				$label      = sanitize_text_field( $field['label'] );
+				$section_id = sanitize_text_field( $field['section_id'] );
+
 				add_settings_field(
-					$field['id'],
-					$field['label'],
+					$id,
+					$label,
 					array( $this, 'default_field_callback' ),
 					$this->menu_slug,
-					$field['section_id'],
+					$section_id,
 					$field
 				);
-				register_setting( $field['section_id'], $field['id'] );
+				register_setting( $section_id, $id );
 			}
 		}
 
@@ -82,30 +87,36 @@ if ( ! class_exists( 'KMSetting' ) ) {
 		 * @since 1.0.0
 		 */
 		public function default_field_callback( $data ) {
-			$tip = esc_attr( $data['tip'] );
+			$tip          = esc_html( $data['tip'] );
+			$id           = esc_html( $data['id'] );
+			$input_class  = esc_html( $data['input_class'] );
+			$placeholder  = esc_html( $data['placeholder'] );
+			$autocomplete = esc_html( $data['autocomplete'] );
+			$min          = esc_html( $data['min'] );
+			$max          = esc_html( $data['max'] );
 			switch ( $data['type'] ) {
 				case 'text':
-					echo "<p><input type='text' name='{$data['id']}' value='" . get_option( $data['id'] ) . "' class='{$data['input_class']}' placeholder='{$data['placeholder']}'></p>";
+					echo "<p><input type='text' name='{$id}' value='" . get_option( $id ) . "' class='{$input_class}' placeholder='{$placeholder}'></p>";
 					echo "<strong>{$tip}</strong>";
 					break;
 				case 'number':
-					echo "<p><input type='number' name='{$data['id']}' value='" . get_option( $data['id'] ) . "' min='" . $data['min'] . "' max='" . $data['max'] . "' class='{$data['input_class']}'  placeholder='{$data['placeholder']}'></p>";
+					echo "<p><input type='number' name='{$id}' value='" . get_option( $id ) . "' min='" . $min . "' max='" . $max . "' class='{$input_class}'  placeholder='{$placeholder}'></p>";
 					echo "<strong>{$tip}</strong>";
 					break;
 				case 'textarea':
-					echo "<p><textarea name='{$data['id']}' id='{$data['id']}' cols='80'
+					echo "<p><textarea name='{$id}' id='{$id}' cols='80'
                   rows='8'
-                  placeholder='{$data['placeholder']}' class='{$data['input_class']}' autocomplete='{$data['autocomplete']}'>" . get_option( $data['id'] ) . "</textarea></p>";
+                  placeholder='{$placeholder}' class='{$input_class}' autocomplete='{$autocomplete}'>" . get_option( $id ) . "</textarea></p>";
 					echo "<strong>{$tip}</strong>";
 					break;
 				case 'checkbox':
-					$state = get_option( $data['id'] ) == 'on' ? 'checked' : '';
-					echo "<p><input type='checkbox' name='{$data['id']}' id='{$data['id']}' " . $state . " class='{$data['input_class']}'></p>";
+					$state = get_option( $id ) == 'on' ? 'checked' : '';
+					echo "<p><input type='checkbox' name='{$id}' id='{$id}' " . $state . " class='{$input_class}'></p>";
 					echo "<strong>{$tip}</strong>";
 					break;
 				case 'select':
-					$selected_value = get_option( $data['id'] );
-					echo "<p><select type='text' name='{$data['id']}' id='{$data['id']}' class='{$data['input_class']}'>";
+					$selected_value = get_option( $id );
+					echo "<p><select type='text' name='{$id}' id='{$id}' class='{$input_class}'>";
 					foreach ( $data['options'] as $key => $value ):?>
                         <option value='<?php echo $value ?>' <?php echo ( $value === $selected_value ) ? 'selected' : '' ?> ><?php echo $key ?></option>
 					<?php
@@ -150,6 +161,8 @@ if ( ! class_exists( 'KMSetting' ) ) {
 		 * @since 1.0.0
 		 */
 		public function add_section( $id, $title = '' ) {
+			$title = sanitize_text_field( $title );
+			$id    = sanitize_text_field( $id );
 			array_push( $this->sections, array( $id, $title ) );
 			$this->section_id = $id;
 		}

@@ -8,7 +8,7 @@ $random_key    = VerificationModule::generateRandomKey();
 if ( isset( $_GET['et'] ) ) {
 	_e( "Please wait...", HIDSF_TEXT_DOMAIN );
 
-	$et   = $_GET['et'];
+	$et   = sanitize_text_field( $_GET['et'] );
 	$et   = strip_tags( (string) wp_unslash( $et ) );
 	$resp = wp_remote_post( 'https://core.human-id.org/v0.0.3/server/users/exchange', [
 		'headers' => [
