@@ -94,19 +94,20 @@ if ( ! class_exists( 'KMSetting' ) ) {
 			$autocomplete = sanitize_text_field( $data['autocomplete'] );
 			$min          = sanitize_text_field( $data['min'] );
 			$max          = sanitize_text_field( $data['max'] );
+
 			switch ( $data['type'] ) {
 				case 'text':
-					echo "<p><input type='text' name='" . esc_attr( $id ) . "' value='" . get_option( $id ) . "' class='" . esc_attr( $input_class ) . "' placeholder='" . esc_attr( $placeholder ) . "'></p>";
+					echo "<p><input type='text' name='" . esc_attr( $id ) . "' value='" . esc_html( get_option( $id ) ) . "' class='" . esc_attr( $input_class ) . "' placeholder='" . esc_attr( $placeholder ) . "'></p>";
 					echo "<strong>" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				case 'number':
-					echo "<p><input type='number' name='" . esc_attr( $id ) . "' value='" . get_option( $id ) . "' min='" . esc_attr( $min ) . "' max='" . esc_attr( $max ) . "' class='" . esc_attr( $input_class ) . "'  placeholder='" . esc_attr( $placeholder ) . "'></p>";
+					echo "<p><input type='number' name='" . esc_attr( $id ) . "' value='" . esc_html( get_option( $id ) ) . "' min='" . esc_attr( $min ) . "' max='" . esc_attr( $max ) . "' class='" . esc_attr( $input_class ) . "'  placeholder='" . esc_attr( $placeholder ) . "'></p>";
 					echo "<strong>" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				case 'textarea':
 					echo "<p><textarea name='" . esc_attr( $id ) . "' id='" . esc_attr( $id ) . "' cols='80'
                   rows='8'
-                  placeholder='" . esc_attr( $placeholder ) . "' class='" . esc_attr( $input_class ) . "' autocomplete='" . esc_attr( $autocomplete ) . "'>" . get_option( $id ) . "</textarea></p>";
+                  placeholder='" . esc_attr( $placeholder ) . "' class='" . esc_attr( $input_class ) . "' autocomplete='" . esc_attr( $autocomplete ) . "'>" . esc_html( get_option( $id ) ) . "</textarea></p>";
 					echo "<strong" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				case 'checkbox':
@@ -118,7 +119,7 @@ if ( ! class_exists( 'KMSetting' ) ) {
 					$selected_value = get_option( $id );
 					echo "<p><select type='text' name='" . esc_attr( $id ) . "' id='" . esc_attr( $id ) . "' class='" . esc_attr( $input_class ) . "'>";
 					foreach ( $data['options'] as $key => $value ):?>
-                        <option value='<?php echo esc_attr( $value ) ?>' <?php echo ( $value === $selected_value ) ? 'selected' : '' ?> ><?php echo esc_attr( $key ) ?></option>
+                        <option value='<?php echo esc_attr( $value ) ?>' <?php echo ( $value === $selected_value ) ? 'selected' : '' ?> ><?php echo esc_html( $key ) ?></option>
 					<?php
 					endforeach;
 					echo "</select></p>";
