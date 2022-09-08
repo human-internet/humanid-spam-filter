@@ -7,7 +7,7 @@ if ( isset( $_GET['message'] ) ) {
 	$message = strip_tags( (string) wp_unslash( $message ) );
 	?>
     <script>
-        window.opener.verificationFailed(" <?php echo $message?>")
+        window.opener.verificationFailed(" <?php echo esc_html($message)?>")
         window.close();
     </script>
 

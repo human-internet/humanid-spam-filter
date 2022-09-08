@@ -24,9 +24,11 @@ $structure             = get_option( 'permalink_structure' );
                 <li class="active">
                     <a href="#" class="active"><?php _e( "Home", HIDSF_TEXT_DOMAIN ) ?></a>
                 </li>
-<!--                <li>-->
-<!--                    <a href="--><?php //echo $link_to_users_page ?><!--">--><?php //_e( 'Users', HIDSF_TEXT_DOMAIN ) ?><!--</a>-->
-<!--                </li>-->
+                <!--                <li>-->
+                <!--                    <a href="--><?php //echo $link_to_users_page
+				?><!--">--><?php //_e( 'Users', HIDSF_TEXT_DOMAIN )
+				?><!--</a>-->
+                <!--                </li>-->
             </ul>
         </div>
     </div>
@@ -44,7 +46,7 @@ $structure             = get_option( 'permalink_structure' );
                         <li>Post name</li>
                     </ol>
 
-                    <a href="<?php echo $link_to_permalinks ?>"
+                    <a href="<?php echo esc_url( $link_to_permalinks ) ?>"
                        class="button button-primary"><?php _e( "Go to permalinks", HIDSF_TEXT_DOMAIN ) ?>
                     </a>
                 </div>
@@ -55,11 +57,11 @@ $structure             = get_option( 'permalink_structure' );
                     <ol>
                         <li>
 							<?php _e( "Success link:", HIDSF_TEXT_DOMAIN ) ?>
-                            <code><?php echo $link_to_success_page ?></code>
+                            <code><?php echo esc_url( $link_to_success_page ) ?></code>
                         </li>
                         <li>
 							<?php _e( "Failure link:", HIDSF_TEXT_DOMAIN ) ?>
-                            <code><?php echo $link_to_failure_page ?> </code>
+                            <code><?php echo esc_url( $link_to_failure_page ) ?> </code>
                         </li>
                     </ol>
                 </div>
@@ -70,13 +72,14 @@ $structure             = get_option( 'permalink_structure' );
 				<?php _e( "WordPress permalink update is required for this plugin to work. Please follow the steps below:", HIDSF_TEXT_DOMAIN ) ?>
                 <ol>
                     <li><?php _e( "Click on the button below.", HIDSF_TEXT_DOMAIN ) ?> <br>
-                        <a href="<?php echo $link_to_permalinks ?>"
+                        <a href="<?php echo esc_url( $link_to_permalinks ) ?>"
                            class="button button-primary"><?php _e( "Go to permalinks", HIDSF_TEXT_DOMAIN ) ?></a>
                     </li>
                     <li><?php _e( "Click the Save Changes button.", HIDSF_TEXT_DOMAIN ) ?></li>
                 </ol>
 
-                <a href="<?php echo $link_to_dashboard . '&updatePermalink=yes' ?>" class="button button-primary">
+                <a href="<?php echo esc_url( $link_to_dashboard ) . '&updatePermalink=yes' ?>"
+                   class="button button-primary">
 					<?php _e( "Yes, I have updated the permalinks", HIDSF_TEXT_DOMAIN ) ?>
                 </a>
             </div>

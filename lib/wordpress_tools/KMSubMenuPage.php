@@ -65,12 +65,12 @@ if ( ! class_exists( 'KMSubMenuPage' ) ) {
 			?>
             <div class="wrap">
                 <div id="icon-options-general" class="icon32"></div>
-                <h1><?php echo $this->page_title ?></h1>
+                <h1><?php echo esc_html( $this->page_title ) ?></h1>
 				<?php if ( sizeof( $this->tabs ) > 0 ): ?>
                     <nav class="nav-tab-wrapper">
 						<?php foreach ( $this->tabs as $id => $tab ): ?>
-                            <a href="?page=<?php echo $this->menu_slug ?>&tab=<?php echo $id ?>"
-                               class="nav-tab <?php if ( $id === $current_tab ): ?>nav-tab-active<?php endif; ?>"><?php echo $tab['title'] ?></a>
+                            <a href="?page=<?php echo esc_html( $this->menu_slug ) ?>&tab=<?php echo esc_html( $id ) ?>"
+                               class="nav-tab <?php if ( $id === $current_tab ): ?>nav-tab-active<?php endif; ?>"><?php echo esc_html( $tab['title'] ) ?></a>
 						<?php endforeach; ?>
 
                     </nav>

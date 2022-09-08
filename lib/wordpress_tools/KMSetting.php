@@ -86,43 +86,43 @@ if ( ! class_exists( 'KMSetting' ) ) {
 		/**
 		 * @since 1.0.0
 		 */
-		public function default_field_callback( $data ) {
-			$tip          = esc_html( $data['tip'] );
-			$id           = esc_html( $data['id'] );
-			$input_class  = esc_html( $data['input_class'] );
-			$placeholder  = esc_html( $data['placeholder'] );
-			$autocomplete = esc_html( $data['autocomplete'] );
-			$min          = esc_html( $data['min'] );
-			$max          = esc_html( $data['max'] );
+		public function default_field_callback( array $data ) {
+			$tip          = $data['tip'];
+			$id           = sanitize_text_field( $data['id'] );
+			$input_class  = sanitize_html_class( $data['input_class'] );
+			$placeholder  = sanitize_text_field( $data['placeholder'] );
+			$autocomplete = sanitize_text_field( $data['autocomplete'] );
+			$min          = sanitize_text_field( $data['min'] );
+			$max          = sanitize_text_field( $data['max'] );
 			switch ( $data['type'] ) {
 				case 'text':
-					echo "<p><input type='text' name='{$id}' value='" . get_option( $id ) . "' class='{$input_class}' placeholder='{$placeholder}'></p>";
-					echo "<strong>{$tip}</strong>";
+					echo "<p><input type='text' name='" . esc_attr( $id ) . "' value='" . get_option( $id ) . "' class='" . esc_attr( $input_class ) . "' placeholder='" . esc_attr( $placeholder ) . "'></p>";
+					echo "<strong>" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				case 'number':
-					echo "<p><input type='number' name='{$id}' value='" . get_option( $id ) . "' min='" . $min . "' max='" . $max . "' class='{$input_class}'  placeholder='{$placeholder}'></p>";
-					echo "<strong>{$tip}</strong>";
+					echo "<p><input type='number' name='" . esc_attr( $id ) . "' value='" . get_option( $id ) . "' min='" . esc_attr( $min ) . "' max='" . esc_attr( $max ) . "' class='" . esc_attr( $input_class ) . "'  placeholder='" . esc_attr( $placeholder ) . "'></p>";
+					echo "<strong>" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				case 'textarea':
-					echo "<p><textarea name='{$id}' id='{$id}' cols='80'
+					echo "<p><textarea name='" . esc_attr( $id ) . "' id='" . esc_attr( $id ) . "' cols='80'
                   rows='8'
-                  placeholder='{$placeholder}' class='{$input_class}' autocomplete='{$autocomplete}'>" . get_option( $id ) . "</textarea></p>";
-					echo "<strong>{$tip}</strong>";
+                  placeholder='" . esc_attr( $placeholder ) . "' class='" . esc_attr( $input_class ) . "' autocomplete='" . esc_attr( $autocomplete ) . "'>" . get_option( $id ) . "</textarea></p>";
+					echo "<strong" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				case 'checkbox':
 					$state = get_option( $id ) == 'on' ? 'checked' : '';
-					echo "<p><input type='checkbox' name='{$id}' id='{$id}' " . $state . " class='{$input_class}'></p>";
-					echo "<strong>{$tip}</strong>";
+					echo "<p><input type='checkbox' name='" . esc_attr( $id ) . "' id='" . esc_attr( $id ) . "' " . $state . " class='" . esc_attr( $input_class ) . "'></p>";
+					echo "<strong>" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				case 'select':
 					$selected_value = get_option( $id );
-					echo "<p><select type='text' name='{$id}' id='{$id}' class='{$input_class}'>";
+					echo "<p><select type='text' name='" . esc_attr( $id ) . "' id='" . esc_attr( $id ) . "' class='" . esc_attr( $input_class ) . "'>";
 					foreach ( $data['options'] as $key => $value ):?>
-                        <option value='<?php echo $value ?>' <?php echo ( $value === $selected_value ) ? 'selected' : '' ?> ><?php echo $key ?></option>
+                        <option value='<?php echo esc_attr( $value ) ?>' <?php echo ( $value === $selected_value ) ? 'selected' : '' ?> ><?php echo esc_attr( $key ) ?></option>
 					<?php
 					endforeach;
 					echo "</select></p>";
-					echo "<strong>{$tip}</strong>";
+					echo "<strong>" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				default:
 					echo "<< <span style='color: red;'>Please enter a valid field type</span> >>";

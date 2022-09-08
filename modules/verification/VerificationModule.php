@@ -111,12 +111,12 @@ class VerificationModule extends Module {
 	 */
 	public function validateComment( $comment_data ) {
 		if ( ! isset( $_POST['human_id_key'] ) ) {
-			wp_die( __( '<strong>Error</strong>: Please verify your humanity.', HIDSF_TEXT_DOMAIN ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', HIDSF_TEXT_DOMAIN ) . '</a></p>' );
+			wp_die( __( '<strong>Error</strong>: Please verify your are not a bot.', HIDSF_TEXT_DOMAIN ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', HIDSF_TEXT_DOMAIN ) . '</a></p>' );
 		}
 		$human_id_key = wp_filter_nohtml_kses( $_POST['human_id_key'] );
 		$human_id     = get_option( $human_id_key, '' );
 		if ( trim( $human_id ) == '' ) {
-			wp_die( __( '<strong>Error</strong>: Please verify your humanity.', HIDSF_TEXT_DOMAIN ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', HIDSF_TEXT_DOMAIN ) . '</a></p>' );
+			wp_die( __( '<strong>Error</strong>: Please verify your are not a bot.', HIDSF_TEXT_DOMAIN ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', HIDSF_TEXT_DOMAIN ) . '</a></p>' );
 		}
 
 		$user = User::where( 'human_id', '=', $human_id )->get();
@@ -157,7 +157,7 @@ class VerificationModule extends Module {
 		} else {
 			$body = json_decode( $resp['body'] );
 			if ( $body->success ) {
-				echo $body->data->webLoginUrl;
+				echo esc_html($body->data->webLoginUrl);
 			} else {
 				wp_send_json_error( $body->message->data, 400 );
 			}
