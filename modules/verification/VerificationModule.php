@@ -157,7 +157,7 @@ class VerificationModule extends Module {
 		} else {
 			$body = json_decode( $resp['body'] );
 			if ( $body->success ) {
-				echo esc_html($body->data->webLoginUrl);
+				echo $body->data->webLoginUrl;
 			} else {
 				wp_send_json_error( $body->message->data, 400 );
 			}

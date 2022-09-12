@@ -150,7 +150,7 @@ class Migration {
 				$column_string .= $column->toString() . ',';
 			}
 			$column_string = rtrim( $column_string, ", " );
-			$query         = $wpdb->prepare( "CREATE TABLE IF NOT EXISTS `%s`(%s)", [
+			$query         = $wpdb->prepare( "CREATE TABLE IF NOT EXISTS `%1s` (%1s)", [
 				$this->table_name,
 				$column_string
 			] );
@@ -169,7 +169,7 @@ class Migration {
 		$last_revision_run = get_option( HIDSF_TABLE_PREFIX . '_last_revision', 0 );
 		if ( $last_revision_run < $this->revision_id ) {
 			foreach ( $this->columns as $column ) {
-				$query = $wpdb->prepare( "ALTER TABLE `%s` %s", [ $this->table_name, $column->toString() ] );
+				$query = $wpdb->prepare( "ALTER TABLE `%1s` %1s", [ $this->table_name, $column->toString() ] );
 				$wpdb->query( $query );
 			}
 			update_option( HIDSF_TABLE_PREFIX . '_last_revision', $this->revision_id );
@@ -187,7 +187,7 @@ class Migration {
 	public function down() {
 		global $wpdb;
 		if ( ! $this->is_update ) {
-			$query = $wpdb->prepare( "DROP TABLE IF EXISTS %s", [ $this->table_name ] );
+			$query = $wpdb->prepare( "DROP TABLE IF EXISTS %1s", [ $this->table_name ] );
 			$wpdb->query( $query );
 		}
 	}
@@ -203,14 +203,14 @@ class Migration {
 	 */
 	public static function addColumn( string $table, string $field, string $type, string $default = '' ) {
 		global $wpdb;
-		$query   = $wpdb->prepare( "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '%s' AND column_name = '%s'", [
+		$query   = $wpdb->prepare( "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '%1s' AND column_name = '%1s'", [
 			$table,
 			$field
 		] );
 		$results = $wpdb->get_results( $query );
 		if ( empty( $results ) ) {
 			$default_string = is_numeric( $default ) ? "DEFAULT $default" : "DEFAULT " . "'$default'";
-			$query          = $wpdb->prepare( "ALTER TABLE  %s  ADD  %s  %s  NOT NULL %s", [
+			$query          = $wpdb->prepare( "ALTER TABLE  %1s  ADD  %1s  %1s  NOT NULL %1s", [
 				$table,
 				$field,
 				$type,

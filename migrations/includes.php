@@ -12,7 +12,5 @@ add_filter( 'hidsf_includes_filter', function ( $includes ): array {
 		HIDSF_MIGRATIONS_DIR . '/users.php',//
 	];
 
-	$includes = array_merge( $includes, $migrations );
-
-	return $includes;
+	return array_merge( $includes, $migrations );
 } );
