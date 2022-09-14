@@ -93,7 +93,7 @@ class HidSpamFilter {
 	 * Adds the admin menu page
 	 */
 	public function addMenuPage() {
-		$menu_title = 'hID Spam Filter';
+		$menu_title = 'humanID Setup';
 		if ( $this->blocked > 0 ) {
 			$menu_title .= " <span class='update-plugins count-1'><span class='update-count'>$this->blocked </span></span>";
 		}

@@ -294,7 +294,7 @@ class Model {
 			$query          .= " LIMIT " . $offset . ' , ' . self::$per_page;
 
 			$data        = self::getResults( $query );
-			$total_pages = $total / self::$per_page;
+			$total_pages = self::$per_page === 0 ? 0 : $total / self::$per_page;
 			$total_pages = $total_pages > round( $total_pages ) ? round( $total_pages ) + 1 : round( $total_pages );
 			$data        = [
 				'data'       => $data,
@@ -323,9 +323,11 @@ class Model {
 
 	public static function first(): ?Model {
 		$data = self::get();
+		if ( sizeof( $data ) > 0 ) {
+			return $data[0];
+		}
 
-		return $data[0];
-
+		return null;
 	}
 
 	public static function take( int $number ): array {

@@ -101,6 +101,7 @@ register_deactivation_hook( __FILE__, 'humanid_spam_filter\\HIDSFDeactivation' )
  * @since v1.0.0
  */
 function HIDSFDeactivation() {
+	delete_option( 'hidsf_is_permalink_updated' );
 	// set options to remove here
 }
 
@@ -112,6 +113,7 @@ register_uninstall_hook( __FILE__, 'humanid_spam_filter\\HIDSFUninstall' );
  * @since v1.0.0
  */
 function HIDSFUninstall() {
+	delete_option( 'hidsf_is_permalink_updated' );
 	Migration::dropAll();
 }
 

@@ -25,7 +25,7 @@ $structure         = get_option( 'permalink_structure' );
 						<?php _e( "Please complete the plugin setup", HIDSF_TEXT_DOMAIN ) ?>
                     </a>
 				<?php else: ?>
-                    <img src="<?php echo HIDSF_ASSET_URL . '/images/anonymous_login.png' ?>" alt="" class="pointer"
+                    <img src="<?php echo HIDSF_ASSET_URL . '/images/anonymous_login.png' ?>" alt="" class="pointer" width="350px"
                          id="start-human-id-verification"/>
 				<?php endif; ?>
             </div>
