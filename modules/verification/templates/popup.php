@@ -11,7 +11,7 @@ $structure         = get_option( 'permalink_structure' );
 <div class="hid-modal hid-modal-large" id="human-id-verification-modal" style="display: none">
     <div class="hid-modal-content text-center text-main-light d-flex justify-content-center align-items-center flex-column">
         <div>
-            <h4 class="text-main"><?php _e( "Hello, <br>Thanks for your <br/>comment", HIDSF_TEXT_DOMAIN ) ?></h4>
+            <h4 class="text-main"><?php _e( "Thanks for your <br/>comment", HIDSF_TEXT_DOMAIN ) ?></h4>
 			<?php _e( "To finish submitting your comment,<br/> please take a few seconds to anonymously verify that you're not a bot using third-party service <a href='https://human-internet.org' target='_blank'>humanID</a>", HIDSF_TEXT_DOMAIN ) ?>
         </div>
         <div class="margin-bottom-20 margin-top-20 text-center">

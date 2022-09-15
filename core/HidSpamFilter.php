@@ -99,7 +99,7 @@ class HidSpamFilter {
 		}
 
 		$menu_page      = new KMMenuPage( array(
-			'page_title' => 'humanID Spam Filter',
+			'page_title' => 'humanID Setup',
 			'menu_title' => $menu_title,
 			'capability' => 'read',
 			'menu_slug'  => 'humanid-spam-filter',

@@ -8,8 +8,8 @@
  * Plugin Name: humanID Spam Filter
  * Plugin URI: https://github.com/human-internet/humanid-spam-filter
  * Description: Protects your blog posts against spams.
- * Version: 0.9.0
- * Author: Human ID
+ * Version: 1.0.0
+ * Author: humanID
  * Author URI: https://human-id.org/
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
