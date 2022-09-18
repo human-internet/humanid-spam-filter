@@ -132,41 +132,61 @@ class Model {
 
 	public static function where( string $field, string $comparison, $value, $add_table_name = true ): Model {
 		$table_name = $add_table_name ? self::getTableName() . '.' : '';
-		if ( ! is_numeric( $value ) ) {
-			$value = "'" . $value . "'";
-		}
-		self::$where = " WHERE " . $table_name . $field . " " . $comparison . " " . $value;
+		if ( strlen( self::$where ) == 0 ) {
 
-		return new static();
+			if ( ! is_numeric( $value ) ) {
+				$value = "'" . $value . "'";
+			}
+			self::$where = " WHERE " . $table_name . $field . " " . $comparison . " " . $value;
+
+			return new static();
+		} else {
+			return self::andWhere( $field, $comparison, $value );
+		}
 	}
 
 	public static function andWhere( string $field, string $comparison, $value ): Model {
-		$table_name  = self::getTableName();
+		$table_name = self::getTableName();
+		if ( ! is_numeric( $value ) ) {
+			$value = "'" . $value . "'";
+		}
 		self::$where .= " AND " . $table_name . '.' . $field . " " . $comparison . " " . $value;
 
 		return new static();
 	}
 
 	public static function orWhere( string $field, string $comparison, $value ): Model {
-		$table_name  = self::getTableName();
+		$table_name = self::getTableName();
+		if ( ! is_numeric( $value ) ) {
+			$value = "'" . $value . "'";
+		}
 		self::$where .= " OR " . $table_name . '.' . $field . " " . $comparison . " " . $value;
 
 		return new static();
 	}
 
 	public static function whereJoin( string $field, string $comparison, $value, $table ): Model {
+		if ( ! is_numeric( $value ) ) {
+			$value = "'" . $value . "'";
+		}
 		self::$where = " WHERE " . $table . '.' . $field . " " . $comparison . " " . $value;
 
 		return new static();
 	}
 
 	public static function andWhereJoin( string $field, string $comparison, $value, $table ): Model {
+		if ( ! is_numeric( $value ) ) {
+			$value = "'" . $value . "'";
+		}
 		self::$where .= " AND " . $table . '.' . $field . " " . $comparison . " " . $value;
 
 		return new static();
 	}
 
 	public static function orWhereJoin( string $field, string $comparison, $value, $table ): Model {
+		if ( ! is_numeric( $value ) ) {
+			$value = "'" . $value . "'";
+		}
 		self::$where .= " OR " . $table . '.' . $field . " " . $comparison . " " . $value;
 
 		return new static();
