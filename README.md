@@ -20,4 +20,6 @@ Human ID Spam Filter stops spammers and spam bots from commenting on your WordPr
 4. Run `npm run install` to install packages
 5. Run `npm run watch` to auto compile sass files to css
 6. Run `npm run translate` to update the translation file
-7. Don't forget to check the [Contributing guide](contributing.md)
+7. Run `npm run allow-deploy` to make the deployment script executable
+8. Run `npm run deploy` to generate a zip file that can be deployed
+9. Don't forget to check the [Contributing guide](contributing.md)
