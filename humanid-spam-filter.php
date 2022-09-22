@@ -5,9 +5,9 @@
  * @package           humanid_spam_filter
  *
  * @wordpress-plugin
- * Plugin Name: humanID Spam Filter
+ * Plugin Name: humanID – Anti-Spam Comment Filter || Stop junk comments & Protect your users' privacy. 100% open source.
  * Plugin URI: https://github.com/human-internet/humanid-spam-filter
- * Description: Protects your blog posts against spams.
+ * Description: Anti-bot authentication created by the Foundation for a Human Internet, a Harvard & Mozilla-backed nonprofit
  * Version: 1.0.0
  * Author: humanID
  * Author URI: https://human-id.org/

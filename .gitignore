@@ -1,4 +1,6 @@
 sonar-project.properties
 .scannerwork
 .scanner_lock
+humanid-spam-filter.zip
+humanid-spam-filter/
 /node_modules

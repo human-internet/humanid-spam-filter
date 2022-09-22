@@ -1,4 +1,4 @@
-=== HumanID Spam Filter ===
+=== humanID – Anti-Spam Comment Filter || Stop junk comments & Protect your users' privacy. 100% open source. ===
 Contributors: kofimokome
 Donate link: https://human-id.org/donate/
 Tags: anti-spam,comment spam,spam protection
@@ -13,16 +13,15 @@ Protects your blog posts against spams.
 
 == Description ==
 
-HumanID is an anonymous, bot-resistant authentication for safer online communities.
-Non-profit and open source, the project was started in 2022 by the Foundation for a Human Internet. With the help of Mozilla and Harvard, we’re on a mission to #FixTheInternet
-HumanID Spam Filter stops spammers and spam bots from commenting on your posts.
+humanID's anti-bot authentication has been created by the Foundation for a Human Internet, a Harvard & Mozilla-backed nonprofit.
+humanID protects users anonymity, while stopping automated and previously blocked users. This means that website-owners have to spent up to 90% less time reviewing comments, while end users do not have to struggle with annoying CAPTCHAs
 
 == Installation ==
 
 1. Download the plugin
 2. Install and activate
 3. Update permalinks
-4. Navigate to HID Spam Filter from the admin panel
+4. Navigate to hID Setup from the admin panel
 
 == Changelog ==
 
@@ -31,8 +30,9 @@ HumanID Spam Filter stops spammers and spam bots from commenting on your posts.
 
 == Screenshots ==
 
-1. Dashboard
-2. Human ID verification
+1. Setup Page
+2. Setup Page
+3. Human ID verification
 
 == How to Contribute ==
 The source codes can be downloaded here [GitHub](https://github.com/human-internet/humanid-spam-filter)

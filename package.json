@@ -10,7 +10,9 @@
   "scripts": {
     "watch": "sass assets/sass/main.scss assets/css/app.css --watch",
     "dev": "sass assets/sass/main.scss assets/css/app.css",
-    "translate": "node get-translation-strings.js"
+    "translate": "node get-translation-strings.js",
+    "deploy": "./deploy.sh",
+    "allow-deploy": "sudo chmod 755 deploy.sh"
   },
   "repository": {
     "type": "git",
