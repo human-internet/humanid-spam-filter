@@ -29,18 +29,19 @@ $structure         = get_option( 'permalink_structure' );
                          id="start-human-id-verification"/>
 				<?php endif; ?>
             </div>
-            <div class="hid-alert alert-info margin-top-10" id="hid-verification-pending" style="display:none">
+            <div class="hid-alert alert-info margin-top-10" id="hid-verification-pending"
+                 style="display:none; width: 100%">
 				<?php _e( "Verifying your humanity..", HIDSF_TEXT_DOMAIN ) ?>
             </div>
-            <div class="hid-alert alert-danger text-danger margin-top-10" id="hid-verification-error-message"
-                 style="display: none">
+            <div class="hid-alert alert-danger text-danger margin-top-10 " id="hid-verification-error-message"
+                 style="display: none; width: 100%">
 				<?php _e( "An error occurred. Please try again", HIDSF_TEXT_DOMAIN ) ?>
             </div>
         </div>
         <div class="margin-bottom-20 margin-top-1h0 fs-18">
             <div class="fs-18"> <?php _e( "Learn more about the <a href='https://human-internet.org' target='_blank'>Foundation for a Human Internet</a>'s humanID <br/>and the mission to restore privacy online", HIDSF_TEXT_DOMAIN ) ?></div>
             <div class="text-underline text-danger pointer margin-top-20 fs-18"
-                  id="close-human-id-verification"><?php _e( "Cancel", HIDSF_TEXT_DOMAIN ) ?></div>
+                 id="close-human-id-verification"><?php _e( "Cancel", HIDSF_TEXT_DOMAIN ) ?></div>
         </div>
     </div>
 </div>
