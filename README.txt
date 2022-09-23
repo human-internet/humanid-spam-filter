@@ -9,7 +9,7 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Protects your blog posts against spams.
+Replace ReCAPTCHA with a faster, user-friendly solution and block spammers & bots permanently
 
 == Description ==
 

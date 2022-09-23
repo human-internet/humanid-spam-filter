@@ -71,6 +71,18 @@
   color: #3B678F;
 }
 
+.fs-18 {
+  font-size: 18px !important;
+}
+
+.fs-24 {
+  font-size: 24px !important;
+}
+
+.fs-36 {
+  font-size: 36px !important;
+}
+
 .hid-alert {
   border: solid white 2px;
   border-radius: 5px;
@@ -144,6 +156,11 @@
 }
 .hid-header .hid-header-menu ul li.active a {
   color: #0C4367;
+}
+
+#start-human-id-verification {
+  height: 100px;
+  width: 600px;
 }
 
 /*# sourceMappingURL=app.css.map */

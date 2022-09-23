@@ -10,9 +10,9 @@ $structure         = get_option( 'permalink_structure' );
 
 <div class="hid-modal hid-modal-large" id="human-id-verification-modal" style="display: none">
     <div class="hid-modal-content text-center text-main-light d-flex justify-content-center align-items-center flex-column">
-        <div>
-            <h4 class="text-main"><?php _e( "Thanks for your <br/>comment", HIDSF_TEXT_DOMAIN ) ?></h4>
-			<?php _e( "To finish submitting your comment,<br/> please take a few seconds to anonymously verify that you're not a bot using third-party service <a href='https://human-internet.org' target='_blank'>humanID</a>", HIDSF_TEXT_DOMAIN ) ?>
+        <div class="fs-24">
+            <h4 class="text-main fs-36"><?php _e( "Thanks for your comment", HIDSF_TEXT_DOMAIN ) ?></h4>
+			<?php _e( "To finish submitting your comment,<br/> please take a few seconds to anonymously <br/>verify that you're not a bot.", HIDSF_TEXT_DOMAIN ) ?>
         </div>
         <div class="margin-bottom-20 margin-top-20 text-center">
             <div>
@@ -25,7 +25,7 @@ $structure         = get_option( 'permalink_structure' );
 						<?php _e( "Please complete the plugin setup", HIDSF_TEXT_DOMAIN ) ?>
                     </a>
 				<?php else: ?>
-                    <img src="<?php echo HIDSF_ASSET_URL . '/images/anonymous_login.png' ?>" alt="" class="pointer" width="350px"
+                    <img src="<?php echo HIDSF_ASSET_URL . '/images/anonymous_login.png' ?>" alt="" class="pointer"
                          id="start-human-id-verification"/>
 				<?php endif; ?>
             </div>
@@ -37,9 +37,10 @@ $structure         = get_option( 'permalink_structure' );
 				<?php _e( "An error occurred. Please try again", HIDSF_TEXT_DOMAIN ) ?>
             </div>
         </div>
-        <div class="margin-bottom-20 margin-top-20">
-            <span class="text-underline text-danger pointer"
-                  id="close-human-id-verification"><?php _e( "Cancel", HIDSF_TEXT_DOMAIN ) ?></span>
+        <div class="margin-bottom-20 margin-top-1h0 fs-18">
+            <div class="fs-18"> <?php _e( "Learn more about the <a href='https://human-internet.org' target='_blank'>Foundation for a Human Internet</a>'s humanID <br/>and the mission to restore privacy online", HIDSF_TEXT_DOMAIN ) ?></div>
+            <div class="text-underline text-danger pointer margin-top-20 fs-18"
+                  id="close-human-id-verification"><?php _e( "Cancel", HIDSF_TEXT_DOMAIN ) ?></div>
         </div>
     </div>
 </div>

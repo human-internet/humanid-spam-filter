@@ -7,8 +7,8 @@
  * @wordpress-plugin
  * Plugin Name: humanID – Anti-Spam Comment Filter || Stop junk comments & Protect your users' privacy. 100% open source.
  * Plugin URI: https://github.com/human-internet/humanid-spam-filter
- * Description: Anti-bot authentication created by the Foundation for a Human Internet, a Harvard & Mozilla-backed nonprofit
- * Version: 1.0.0
+ * Description: Replace ReCAPTCHA with a faster, user-friendly solution and block spammers & bots permanently
+ * Version: 1.0.1
  * Author: humanID
  * Author URI: https://human-id.org/
  * License: GPL-2.0+
