@@ -47,7 +47,7 @@ class Validator {
 			foreach ( $rules_to_check as $rule_to_check ) {
 				switch ( $rule_to_check ) {
 					case 'required':
-						if ( ! isset( $data[ $field ] ) || ( isset( $data[ $field ] ) && ( ( ! is_array( $data[ $field ] ) && trim( $data[ $field ] ) == '' ) || is_array( $data[ $field ] && sizeof( $data[ $field ] ) == 0 ) ) ) ) {
+						if ( ! isset( $data[ $field ] ) || ( isset( $data[ $field ] ) && ( ( ! is_array( $data[ $field ] ) && trim( $data[ $field ] ) == '' ) || ( is_array( $data[ $field ] ) && sizeof( $data[ $field ] ) == 0 ) ) ) ) {
 							wp_send_json_error( $field . ' is required', 400 );
 
 							return false;
