@@ -10,7 +10,7 @@ class HidSpamFilter {
 
 	public function __construct() {
 		$this->blocked = get_option( "hidsf_blocked_today" );
-		self::$version = '1.0.1';
+		self::$version = HIDSF_VERSION;
 	}
 
 	/**
@@ -69,9 +69,9 @@ class HidSpamFilter {
 	 * Adds stylesheets and scripts on the client side
 	 */
 	public function addScripts() {
-		wp_enqueue_style( 'humanid_spam_filter_css', plugins_url( '/assets/css/app.css', dirname( __FILE__ ) ), '', '1.0.0' );
+		wp_enqueue_style( 'humanid_spam_filter_css', plugins_url( '/assets/css/app.css', dirname( __FILE__ ) ), '', HIDSF_VERSION );
 
-		wp_enqueue_script( 'humanid_spam_filter_js', plugins_url( 'assets/js/app.js', dirname( __FILE__ ) ), array( 'jquery' ), '1.0.0', true );
+		wp_enqueue_script( 'humanid_spam_filter_js', plugins_url( 'assets/js/app.js', dirname( __FILE__ ) ), array( 'jquery' ), HIDSF_VERSION, true );
 
 		wp_localize_script( 'humanid_spam_filter_js', 'hid_ajax_object',
 			[
@@ -84,8 +84,8 @@ class HidSpamFilter {
 	 * Adds stylesheets and scripts on the admin side
 	 */
 	public function addAdminScripts() {
-		wp_enqueue_script( 'humanid_spam_filter_js', plugins_url( 'assets/js/admin.js', dirname( __FILE__ ) ), array( 'jquery' ), '1.0.0', true );
-		wp_enqueue_style( 'humanid_spam_filter_css', plugins_url( '/assets/css/app.css', dirname( __FILE__ ) ), '', '1.0.0' );
+		wp_enqueue_script( 'humanid_spam_filter_js', plugins_url( 'assets/js/admin.js', dirname( __FILE__ ) ), array( 'jquery' ), HIDSF_VERSION, true );
+		wp_enqueue_style( 'humanid_spam_filter_css', plugins_url( '/assets/css/app.css', dirname( __FILE__ ) ), '', HIDSF_VERSION );
 	}
 
 	/**

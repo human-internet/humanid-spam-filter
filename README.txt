@@ -4,7 +4,7 @@ Donate link: https://human-id.org/donate/
 Tags: anti-spam,comment spam,spam protection
 Requires at least: 5.7
 Tested up to: 6.0
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -24,6 +24,9 @@ humanID protects users anonymity, while stopping automated and previously blocke
 4. Navigate to hID Setup from the admin panel
 
 == Changelog ==
+
+= 1.0.2 =
+* Update padding of verification popup
 
 = 1.0.0 =
 * Initial release

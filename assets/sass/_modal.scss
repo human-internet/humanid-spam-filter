@@ -1,5 +1,6 @@
 .hid-modal {
   position: fixed;
+  overflow-y: scroll;
   display: flex;
   align-items: center;
   top: 0;
@@ -11,18 +12,47 @@
 
   .hid-modal-content {
     z-index: 99999;
-    padding: 10px 20px;
+    padding: 100px 70px !important;
     //border: solid black 1px;
-    border-radius: 6px;
+    //border-radius: 6px;
+    border: solid black 2px;
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
     background: white;
+    line-height: 1.1 !important;
+
   }
 }
 
 .hid-modal-large {
   .hid-modal-content {
-    width: 700px;
+    width: 800px;
+  }
+}
+
+@media(max-width: 500px) {
+  .hid-modal {
+    display: block;
+
+    .hid-modal-content {
+      padding: 30px !important;
+      margin-top: 30px;
+    }
+  }
+  .hid-modal-large {
+    .hid-modal-content {
+      width: auto;
+    }
+  }
+}
+
+@media(max-height: 415px) {
+  .hid-modal {
+    display: block;
+
+    .hid-modal-content {
+      padding: 30px 30px !important;
+    }
   }
 }

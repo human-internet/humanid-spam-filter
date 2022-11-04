@@ -2,6 +2,7 @@
 
 global $wpdb;
 
+define( 'HIDSF_VERSION', random_int( 1, PHP_INT_MAX ) );
 define( 'HIDSF_URL', plugin_dir_url( __FILE__ ) );
 define( 'HIDSF_DIR', plugin_dir_path( __FILE__ ) );
 define( 'HIDSF_TABLE_PREFIX', $wpdb->prefix . 'hidsf_' );

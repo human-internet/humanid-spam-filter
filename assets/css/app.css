@@ -39,8 +39,20 @@
   margin-top: 20px;
 }
 
+.margin-top-40 {
+  margin-top: 40px;
+}
+
+.margin-top-0 {
+  margin-top: 0 !important;
+}
+
 .margin-top-10 {
   margin-top: 10px;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0 !important;
 }
 
 .margin-bottom-20 {
@@ -48,7 +60,7 @@
 }
 
 .w-100 {
-  width: 100%;
+  width: 100% !important;
 }
 
 .border-danger {
@@ -83,6 +95,14 @@
   font-size: 36px !important;
 }
 
+.lh-28 {
+  line-height: 28.8px;
+}
+
+.lh-21 {
+  line-height: 21.6px;
+}
+
 .hid-alert {
   border: solid white 2px;
   border-radius: 5px;
@@ -101,6 +121,7 @@
 
 .hid-modal {
   position: fixed;
+  overflow-y: scroll;
   display: flex;
   align-items: center;
   top: 0;
@@ -112,18 +133,39 @@
 }
 .hid-modal .hid-modal-content {
   z-index: 99999;
-  padding: 10px 20px;
-  border-radius: 6px;
+  padding: 100px 70px !important;
+  border: solid black 2px;
   width: fit-content;
   margin-left: auto;
   margin-right: auto;
   background: white;
+  line-height: 1.1 !important;
 }
 
 .hid-modal-large .hid-modal-content {
-  width: 700px;
+  width: 800px;
 }
 
+@media (max-width: 500px) {
+  .hid-modal {
+    display: block;
+  }
+  .hid-modal .hid-modal-content {
+    padding: 30px !important;
+    margin-top: 30px;
+  }
+  .hid-modal-large .hid-modal-content {
+    width: auto;
+  }
+}
+@media (max-height: 415px) {
+  .hid-modal {
+    display: block;
+  }
+  .hid-modal .hid-modal-content {
+    padding: 30px 30px !important;
+  }
+}
 .hid-header {
   background: #0C4367;
   height: 300px;
@@ -159,8 +201,7 @@
 }
 
 #start-human-id-verification {
-  height: 100px;
-  width: 600px;
+  height: 70.6px;
 }
 
 /*# sourceMappingURL=app.css.map */
