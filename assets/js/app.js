@@ -1,3 +1,7 @@
+let submit_button_reference = ''
+let hid_reference = ''
+let is_form = false;
+
 jQuery(function ($) {
     $(document).ready(function () {
         $("#commentform").submit(function (e) {
@@ -47,6 +51,18 @@ jQuery(function ($) {
                     }
                 }
             });
+        });
+
+        $('.wpcf7-form').submit(function (e) {
+            if ($(this).find('.human-id').length > 0) {
+                hid_reference = $(this).find('.human-id');
+                if (hid_reference.val().trim().length == 0) {
+                    e.preventDefault();
+                    is_form = true
+                    submit_button_reference = $(this).find('.wpcf7-submit');
+                    $("#human-id-verification-modal").show();
+                }
+            }
         })
     })
 })
@@ -62,9 +78,14 @@ function showErrorMessage(message) {
 
 function verificationSuccess(token) {
     jQuery(function ($) {
-        $("#human_id_key").val(token)
+        if (is_form) {
+            hid_reference.val(token)
+            submit_button_reference.click()
+        } else {
+            $("#human_id_key").val(token)
+            $("#commentform #submit").click()
+        }
         $("#human-id-verification-modal").hide();
-        $("#commentform #submit").click()
     });
 }
 
