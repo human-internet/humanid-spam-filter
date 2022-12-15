@@ -54,6 +54,10 @@ jQuery(function ($) {
         });
 
         $('.wpcf7-form').submit(function (e) {
+
+            $(this).on('wpcf7mailsent', function () {
+                $(this).find('.human-id').val('')
+            });
             if ($(this).find('.human-id').length > 0) {
                 hid_reference = $(this).find('.human-id');
                 if (hid_reference.val().trim().length == 0) {
