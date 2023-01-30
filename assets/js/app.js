@@ -27,6 +27,7 @@ jQuery(function ($) {
             let formData = new FormData();
             formData.append("action", 'hidsf_get_login_url');
 
+            // ajax call to get login url
             return jQuery.ajax({
                 type: "POST",
                 contentType: false,
@@ -40,13 +41,16 @@ jQuery(function ($) {
                             handle.focus()
                         }
                     } else {
+                        // Browser has blocked popup
                         showErrorMessage("Please allow popups for this site");
                     }
                 },
                 error: function (e) {
                     if (e.responseJSON) {
+                        // error from server
                         showErrorMessage(e.responseJSON.data)
                     } else {
+                        // error from client
                         showErrorMessage("An error occurred. Please try again")
                     }
                 }
@@ -54,10 +58,27 @@ jQuery(function ($) {
         });
 
         $('.wpcf7-form').submit(function (e) {
-
+            // resets human id value on form submit
             $(this).on('wpcf7mailsent', function () {
                 $(this).find('.human-id').val('')
             });
+
+            // validates all required fields
+            const required_fields = $(this).find('.wpcf7-validates-as-required');
+            if (required_fields.length > 0) {
+                for (let i = 0; i < required_fields.length; i++) {
+                    if ($(required_fields[i]).val().trim().length === 0) {
+                        return;
+                    }
+                }
+            }
+
+            const not_valid_fields = $(this).find('.wpcf7-not-valid');
+            if (not_valid_fields.length > 0) {
+                return;
+            }
+
+            // checks if human id is present
             if ($(this).find('.human-id').length > 0) {
                 hid_reference = $(this).find('.human-id');
                 if (hid_reference.val().trim().length == 0) {
