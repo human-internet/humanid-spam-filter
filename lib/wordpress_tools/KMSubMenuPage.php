@@ -125,7 +125,7 @@ if ( ! class_exists( 'KMSubMenuPage' ) ) {
 				$this->capability,
 				$this->menu_slug,
 				$this->function,
-				$this->position
+				intval( $this->position )
 			);
 		}
 
