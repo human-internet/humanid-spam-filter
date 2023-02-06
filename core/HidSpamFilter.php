@@ -104,7 +104,7 @@ class HidSpamFilter {
 			'capability' => 'read',
 			'menu_slug'  => 'humanid-spam-filter',
 			'icon_url'   => HIDSF_ASSET_URL . '/images/humanid_white.png',
-			'position'   => null,
+			'position'   => 100,
 			'function'   => null
 		) );
 		$sub_menu_pages = apply_filters( 'hidsf_sub_menu_pages_filter', [] );
