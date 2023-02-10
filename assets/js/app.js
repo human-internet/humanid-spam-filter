@@ -35,7 +35,7 @@ jQuery(function ($) {
                 url: hid_ajax_object.ajax_url,
                 data: formData,
                 success: function (e) {
-                    const handle = window.open(e, "Human_ID_Verification", 'width=900,height=650');
+                    const handle = window.open(e, "Human_ID_Verification");
                     if (handle) {
                         if (window.focus) {
                             handle.focus()
