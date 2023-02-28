@@ -1,9 +1,9 @@
 === humanID – Anti-Spam Comment Filter || Stop junk comments & Protect your users' privacy. 100% open source. ===
 Contributors: kofimokome
 Donate link: https://human-id.org/donate/
-Tags: anti-spam,comment spam,spam protection
+Tags: anti-spam,comment spam,spam protection, contact form 7, contact-form-7, human id, human-id
 Requires at least: 5.7
-Tested up to: 6.0
+Tested up to: 6.1
 Stable tag: 2.0.0
 Requires PHP: 7.4
 License: GPLv2 or later
@@ -12,9 +12,8 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Replace ReCAPTCHA with a faster, user-friendly solution and block spammers & bots permanently
 
 == Description ==
-
-humanID's anti-bot authentication has been created by the Foundation for a Human Internet, a Harvard & Mozilla-backed nonprofit.
-humanID protects users anonymity, while stopping automated and previously blocked users. This means that website-owners have to spent up to 90% less time reviewing comments, while end users do not have to struggle with annoying CAPTCHAs
+Enhance your website's security and user experience with humanID - the anti-bot authentication created by the Foundation for a Human Internet, a nonprofit backed by Harvard and Mozilla. With humanID, your users can enjoy anonymity and seamless access, while automated and previously blocked users are stopped in their tracks. Say goodbye to frustrating CAPTCHAs and free up to 90% of your time spent reviewing comments, all while keeping your website secure. Whether you use WordPress or not, you can easily integrate humanID with your website's contact form, including popular plugins like Contact Form 7.
+Try humanID today and see the difference it can make for your website's security, user experience, and your own workload
 
 == Installation ==
 
