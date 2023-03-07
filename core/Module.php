@@ -53,6 +53,8 @@ class Module {
 	protected function renderContent( $template = '', $echo = true ) {
 
 		$parent_module_folder = HIDSF_MODULE_DIR;
+		$template     = str_replace( '.', '/', $template );
+
 		// Start output buffering.
 		ob_start();
 		ob_implicit_flush( 0 );
