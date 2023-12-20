@@ -19,6 +19,7 @@
 
 namespace humanid_spam_filter;
 
+use KMEnv;
 use WordPressTools;
 
 defined( 'ABSPATH' ) or die( 'Giving To Cesar What Belongs To Caesar' );
@@ -26,17 +27,6 @@ defined( 'ABSPATH' ) or die( 'Giving To Cesar What Belongs To Caesar' );
 require 'constants.php';
 require HIDSF_CORE_DIR . '/HidSpamFilter.php';
 require HIDSF_CORE_DIR . '/Module.php';
-
-
-/**
- * Scan directories for files to include
- * @since v1.0.0
- */
-foreach ( scandir( __DIR__ ) as $dir ) {
-	if ( strpos( $dir, '.' ) === false && is_dir( __DIR__ . '/' . $dir ) && is_file( __DIR__ . '/' . $dir . '/includes.php' ) ) {
-		require __DIR__ . '/' . $dir . '/includes.php';
-	}
-}
 
 /**
  * Shows an error message on the admin dashboard
@@ -60,6 +50,13 @@ add_action( 'admin_notices', 'humanid_spam_filter\\HIDSFErrorNotice', 10, 1 );
  ***/
 function HIDSFLoader(): bool {
 	$error = false;
+
+	// scan directories for requires.php files
+	foreach ( scandir( __DIR__ ) as $dir ) {
+		if ( strpos( $dir, '.' ) === false && is_dir( __DIR__ . '/' . $dir ) && is_file( __DIR__ . '/' . $dir . '/requires.php' ) ) {
+			require_once __DIR__ . '/' . $dir . '/requires.php';
+		}
+	}
 
 	$requires = apply_filters( 'hidsf_requires_filter', [] );
 
@@ -90,6 +87,7 @@ function HIDSFLoader(): bool {
 			include_once $file;
 		}
 	}
+
 	return $error;
 }
 
@@ -132,8 +130,22 @@ register_uninstall_hook( __FILE__, 'humanid_spam_filter\\HIDSFUninstall' );
  * @since v1.0.0
  */
 function HIDSFUninstall() {
+	global $wpdb;
+
 	delete_option( 'hidsf_is_permalink_updated' );
-	Migration::dropAll();
+	$instance = WordPressTools::getInstance( __FILE__ );
+	$instance->migration_manager->dropAll();
+
+	//query the wp options table and delete all options that start with hidsf_
+	$query = $wpdb->prepare( "DELETE FROM $wpdb->options WHERE option_name LIKE 'hidsf_%'" );
+	$wpdb->query( $query );
+
+
+	// todo; drop migrations table
+	$env        = ( new KMEnv( __FILE__ ) )->getEnv();
+	$table_name = $wpdb->prefix . trim( $env['TABLE_PREFIX'] ) . 'migrations';
+	$query      = $wpdb->prepare( "DROP TABLE IF EXISTS {$table_name}" );
+	$wpdb->query( $query );
 }
 
 register_activation_hook( __FILE__, 'humanid_spam_filter\\HIDSFActivation' );
@@ -143,8 +155,7 @@ register_activation_hook( __FILE__, 'humanid_spam_filter\\HIDSFActivation' );
  * @since v1.0.0
  */
 function HIDSFActivation() {
-	Migration::runMigrations();
-
+	// set options to add here
 }
 
 // todo: for future use

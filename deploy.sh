@@ -15,5 +15,9 @@ for entry in $this_dir/*; do
   fi
 done
 
+#add the .env file
+echo including .env
+cp -R $this_dir/.env humanid-spam-filter/.env
+
 zip -r humanid-spam-filter.zip humanid-spam-filter
 rm -r humanid-spam-filter

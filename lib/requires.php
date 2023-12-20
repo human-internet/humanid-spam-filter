@@ -5,7 +5,7 @@
  */
 
 
-add_filter( 'hidsf_includes_filter', function ( $includes ) {
+add_filter( 'hidsf_requires_filter', function ( $includes ) {
 	$plugin_path = plugin_dir_path( __FILE__ );
 
 	$files = [
