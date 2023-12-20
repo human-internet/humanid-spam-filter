@@ -4,10 +4,11 @@
  * User: kofi
  * Date: 6/5/19
  * Time: 11:59 AM
- * @version 1.0.3
+ * @version 1.0.4
  * @author kofi mokome
  */
 if ( ! class_exists( 'KMMenuPage' ) ) {
+	#[AllowDynamicProperties]
 	class KMMenuPage {
 		private $page_title;
 		private $menu_title;
@@ -35,7 +36,7 @@ if ( ! class_exists( 'KMMenuPage' ) ) {
 			);
 			$data         = array_merge( $default_data, $data );
 			$page_title   = sanitize_text_field( $data['page_title'] );
-			$menu_title   = sanitize_text_field( $data['menu_title'] );
+			$menu_title   = wp_kses_post( $data['menu_title'] );
 			$capability   = sanitize_text_field( $data['capability'] );
 			$menu_slug    = sanitize_text_field( $data['menu_slug'] );
 			$icon_url     = sanitize_text_field( $data['icon_url'] );
@@ -70,7 +71,7 @@ if ( ! class_exists( 'KMMenuPage' ) ) {
 				$this->menu_slug,
 				$this->function,
 				$this->icon_url,
-				intval($this->position)
+				intval( $this->position )
 
 			);
 

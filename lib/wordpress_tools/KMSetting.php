@@ -4,11 +4,13 @@
  * User: kofi
  * Date: 6/5/19
  * Time: 12:41 PM
- * @version 1.0.1
+ * @version 1.0.2
  * @author kofi mokome
  */
 
 if ( ! class_exists( 'KMSetting' ) ) {
+
+	#[AllowDynamicProperties]
 	class KMSetting {
 		private $menu_slug;
 		private $fields;
@@ -91,35 +93,39 @@ if ( ! class_exists( 'KMSetting' ) ) {
 			$id           = sanitize_text_field( $data['id'] );
 			$input_class  = sanitize_html_class( $data['input_class'] );
 			$placeholder  = sanitize_text_field( $data['placeholder'] );
+			$disabled     = sanitize_text_field( $data['disabled'] );
 			$autocomplete = sanitize_text_field( $data['autocomplete'] );
 			$min          = sanitize_text_field( $data['min'] );
 			$max          = sanitize_text_field( $data['max'] );
+			$read_only    = sanitize_text_field( $data['read_only'] );
+			$value        = get_option( $id );
+			$value        = apply_filters( 'km_setting_' . $id, $value );
 
 			switch ( $data['type'] ) {
 				case 'text':
-					echo "<p><input type='text' name='" . esc_attr( $id ) . "' value='" . esc_html( get_option( $id ) ) . "' class='" . esc_attr( $input_class ) . "' placeholder='" . esc_attr( $placeholder ) . "'></p>";
+					echo "<p><input type='text' name='" . esc_attr( $id ) . "' value='" . esc_html( $value ) . "' class='" . esc_attr( $input_class ) . "' placeholder='" . esc_attr( $placeholder ) . "'" . ( $read_only ? ' readonly' : '' ) . ( $disabled ? ' disabled' : '' ) . "></p>";
 					echo "<strong>" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				case 'number':
-					echo "<p><input type='number' name='" . esc_attr( $id ) . "' value='" . esc_html( get_option( $id ) ) . "' min='" . esc_attr( $min ) . "' max='" . esc_attr( $max ) . "' class='" . esc_attr( $input_class ) . "'  placeholder='" . esc_attr( $placeholder ) . "'></p>";
+					echo "<p><input type='number' name='" . esc_attr( $id ) . "' value='" . esc_html( $value ) . "' min='" . esc_attr( $min ) . "' max='" . esc_attr( $max ) . "' class='" . esc_attr( $input_class ) . "'  placeholder='" . esc_attr( $placeholder ) . "'" . ( $read_only ? ' readonly' : '' ) . ( $disabled ? ' disabled' : '' ) . "></p>";
 					echo "<strong>" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				case 'textarea':
 					echo "<p><textarea name='" . esc_attr( $id ) . "' id='" . esc_attr( $id ) . "' cols='80'
                   rows='8'
-                  placeholder='" . esc_attr( $placeholder ) . "' class='" . esc_attr( $input_class ) . "' autocomplete='" . esc_attr( $autocomplete ) . "'>" . esc_html( get_option( $id ) ) . "</textarea></p>";
-					echo "<strong" . wp_kses_post( $tip ) . "</strong>";
+                  placeholder='" . esc_attr( $placeholder ) . "' class='" . esc_attr( $input_class ) . "' autocomplete='" . esc_attr( $autocomplete ) . "'" . ( $read_only ? 'readonly' : '' ) . ( $disabled ? ' disabled' : '' ) . ">" . esc_html( $value ) . "</textarea></p>";
+					echo "<strong>" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				case 'checkbox':
 					$state = get_option( $id ) == 'on' ? 'checked' : '';
-					echo "<p><input type='checkbox' name='" . esc_attr( $id ) . "' id='" . esc_attr( $id ) . "' " . $state . " class='" . esc_attr( $input_class ) . "'></p>";
+					echo "<p><input type='checkbox' name='" . esc_attr( $id ) . "' id='" . esc_attr( $id ) . "' " . $state . " class='" . esc_attr( $input_class ) . "'" . ( $read_only ? 'onclick="return false;"' : '' ) . ( $disabled ? ' disabled' : '' ) . "></p>";
 					echo "<strong>" . wp_kses_post( $tip ) . "</strong>";
 					break;
 				case 'select':
 					$selected_value = get_option( $id );
-					echo "<p><select type='text' name='" . esc_attr( $id ) . "' id='" . esc_attr( $id ) . "' class='" . esc_attr( $input_class ) . "'>";
+					echo "<p><select type='text' name='" . esc_attr( $id ) . "' id='" . esc_attr( $id ) . "' class='" . esc_attr( $input_class ) . "'" . ( $read_only ? 'readonly' : '' ) . ( $disabled ? ' disabled' : '' ) . ">";
 					foreach ( $data['options'] as $key => $value ):?>
-                        <option value='<?php echo esc_attr( $value ) ?>' <?php echo ( $value === $selected_value ) ? 'selected' : '' ?> ><?php echo esc_html( $key ) ?></option>
+                        <option value='<?php echo esc_attr( $key ) ?>' <?php echo ( $key == $selected_value ) ? 'selected' : '' ?> ><?php echo esc_html( $value ) ?></option>
 					<?php
 					endforeach;
 					echo "</select></p>";
@@ -144,6 +150,8 @@ if ( ! class_exists( 'KMSetting' ) ) {
 				'tip'            => '',
 				'min'            => '',
 				'max'            => '',
+				'disabled'       => false,
+				'read_only'      => false,
 				'input_class'    => '', // class for input element
 				'class'          => '', // class for parent element
 				'options'        => array( 'Select a value' => '' ),

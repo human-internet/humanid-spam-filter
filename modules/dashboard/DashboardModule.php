@@ -2,8 +2,9 @@
 
 namespace humanid_spam_filter;
 
-use KMSubMenuPage;
 use KMSetting;
+use KMSubMenuPage;
+use WordPressTools;
 
 class DashboardModule extends Module {
 	private string $blocked;
@@ -11,58 +12,6 @@ class DashboardModule extends Module {
 	public function __construct() {
 		parent::__construct();
 		$this->blocked = get_option( "hidsf_blocked_today" );
-	}
-
-	/**
-	 * Check if the "I have updated permalink" button is clicked
-	 * @since v1.0.0
-	 */
-	private function checkIfPermalinkIsUpdated() {
-		if ( isset( $_GET['updatePermalink'] ) ) {
-			$updatePermalink = sanitize_text_field( $_GET['updatePermalink'] );
-			if ( $updatePermalink == 'yes' ) {
-				update_option( 'hidsf_is_permalink_updated', 1 );
-			}
-		}
-	}
-
-	/**
-	 * Registers the settings field for the client token and secret
-	 * @since v1.0.0
-	 */
-	private function registerSettings() {
-
-		// Check documentation here https://github.com/kofimokome/WordPress-Tools
-
-		$settings = new KMSetting( 'humanid-spam-filter' );
-		$settings->add_section( 'humanid-spam-filter' );
-		$settings->add_field(
-			array(
-				'type'        => 'text',
-				'id'          => 'hidsf_client_id',
-				'label'       => __( 'Client ID', HIDSF_TEXT_DOMAIN ),
-				'placeholder' => 'SERVER_XXXXXXXXXXXXXXXXXXXXXX'
-			)
-		);
-		$settings->add_field(
-			array(
-				'type'        => 'text',
-				'id'          => 'hidsf_client_secret',
-				'label'       => __( 'Client Secret', HIDSF_TEXT_DOMAIN ),
-				'placeholder' => 'e6-10mx7WaiYfQbZpZNAJHDp7dOLMxu'
-			)
-		);
-
-		$settings->save();
-	}
-
-	/**
-	 * @since v1.0.0
-	 */
-	protected function addFilters() {
-		parent::addFilters();
-		add_filter( 'hidsf_sub_menu_pages_filter', [ $this, 'addSubMenuPage' ] );
-		// add actions here
 	}
 
 	/**
@@ -97,7 +46,8 @@ class DashboardModule extends Module {
 	 * Displays content on dashboard page
 	 */
 	public function dashboardPageContent() {
-		$this->renderContent( 'index' );
+		$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+		$wordpress_tools->renderView( 'dashboard.index' );
 	}
 
 	/**
@@ -108,5 +58,57 @@ class DashboardModule extends Module {
 		parent::run();
 		$this->registerSettings();
 		$this->checkIfPermalinkIsUpdated();
+	}
+
+	/**
+	 * Registers the settings field for the client token and secret
+	 * @since v1.0.0
+	 */
+	private function registerSettings() {
+
+		// Check documentation here https://github.com/kofimokome/WordPress-Tools
+
+		$settings = new KMSetting( 'humanid-spam-filter' );
+		$settings->add_section( 'humanid-spam-filter' );
+		$settings->add_field(
+			array(
+				'type'        => 'text',
+				'id'          => 'hidsf_client_id',
+				'label'       => __( 'Client ID', HIDSF_TEXT_DOMAIN ),
+				'placeholder' => 'SERVER_XXXXXXXXXXXXXXXXXXXXXX'
+			)
+		);
+		$settings->add_field(
+			array(
+				'type'        => 'text',
+				'id'          => 'hidsf_client_secret',
+				'label'       => __( 'Client Secret', HIDSF_TEXT_DOMAIN ),
+				'placeholder' => 'e6-10mx7WaiYfQbZpZNAJHDp7dOLMxu'
+			)
+		);
+
+		$settings->save();
+	}
+
+	/**
+	 * Check if the "I have updated permalink" button is clicked
+	 * @since v1.0.0
+	 */
+	private function checkIfPermalinkIsUpdated() {
+		if ( isset( $_GET['updatePermalink'] ) ) {
+			$updatePermalink = sanitize_text_field( $_GET['updatePermalink'] );
+			if ( $updatePermalink == 'yes' ) {
+				update_option( 'hidsf_is_permalink_updated', 1 );
+			}
+		}
+	}
+
+	/**
+	 * @since v1.0.0
+	 */
+	protected function addFilters() {
+		parent::addFilters();
+		add_filter( 'hidsf_sub_menu_pages_filter', [ $this, 'addSubMenuPage' ] );
+		// add actions here
 	}
 }

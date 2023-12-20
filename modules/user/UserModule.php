@@ -3,26 +3,12 @@
 namespace humanid_spam_filter;
 
 use KMSubMenuPage;
+use KMValidator;
+use WordPressTools;
 
 $comment_id = ''; // used in comment.php
 
 class UserModule extends Module {
-
-	protected function addActions() {
-		parent::addActions();
-		add_action( 'wp_ajax_hidsf_update_user', [ $this, 'updateUser' ] );
-	}
-
-	/**
-	 * @since v1.0.0
-	 */
-	protected function addFilters() {
-		parent::addFilters();
-//		add_filter( 'hidsf_sub_menu_pages_filter', [ $this, 'addSubMenuPage' ] );
-
-		add_filter( 'manage_comments_custom_column', [ $this, 'showCustomColumnOnCommentsPage' ], 10, 2 );
-		add_filter( 'manage_edit-comments_columns', [ $this, 'addCustomColumnToCommentsPage' ] );
-	}
 
 	/**
 	 * Add a custom column to the WordPress comment page
@@ -42,7 +28,9 @@ class UserModule extends Module {
 		global $comment_id;
 		if ( 'human_id' == $column ) {
 			$comment_id = $id;
-			$this->renderContent( 'comment' );
+
+			$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+			$wordpress_tools->renderView( 'users.comment' );
 		}
 	}
 
@@ -75,7 +63,8 @@ class UserModule extends Module {
 	 * Displays content on users page
 	 */
 	public function usersPageContent() {
-		$this->renderContent( 'index' );
+		$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+		$wordpress_tools->renderView( 'users.index' );
 	}
 
 	/**
@@ -83,24 +72,43 @@ class UserModule extends Module {
 	 * @since v1.0.0
 	 */
 	public function updateUser() {
-		$validator = Validator::make( [
+		$validator = KMValidator::make( [
 			'human_id' => "required",
 			'status'   => "required|bool",
 		], $_POST );
 
 		if ( $validator->validate() ) {
-			$human_id = sanitize_text_field($_POST['human_id']);
-			$status   = sanitize_text_field($_POST['status'] == 'true');
+
+			$human_id = sanitize_text_field( $_POST['human_id'] );
+			$status   = sanitize_text_field( $_POST['status'] == 'true' );
 			$user     = User::where( 'human_id', '=', $human_id )->get();
+
 			if ( sizeof( $user ) > 0 ) {
 				$user          = $user[0];
 				$user->blocked = $status;
 				$user->save();
+
 				echo json_encode( __( "User updated", HIDSF_TEXT_DOMAIN ) );
 			} else {
 				wp_send_json_error( __( 'Invalid humanID', HIDSF_TEXT_DOMAIN ), 400 );
 			}
 		}
 		wp_die();
+	}
+
+	protected function addActions() {
+		parent::addActions();
+		add_action( 'wp_ajax_hidsf_update_user', [ $this, 'updateUser' ] );
+	}
+
+	/**
+	 * @since v1.0.0
+	 */
+	protected function addFilters() {
+		parent::addFilters();
+//		add_filter( 'hidsf_sub_menu_pages_filter', [ $this, 'addSubMenuPage' ] );
+
+		add_filter( 'manage_comments_custom_column', [ $this, 'showCustomColumnOnCommentsPage' ], 10, 2 );
+		add_filter( 'manage_edit-comments_columns', [ $this, 'addCustomColumnToCommentsPage' ] );
 	}
 }

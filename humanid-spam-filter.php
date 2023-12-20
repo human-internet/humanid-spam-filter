@@ -8,7 +8,7 @@
  * Plugin Name: humanID – Anti-Spam Comment Filter || Stop junk comments & Protect your users' privacy. 100% open source.
  * Plugin URI: https://github.com/human-internet/humanid-spam-filter
  * Description: Replace ReCAPTCHA with a faster, user-friendly solution and block spammers & bots permanently
- * Version: 2.0.0
+ * Version: 2.1.0
  * Author: humanID
  * Author URI: https://human-id.org/
  * License: GPL-2.0+
@@ -19,14 +19,13 @@
 
 namespace humanid_spam_filter;
 
+use WordPressTools;
+
 defined( 'ABSPATH' ) or die( 'Giving To Cesar What Belongs To Caesar' );
 
 require 'constants.php';
 require HIDSF_CORE_DIR . '/HidSpamFilter.php';
 require HIDSF_CORE_DIR . '/Module.php';
-require HIDSF_CORE_DIR . '/Migration.php';
-require HIDSF_CORE_DIR . '/Model.php';
-require HIDSF_CORE_DIR . '/Validator.php';
 
 
 /**
@@ -62,17 +61,35 @@ add_action( 'admin_notices', 'humanid_spam_filter\\HIDSFErrorNotice', 10, 1 );
 function HIDSFLoader(): bool {
 	$error = false;
 
+	$requires = apply_filters( 'hidsf_requires_filter', [] );
+
+	foreach ( $requires as $file ) {
+		if ( ! $filepath = file_exists( $file ) ) {
+			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', KMCF7MS_TEXT_DOMAIN ), $file ) );
+			$error = true;
+		} else {
+			require_once $file;
+		}
+	}
+
+
+	// scan directories for includes.php files
+	foreach ( scandir( __DIR__ ) as $dir ) {
+		if ( strpos( $dir, '.' ) === false && is_dir( __DIR__ . '/' . $dir ) && is_file( __DIR__ . '/' . $dir . '/includes.php' ) ) {
+			require_once __DIR__ . '/' . $dir . '/includes.php';
+		}
+	}
+
 	$includes = apply_filters( 'hidsf_includes_filter', [] );
 
 	foreach ( $includes as $file ) {
 		if ( ! $filepath = file_exists( $file ) ) {
-			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', HIDSF_TEXT_DOMAIN ), $file ) );
+			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', KMCF7MS_TEXT_DOMAIN ), $file ) );
 			$error = true;
 		} else {
 			include_once $file;
 		}
 	}
-
 	return $error;
 }
 
@@ -81,7 +98,9 @@ function HIDSFLoader(): bool {
  * @since v1.0.0
  */
 function HIDSFStart() {
-	Migration::runUpdateMigrations();
+	$wordpress_tools = new WordPressTools( __FILE__ );
+	$wordpress_tools->migration_manager->runMigrations();
+
 	$spam_filter = new HidSpamFilter();
 	$spam_filter->start();
 }

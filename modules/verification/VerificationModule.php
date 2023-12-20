@@ -3,86 +3,23 @@
 namespace humanid_spam_filter;
 
 use Exception;
-use function cli\render;
+use WordPressTools;
 
 class VerificationModule extends Module {
 	/**
+	 * Generates a random key
+	 * @throws Exception
 	 * @since v1.0.0
 	 */
-	protected function addActions() {
-		parent::addActions();
-		add_action( 'comment_post', [ $this, 'saveComment' ] );
-		add_action( 'wp_footer', [ $this, 'addModal' ] );
-		add_action( 'comment_form_after_fields', [ $this, 'addHumanIDField' ] );
-		add_action( 'comment_form_logged_in_after', [ $this, 'addHumanIDField' ] );
+	public static function generateRandomKey( $length = 10 ): string {
+		$keys      = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$randomKey = '';
+		for ( $i = 0; $i < $length; $i ++ ) {
+			$index     = random_int( 0, strlen( $keys ) - 1 );
+			$randomKey .= $keys[ $index ];
+		}
 
-		add_action( 'wp_ajax_nopriv_hidsf_get_login_url', [ $this, 'getLoginUrl' ] );
-		add_action( 'wp_ajax_hidsf_get_login_url', [ $this, 'getLoginUrl' ] );
-
-
-		// Add verification success redirect link
-		add_action( 'init', function () {
-			add_rewrite_rule( 'hid-verification-successful', 'index.php?hid-verification-successful=$matches[0]', 'top' );
-		} );
-
-		add_action( 'template_include', function ( $template ) {
-			if ( get_query_var( 'hid-verification-successful' ) == false || get_query_var( 'hid-verification-successful' ) == '' ) {
-				return $template;
-			}
-
-			return HIDSF_MODULE_DIR . '/verification/templates/success.php';
-		} );
-
-		// Add verification failed redirect link
-		add_action( 'init', function () {
-			add_rewrite_rule( 'hid-verification-failed', 'index.php?hid-verification-failed=$matches[0]', 'top' );
-		} );
-
-		add_action( 'template_include', function ( $template ) {
-			if ( get_query_var( 'hid-verification-failed' ) == false || get_query_var( 'hid-verification-failed' ) == '' ) {
-				return $template;
-			}
-
-			return HIDSF_MODULE_DIR . '/verification/templates/failure.php';
-		} );
-
-		// Add verification popup
-		add_action( 'init', function () {
-			add_rewrite_rule( 'hid-verification', 'index.php?hid-verification=$matches[0]', 'top' );
-		} );
-
-		add_action( 'template_include', function ( $template ) {
-			if ( get_query_var( 'hid-verification' ) == false || get_query_var( 'hid-verification' ) == '' ) {
-				return $template;
-			}
-
-			return HIDSF_MODULE_DIR . '/verification/templates/popup.php';
-		} );
-	}
-
-	/**
-	 * @since v1.0.0
-	 */
-	protected function addFilters() {
-		parent::addFilters();
-		add_filter( 'query_vars', function ( $query_vars ) {
-			$query_vars[] = 'hid-verification';
-
-			return $query_vars;
-		} );
-		add_filter( 'query_vars', function ( $query_vars ) {
-			$query_vars[] = 'hid-verification-failed';
-
-			return $query_vars;
-		} );
-		add_filter( 'query_vars', function ( $query_vars ) {
-			$query_vars[] = 'hid-verification-successful';
-
-			return $query_vars;
-		} );
-
-		add_filter( 'preprocess_comment', [ $this, 'validateComment' ] );
-
+		return $randomKey;
 	}
 
 	/**
@@ -134,7 +71,8 @@ class VerificationModule extends Module {
 	 * @since v1.0.0
 	 */
 	public function addModal() {
-		$this->renderContent( 'popup' );
+		$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+		$wordpress_tools->renderView( 'verification.popup' );
 	}
 
 	/**
@@ -173,18 +111,86 @@ class VerificationModule extends Module {
 	}
 
 	/**
-	 * Generates a random key
-	 * @throws Exception
 	 * @since v1.0.0
 	 */
-	public static function generateRandomKey( $length = 10 ): string {
-		$keys      = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		$randomKey = '';
-		for ( $i = 0; $i < $length; $i ++ ) {
-			$index     = random_int( 0, strlen( $keys ) - 1 );
-			$randomKey .= $keys[ $index ];
-		}
+	protected function addActions() {
+		parent::addActions();
+		add_action( 'comment_post', [ $this, 'saveComment' ] );
+		add_action( 'wp_footer', [ $this, 'addModal' ] );
+		add_action( 'comment_form_after_fields', [ $this, 'addHumanIDField' ] );
+		add_action( 'comment_form_logged_in_after', [ $this, 'addHumanIDField' ] );
 
-		return $randomKey;
+		add_action( 'wp_ajax_nopriv_hidsf_get_login_url', [ $this, 'getLoginUrl' ] );
+		add_action( 'wp_ajax_hidsf_get_login_url', [ $this, 'getLoginUrl' ] );
+
+
+		// Add verification success redirect link
+		add_action( 'init', function () {
+			add_rewrite_rule( 'hid-verification-successful', 'index.php?hid-verification-successful=$matches[0]', 'top' );
+		} );
+
+		add_action( 'template_include', function ( $template ) {
+			if ( get_query_var( 'hid-verification-successful' ) == false || get_query_var( 'hid-verification-successful' ) == '' ) {
+				return $template;
+			}
+
+			$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+
+			return $wordpress_tools->viewPath( 'verification.success' );
+		} );
+
+		// Add verification failed redirect link
+		add_action( 'init', function () {
+			add_rewrite_rule( 'hid-verification-failed', 'index.php?hid-verification-failed=$matches[0]', 'top' );
+		} );
+
+		add_action( 'template_include', function ( $template ) {
+			if ( get_query_var( 'hid-verification-failed' ) == false || get_query_var( 'hid-verification-failed' ) == '' ) {
+				return $template;
+			}
+			$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+
+			return $wordpress_tools->viewPath( 'verification.failure' );
+		} );
+
+		// Add verification popup
+		add_action( 'init', function () {
+			add_rewrite_rule( 'hid-verification', 'index.php?hid-verification=$matches[0]', 'top' );
+		} );
+
+		add_action( 'template_include', function ( $template ) {
+			if ( get_query_var( 'hid-verification' ) == false || get_query_var( 'hid-verification' ) == '' ) {
+				return $template;
+			}
+
+			$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+
+			return $wordpress_tools->viewPath( 'verification.popup' );
+		} );
+	}
+
+	/**
+	 * @since v1.0.0
+	 */
+	protected function addFilters() {
+		parent::addFilters();
+		add_filter( 'query_vars', function ( $query_vars ) {
+			$query_vars[] = 'hid-verification';
+
+			return $query_vars;
+		} );
+		add_filter( 'query_vars', function ( $query_vars ) {
+			$query_vars[] = 'hid-verification-failed';
+
+			return $query_vars;
+		} );
+		add_filter( 'query_vars', function ( $query_vars ) {
+			$query_vars[] = 'hid-verification-successful';
+
+			return $query_vars;
+		} );
+
+		add_filter( 'preprocess_comment', [ $this, 'validateComment' ] );
+
 	}
 }

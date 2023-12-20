@@ -5,11 +5,12 @@
  * Date: 6/5/19
  * Time: 12:41 PM
  * @author kofi mokome
- * @version  1.0.3
+ * @version  1.0.4
  */
 
 if ( ! class_exists( 'KMSubMenuPage' ) ) {
 
+	#[AllowDynamicProperties]
 	class KMSubMenuPage {
 		private $page_title;
 		private $menu_title;
@@ -32,13 +33,13 @@ if ( ! class_exists( 'KMSubMenuPage' ) ) {
 				'menu_title'  => '',
 				'capability'  => '',
 				'menu_slug'   => '',
-				'position'    => null,
+				'position'    => 0,
 				'function'    => null,
 				'use_tabs'    => false
 			);
 			$data         = array_merge( $default_data, $data );
 			$page_title   = sanitize_text_field( $data['page_title'] );
-			$menu_title   = sanitize_text_field( $data['menu_title'] );
+			$menu_title   = wp_kses_post( $data['menu_title'] );
 			$capability   = sanitize_text_field( $data['capability'] );
 			$menu_slug    = sanitize_text_field( $data['menu_slug'] );
 			$position     = sanitize_text_field( $data['position'] );
@@ -48,7 +49,7 @@ if ( ! class_exists( 'KMSubMenuPage' ) ) {
 			$this->menu_title  = $menu_title;
 			$this->capability  = $capability;
 			$this->menu_slug   = $menu_slug;
-			$this->position    = $position;
+			$this->position    = intval( $position );
 			$this->parent_slug = $parent_slug;
 			$this->function    = $data['function'];
 			if ( $data['use_tabs'] ) {

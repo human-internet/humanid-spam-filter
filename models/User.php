@@ -2,6 +2,8 @@
 
 namespace humanid_spam_filter;
 
-class User extends Model {
-	protected static bool $timestamps = true;
+use KMModel;
+
+class User extends KMModel {
+	protected $timestamps = true;
 }
