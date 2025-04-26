@@ -8,7 +8,7 @@
  * Plugin Name: humanID – Anti-Spam Comment Filter || Stop junk comments & Protect your users' privacy. 100% open source.
  * Plugin URI: https://github.com/human-internet/humanid-spam-filter
  * Description: Replace ReCAPTCHA with a faster, user-friendly solution and block spammers & bots permanently
- * Version: 2.1.0
+ * Version: 2.1.1
  * Author: humanID
  * Author URI: https://human-id.org/
  * License: GPL-2.0+
@@ -20,7 +20,7 @@
 namespace humanid_spam_filter;
 
 use KMEnv;
-use WordPressTools;
+use WPTools;
 
 defined( 'ABSPATH' ) or die( 'Giving To Cesar What Belongs To Caesar' );
 
@@ -62,7 +62,7 @@ function HIDSFLoader(): bool {
 
 	foreach ( $requires as $file ) {
 		if ( ! $filepath = file_exists( $file ) ) {
-			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', KMCF7MS_TEXT_DOMAIN ), $file ) );
+			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', HIDSF_TEXT_DOMAIN ), $file ) );
 			$error = true;
 		} else {
 			require_once $file;
@@ -81,7 +81,7 @@ function HIDSFLoader(): bool {
 
 	foreach ( $includes as $file ) {
 		if ( ! $filepath = file_exists( $file ) ) {
-			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', KMCF7MS_TEXT_DOMAIN ), $file ) );
+			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', HIDSF_TEXT_DOMAIN ), $file ) );
 			$error = true;
 		} else {
 			include_once $file;
@@ -96,16 +96,11 @@ function HIDSFLoader(): bool {
  * @since v1.0.0
  */
 function HIDSFStart() {
-	$wordpress_tools = new WordPressTools( __FILE__ );
+	$wordpress_tools = new WPTools( __FILE__ );
 	$wordpress_tools->migration_manager->runMigrations();
 
 	$spam_filter = new HidSpamFilter();
 	$spam_filter->start();
-}
-
-
-if ( ! HIDSFLoader() ) {
-	HIDSFStart();
 }
 
 
@@ -133,7 +128,7 @@ function HIDSFUninstall() {
 	global $wpdb;
 
 	delete_option( 'hidsf_is_permalink_updated' );
-	$instance = WordPressTools::getInstance( __FILE__ );
+	$instance = WPTools::getInstance( __FILE__ );
 	$instance->migration_manager->dropAll();
 
 	//query the wp options table and delete all options that start with hidsf_
@@ -158,5 +153,10 @@ function HIDSFActivation() {
 	// set options to add here
 }
 
+add_action( 'init', function () {
+	if ( ! HIDSFLoader() ) {
+		HIDSFStart();
+	}
 // todo: for future use
-load_plugin_textdomain( HIDSF_TEXT_DOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( HIDSF_TEXT_DOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages' );
+} );

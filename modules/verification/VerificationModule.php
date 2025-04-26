@@ -3,7 +3,7 @@
 namespace humanid_spam_filter;
 
 use Exception;
-use WordPressTools;
+use WPTools;
 
 class VerificationModule extends Module {
 	/**
@@ -71,7 +71,7 @@ class VerificationModule extends Module {
 	 * @since v1.0.0
 	 */
 	public function addModal() {
-		$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+		$wordpress_tools = WPTools::getInstance( __FILE__ );
 		$wordpress_tools->renderView( 'verification.popup' );
 	}
 
@@ -134,7 +134,7 @@ class VerificationModule extends Module {
 				return $template;
 			}
 
-			$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+			$wordpress_tools = WPTools::getInstance( __FILE__ );
 
 			return $wordpress_tools->viewPath( 'verification.success' );
 		} );
@@ -148,7 +148,7 @@ class VerificationModule extends Module {
 			if ( get_query_var( 'hid-verification-failed' ) == false || get_query_var( 'hid-verification-failed' ) == '' ) {
 				return $template;
 			}
-			$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+			$wordpress_tools = WPTools::getInstance( __FILE__ );
 
 			return $wordpress_tools->viewPath( 'verification.failure' );
 		} );
@@ -163,7 +163,7 @@ class VerificationModule extends Module {
 				return $template;
 			}
 
-			$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+			$wordpress_tools = WPTools::getInstance( __FILE__ );
 
 			return $wordpress_tools->viewPath( 'verification.popup' );
 		} );

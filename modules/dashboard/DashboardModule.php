@@ -4,7 +4,7 @@ namespace humanid_spam_filter;
 
 use KMSetting;
 use KMSubMenuPage;
-use WordPressTools;
+use WPTools;
 
 class DashboardModule extends Module {
 	private string $blocked;
@@ -46,7 +46,7 @@ class DashboardModule extends Module {
 	 * Displays content on dashboard page
 	 */
 	public function dashboardPageContent() {
-		$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+		$wordpress_tools = WPTools::getInstance( __FILE__ );
 		$wordpress_tools->renderView( 'dashboard.index' );
 	}
 

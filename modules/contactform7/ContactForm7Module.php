@@ -128,12 +128,14 @@ class ContactForm7Module extends Module {
 	 * @since v1.1.0
 	 */
 	public function modifyDisplayMessage( $message, $status ) {
-		$submission     = WPCF7_Submission::get_instance();
-		$invalid_fields = $submission->get_invalid_fields();
+		$submission = WPCF7_Submission::get_instance();
+		if ( $submission ) {
+			$invalid_fields = $submission->get_invalid_fields();
 
-		// show custom message only if the humanID field is the only invalid field
-		if ( strlen( trim( $this->error_message ) ) > 0 && sizeof( $invalid_fields ) == 1 ) {
-			$message = $this->error_message;
+			// show custom message only if the humanID field is the only invalid field
+			if ( strlen( trim( $this->error_message ) ) > 0 && sizeof( $invalid_fields ) == 1 ) {
+				$message = $this->error_message;
+			}
 		}
 
 		return $message;

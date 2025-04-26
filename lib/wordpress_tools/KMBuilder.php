@@ -11,6 +11,7 @@ if ( ! class_exists( 'KMBuilder' ) ) {
 		private $table_name;
 		public $where = '';
 		public $orderBys = [];
+		public $selects = [];
 		public $groupBys = [];
 		public $pagination = '';
 		public $join = '';
@@ -20,7 +21,7 @@ if ( ! class_exists( 'KMBuilder' ) ) {
 		private $model;
 		private $context;
 
-		function __construct( string $table, KMModel $model, string $context) {
+		function __construct( string $table, KMModel $model, string $context ) {
 			$this->table_name = $table;
 			$this->model      = $model;
 			$this->context    = $context;
@@ -92,17 +93,35 @@ if ( ! class_exists( 'KMBuilder' ) ) {
 		 * example
 		 * [Job::tableName().'.*',Currency::tableName().'.code',JobType::tableName().'.name AS job_type_name '],
 		 */
+		public function select( $fields = [] ): KMBuilder {
+			if ( is_array( $fields ) ) {
+				$this->selects = $fields;
+			} else {
+				$this->selects = explode( ',', $fields );
+			}
+
+			return $this;
+		}
+
+		/**
+		 * @param array $fields the fields to get. if empty, query will get everything
+		 *
+		 * @author kofimokome
+		 * @since 1.0.0
+		 * example
+		 * [Job::tableName().'.*',Currency::tableName().'.code',JobType::tableName().'.name AS job_type_name '],
+		 */
 		public function get( array $fields = [] ) {
 			global $wpdb;
+			if ( sizeof( $fields ) > 0 ) {
+				$this->select( $fields );
+			}
 			$table_name = $this->table_name;
 
 			$db_name = $table_name;
 			$select  = "SELECT * "; // set select all as the default
-			if ( sizeof( $fields ) > 0 ) { // we want to get specific fields, not everything, eg only id, name
-				$select = 'SELECT ';
-				foreach ( $fields as $field ) {
-					$select .= $field . ', ';
-				}
+			if ( sizeof( $this->selects ) > 0 ) { // we want to get specific fields, not everything, eg only id, name
+				$select = 'SELECT ' . implode( ', ', $this->selects ) . ' ';
 			}
 			$select    = rtrim( $select, ', ' ); // removes the last comma (,) from the select statement
 			$data      = [];
@@ -163,8 +182,7 @@ if ( ! class_exists( 'KMBuilder' ) ) {
 				$query .= $additions;
 				$data  = $this->getResults( $query );
 			}
-//			echo( $query );
-			// reset query variables;
+ 			// reset query variables;
 			$this->where        = '';
 			$this->orderBys     = [];
 			$this->groupBys     = [];
@@ -184,10 +202,11 @@ if ( ! class_exists( 'KMBuilder' ) ) {
 		public function where( string $field, string $comparison, $value, $add_table_name = true ): KMBuilder {
 			$table_name = $add_table_name ? $this->table_name . '.' : '';
 			if ( strlen( $this->where ) == 0 ) {
-
+				$value = $this->escapeValue( $value );
 				if ( ! is_numeric( $value ) ) {
 					$value = "'" . $value . "'";
 				}
+
 				$this->where = " WHERE " . $table_name . $field . " " . $comparison . " " . $value;
 
 				return $this;
@@ -202,13 +221,45 @@ if ( ! class_exists( 'KMBuilder' ) ) {
 		 */
 		public function andWhere( string $field, string $comparison, $value ): KMBuilder {
 			$table_name = $this->table_name;
+			$value      = $this->escapeValue( $value );
+
 			if ( ! is_numeric( $value ) ) {
 				$value = "'" . $value . "'";
 			}
+
 			$this->where .= " AND " . $table_name . '.' . $field . " " . $comparison . " " . $value;
+
 
 			return $this;
 		}
+
+		/**
+		 * @author kofimokome
+		 * @since 1.6.3.3
+		 */
+		private function escapeValue( $value ): string {
+			// Check if the value starts with %
+			$starts_with_percent = strpos( $value, '%' ) === 0;
+			// Check if the value ends with %
+			$ends_with_percent = strrpos( $value, '%' ) === ( strlen( $value ) - 1 );
+
+			// Remove % from the start and end of the value
+			$trimmed_value = trim( $value, '%' );
+
+			// Escape the trimmed value
+			$escaped_value = esc_sql( $trimmed_value );
+
+			// Add % back to the start and/or end if they were originally present
+			if ( $starts_with_percent ) {
+				$escaped_value = '%' . $escaped_value;
+			}
+			if ( $ends_with_percent ) {
+				$escaped_value .= '%';
+			}
+
+			return $escaped_value;
+		}
+
 
 		/**
 		 * @author kofimokome
@@ -281,10 +332,13 @@ if ( ! class_exists( 'KMBuilder' ) ) {
 		 */
 		public function orWhere( string $field, string $comparison, $value ): KMBuilder {
 			$table_name = $this->table_name;
+			$value      = $this->escapeValue( $value );
 			if ( ! is_numeric( $value ) ) {
 				$value = "'" . $value . "'";
 			}
+
 			$this->where .= " OR " . $table_name . '.' . $field . " " . $comparison . " " . $value;
+
 
 			return $this;
 		}
@@ -294,9 +348,12 @@ if ( ! class_exists( 'KMBuilder' ) ) {
 		 * @since 1.0.0
 		 */
 		public function whereJoin( string $field, string $comparison, $value, $table ): KMBuilder {
+			$value = $this->escapeValue( $value );
+
 			if ( ! is_numeric( $value ) ) {
 				$value = "'" . $value . "'";
 			}
+
 			$this->where = " WHERE " . $table . '.' . $field . " " . $comparison . " " . $value;
 
 			return $this;
@@ -307,9 +364,12 @@ if ( ! class_exists( 'KMBuilder' ) ) {
 		 * @since 1.0.0
 		 */
 		public function andWhereJoin( string $field, string $comparison, $value, $table ): KMBuilder {
+			$value = $this->escapeValue( $value );
+
 			if ( ! is_numeric( $value ) ) {
 				$value = "'" . $value . "'";
 			}
+
 			$this->where .= " AND " . $table . '.' . $field . " " . $comparison . " " . $value;
 
 			return $this;
@@ -320,10 +380,13 @@ if ( ! class_exists( 'KMBuilder' ) ) {
 		 * @since 1.0.0
 		 */
 		public function orWhereJoin( string $field, string $comparison, $value, $table ): KMBuilder {
+			$value = $this->escapeValue( $value );
 			if ( ! is_numeric( $value ) ) {
 				$value = "'" . $value . "'";
 			}
+
 			$this->where .= " OR " . $table . '.' . $field . " " . $comparison . " " . $value;
+
 
 			return $this;
 		}
@@ -428,13 +491,14 @@ if ( ! class_exists( 'KMBuilder' ) ) {
 			$table_name = $this->table_name;
 			if ( $this->model->id == 0 ) { // we are creating
 				if ( $this->model->hasTimeStamps() ) {
-					$fields['created_at'] = date( "Y-m-d H:i" );
-					$fields['updated_at'] = date( "Y-m-d H:i" );
+					$fields['created_at'] = gmdate( "Y-m-d H:i" );
+					$fields['updated_at'] = gmdate( "Y-m-d H:i" );
 				}
-				$result = $wpdb->insert( $table_name, $fields );
+				$fields['id'] = null;
+				$result       = $wpdb->insert( $table_name, $fields );
 			} else { // we are updating
 				if ( $this->model->hasTimeStamps() ) {
-					$fields['updated_at'] = date( "Y-m-d H:i" );
+					$fields['updated_at'] = gmdate( "Y-m-d H:i" );
 				}
 				unset( $fields['id'] );
 				$result = $wpdb->update( $table_name, $fields, [ 'id' => $this->model->id ] );

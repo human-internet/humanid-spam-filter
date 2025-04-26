@@ -4,7 +4,7 @@ namespace humanid_spam_filter;
 
 use KMSubMenuPage;
 use KMValidator;
-use WordPressTools;
+use WPTools;
 
 $comment_id = ''; // used in comment.php
 
@@ -29,7 +29,7 @@ class UserModule extends Module {
 		if ( 'human_id' == $column ) {
 			$comment_id = $id;
 
-			$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+			$wordpress_tools = WPTools::getInstance( __FILE__ );
 			$wordpress_tools->renderView( 'users.comment' );
 		}
 	}
@@ -63,7 +63,7 @@ class UserModule extends Module {
 	 * Displays content on users page
 	 */
 	public function usersPageContent() {
-		$wordpress_tools = WordPressTools::getInstance( __FILE__ );
+		$wordpress_tools = WPTools::getInstance( __FILE__ );
 		$wordpress_tools->renderView( 'users.index' );
 	}
 
