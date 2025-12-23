@@ -1,7 +1,7 @@
-=== humanID – Anti-Spam Comment Filter || Stop junk comments & Protect your users' privacy. 100% open source. ===
+=== humanID – Anti-Spam Comment Filter ===
 Contributors: kofimokome
 Donate link: https://human-id.org/donate/
-Tags: anti-spam,comment spam,spam protection, contact form 7, contact-form-7, human id, human-id
+Tags: anti-spam,comment spam,spam protection, contact form 7, human id
 Requires at least: 5.7
 Tested up to: 6.8
 Stable tag: 2.1.1

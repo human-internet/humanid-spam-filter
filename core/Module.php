@@ -50,31 +50,6 @@ class Module {
 	/**
 	 * @since v1.0.0
 	 */
-	protected function renderContent( $template = '', $echo = true ) {
-
-		$parent_module_folder = HIDSF_MODULE_DIR;
-		$template     = str_replace( '.', '/', $template );
-
-		// Start output buffering.
-		ob_start();
-		ob_implicit_flush( 0 );
-		try {
-			include $parent_module_folder . '/' . $this->module . '/templates/' . $template . '.php';
-		} catch ( Exception $e ) {
-			ob_end_clean();
-			throw $e;
-		}
-
-		if ( $echo ) {
-			echo ob_get_clean();
-		} else {
-			return ob_get_clean();
-		}
-	}
-
-	/**
-	 * @since v1.0.0
-	 */
 	public static function getModules( $dir, $show_folder_name = true ) {
 		$ffs   = scandir( $dir );
 		$files = array();

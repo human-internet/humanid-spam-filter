@@ -6,7 +6,7 @@ $client_secret = get_option( 'hidsf_client_secret', '' );
 $client_id     = get_option( 'hidsf_client_id', '' );
 $random_key    = VerificationModule::generateRandomKey();
 if ( isset( $_GET['et'] ) ) {
-	_e( "Please wait...", HIDSF_TEXT_DOMAIN );
+	esc_html_e( "Please wait...", 'humanid-spam-filter' );
 
 	$et   = sanitize_text_field( $_GET['et'] );
 	$et   = strip_tags( (string) wp_unslash( $et ) );
@@ -16,11 +16,11 @@ if ( isset( $_GET['et'] ) ) {
 			"client-id"     => $client_id,
 			"client-secret" => $client_secret,
 		],
-		'body'    => json_encode( [ "exchangeToken" => $et ] )
+		'body'    => wp_json_encode( [ "exchangeToken" => $et ] )
 	] );
 	if ( gettype( $resp ) == 'object' ) : ?>
         <script>
-            window.opener.verificationFailed("<?php _e( "An error occurred. Please try again", HIDSF_TEXT_DOMAIN )?>")
+            window.opener.verificationFailed("<?php esc_html_e( "An error occurred. Please try again", 'humanid-spam-filter' )?>")
             window.close();
         </script>
 
@@ -43,7 +43,7 @@ if ( isset( $_GET['et'] ) ) {
 
 	endif;
 } else {
-	_e( "Invalid Request", HIDSF_TEXT_DOMAIN );
+	esc_html_e( "Invalid Request", 'humanid-spam-filter' );
 	?>
     <script>
         window.close();

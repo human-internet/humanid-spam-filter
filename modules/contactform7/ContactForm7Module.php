@@ -55,7 +55,8 @@ class ContactForm7Module extends Module {
 
 	public function tgPaneCallback( $contact_form, $args = '' ) {
 		if ( class_exists( 'WPCF7_TagGenerator' ) ) :
-			$description = __( "Add humanID verification to this form see %s.", HIDSF_TEXT_DOMAIN );
+            /* translators: %s Link to humanID plugins page */
+			$description = __( "Add humanID verification to this form. See %s.", 'humanid-spam-filter' );
 			$desc_link = '<a href="https://wordpress.org/plugins/humanid-spam-filter/" target="_blank"> humanID </a>';
 			?>
             <div class="control-box">
@@ -66,7 +67,7 @@ class ContactForm7Module extends Module {
                         <tbody>
                         <tr>
                             <th scope="row">
-                                <label for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'contact-form-7-honeypot' ) ); ?></label>
+                                <label for="<?php echo esc_attr( $args['content'] . '-name' ); ?>"><?php echo esc_html( __( 'Name', 'humanid-spam-filter' ) ); ?></label>
                             </th>
                             <td>
                                 <input type="text" name="name" class="tg-name oneline"
@@ -84,7 +85,7 @@ class ContactForm7Module extends Module {
 
                 <div class="submitbox">
                     <input type="button" class="button button-primary insert-tag"
-                           value="<?php echo esc_attr( __( 'Insert Tag', HIDSF_TEXT_DOMAIN ) ); ?>"/>
+                           value="<?php echo esc_attr( __( 'Insert Tag', 'humanid-spam-filter' ) ); ?>"/>
                 </div>
 
                 <br class="clear"/>
@@ -100,23 +101,23 @@ class ContactForm7Module extends Module {
 		$name = $tag->name;
 
 		if ( ! isset( $_POST[ $name ] ) ) {
-			$this->error_message = __( 'humanID: Please verify that you are not a bot.', HIDSF_TEXT_DOMAIN );
-			$result->invalidate( $tag, __( 'Please verify that you are not a bot.', HIDSF_TEXT_DOMAIN ) );
+			$this->error_message = __( 'humanID: Please verify that you are not a bot.', 'humanid-spam-filter' );
+			$result->invalidate( $tag, __( 'Please verify that you are not a bot.', 'humanid-spam-filter' ) );
 		}
 
 		$human_id_key = wp_filter_nohtml_kses( $_POST[ $name ] );
 		$human_id     = get_option( $human_id_key, '' );
 		if ( trim( $human_id ) == '' ) {
-			$this->error_message = __( ' humanID: Please verify that you are not a bot.', HIDSF_TEXT_DOMAIN );
-			$result->invalidate( $tag, __( ' Please verify that you are not a bot.', HIDSF_TEXT_DOMAIN ) );
+			$this->error_message = __( ' humanID: Please verify that you are not a bot.', 'humanid-spam-filter' );
+			$result->invalidate( $tag, __( ' Please verify that you are not a bot.', 'humanid-spam-filter' ) );
 		}
 
 		$user = User::where( 'human_id', '=', $human_id )->get();
 		if ( sizeof( $user ) > 0 ) {
 			$user = $user[0];
 			if ( $user->blocked == 1 ) {
-				$this->error_message = __( 'humanID: This website has blocked you from submitting this form.', HIDSF_TEXT_DOMAIN );
-				$result->invalidate( $tag, __( 'This website has blocked you from submitting this form.', HIDSF_TEXT_DOMAIN ) );
+				$this->error_message = __( 'humanID: This website has blocked you from submitting this form.', 'humanid-spam-filter' );
+				$result->invalidate( $tag, __( 'This website has blocked you from submitting this form.', 'humanid-spam-filter' ) );
 			}
 		}
 

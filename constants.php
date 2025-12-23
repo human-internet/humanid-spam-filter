@@ -16,6 +16,3 @@ const HIDSF_MODELS_DIR     = HIDSF_DIR . 'models';
 const HIDSF_MIGRATIONS_DIR = HIDSF_DIR . 'migrations';
 const HIDSF_MODULE_DIR     = HIDSF_DIR . 'modules';
 const HIDSF_AJAX_DIR       = HIDSF_DIR . 'ajax';
-
-const HIDSF_TEXT_DOMAIN = 'humanid-spam-filter';
-

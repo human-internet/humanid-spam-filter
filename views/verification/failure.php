@@ -14,7 +14,7 @@ if ( isset( $_GET['message'] ) ) {
 
 	<?php
 } else {
-	_e( "Invalid Request", HIDSF_TEXT_DOMAIN );
+	esc_html_e( "Invalid Request", 'humanid-spam-filter' );
 	?>
     <script>
         window.opener.verificationFailed("")

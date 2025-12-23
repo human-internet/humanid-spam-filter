@@ -26,10 +26,7 @@ class HidSpamFilter {
 
 		foreach ( $option_names as $option_name ) {
 			if ( get_option( $option_name ) == false ) {
-				// The option hasn't been added yet. We'll add it with $autoload set to 'no'.
-				$deprecated = null;
-				$autoload   = 'no';
-				add_option( $option_name, 0, $deprecated, $autoload );
+				add_option( $option_name, 0 );
 			}
 		}
 	}

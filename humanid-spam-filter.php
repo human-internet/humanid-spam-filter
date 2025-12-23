@@ -5,7 +5,7 @@
  * @package           humanid_spam_filter
  *
  * @wordpress-plugin
- * Plugin Name: humanID – Anti-Spam Comment Filter || Stop junk comments & Protect your users' privacy. 100% open source.
+ * Plugin Name: humanID — Anti‑Spam Comment Filter
  * Plugin URI: https://github.com/human-internet/humanid-spam-filter
  * Description: Replace ReCAPTCHA with a faster, user-friendly solution and block spammers & bots permanently
  * Version: 2.1.1
@@ -62,7 +62,8 @@ function HIDSFLoader(): bool {
 
 	foreach ( $requires as $file ) {
 		if ( ! $filepath = file_exists( $file ) ) {
-			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', HIDSF_TEXT_DOMAIN ), $file ) );
+            /* translators: %s  Name of the file */
+			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', 'humanid-spam-filter' ), $file ) );
 			$error = true;
 		} else {
 			require_once $file;
@@ -81,7 +82,8 @@ function HIDSFLoader(): bool {
 
 	foreach ( $includes as $file ) {
 		if ( ! $filepath = file_exists( $file ) ) {
-			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', HIDSF_TEXT_DOMAIN ), $file ) );
+            /* translators: %s Name of the file */
+            HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', 'humanid-spam-filter' ), $file ) );
 			$error = true;
 		} else {
 			include_once $file;
@@ -158,5 +160,5 @@ add_action( 'init', function () {
 		HIDSFStart();
 	}
 // todo: for future use
-	load_plugin_textdomain( HIDSF_TEXT_DOMAIN, false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'humanid-spam-filter', false, basename( dirname( __FILE__ ) ) . '/languages' );
 } );

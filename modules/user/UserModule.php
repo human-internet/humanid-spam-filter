@@ -15,7 +15,7 @@ class UserModule extends Module {
 	 * @since v1.0.0
 	 */
 	public function addCustomColumnToCommentsPage( $columns ) {
-		$columns['human_id'] = __( 'humanID', HIDSF_TEXT_DOMAIN );
+		$columns['human_id'] = __( 'humanID', 'humanid-spam-filter' );
 
 		return $columns;
 	}
@@ -39,7 +39,7 @@ class UserModule extends Module {
 	 * Adds users page
 	 */
 	function addSubMenuPage( $sub_menu_pages ) {
-		$menu_title = __( "Users", HIDSF_TEXT_DOMAIN );
+		$menu_title = __( "Users", 'humanid-spam-filter' );
 
 		$users_page = new KMSubMenuPage(
 			array(
@@ -88,9 +88,9 @@ class UserModule extends Module {
 				$user->blocked = $status;
 				$user->save();
 
-				echo json_encode( __( "User updated", HIDSF_TEXT_DOMAIN ) );
+				echo wp_json_encode( __( "User updated", 'humanid-spam-filter' ) );
 			} else {
-				wp_send_json_error( __( 'Invalid humanID', HIDSF_TEXT_DOMAIN ), 400 );
+				wp_send_json_error( __( 'Invalid humanID', 'humanid-spam-filter' ), 400 );
 			}
 		}
 		wp_die();

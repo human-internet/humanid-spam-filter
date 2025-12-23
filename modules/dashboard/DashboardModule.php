@@ -74,7 +74,7 @@ class DashboardModule extends Module {
 			array(
 				'type'        => 'text',
 				'id'          => 'hidsf_client_id',
-				'label'       => __( 'Client ID', HIDSF_TEXT_DOMAIN ),
+				'label'       => __( 'Client ID', 'humanid-spam-filter' ),
 				'placeholder' => 'SERVER_XXXXXXXXXXXXXXXXXXXXXX'
 			)
 		);
@@ -82,7 +82,7 @@ class DashboardModule extends Module {
 			array(
 				'type'        => 'text',
 				'id'          => 'hidsf_client_secret',
-				'label'       => __( 'Client Secret', HIDSF_TEXT_DOMAIN ),
+				'label'       => __( 'Client Secret', 'humanid-spam-filter' ),
 				'placeholder' => 'e6-10mx7WaiYfQbZpZNAJHDp7dOLMxu'
 			)
 		);

@@ -3,7 +3,7 @@
 rm humanid-spam-filter.zip
 mkdir humanid-spam-filter
 
-excludes=("humanid-spam-filter" "deploy.sh" "node_modules" "tests" "bin" "get-translation-strings.js" "package.json" "package-lock.json" "sonar-project.properties" "sonar-project.example.properties")
+excludes=("humanid-spam-filter" "deploy.sh" ".idea" "node_modules" "tests" "bin" "get-translation-strings.js" "package.json" "package-lock.json" "sonar-project.properties" "sonar-project.example.properties")
 
 this_dir=$(pwd)
 for entry in $this_dir/*; do
