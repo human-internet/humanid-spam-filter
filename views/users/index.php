@@ -1,7 +1,8 @@
 <?php
 namespace humanid_spam_filter;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
-$link_to_dashboard = admin_url( 'admin.php' ) . '?page=humanid-spam-filter';
+$hidsf_link_to_dashboard = admin_url( 'admin.php' ) . '?page=humanid-spam-filter';
 ?>
 <style>
     #wpcontent {
@@ -12,11 +13,11 @@ $link_to_dashboard = admin_url( 'admin.php' ) . '?page=humanid-spam-filter';
 <div id="wrapper">
 
     <div class="hid-header">
-        <img src="<?php echo HIDSF_ASSET_URL . '/images/humanId.png' ?>" alt="">
+        <img src="<?php echo esc_attr( HIDSF_ASSET_URL . '/images/humanId.png' ) ?>" alt="">
         <div class="hid-header-menu">
             <ul>
                 <li>
-                    <a href="<?php echo esc_html($link_to_dashboard) ?>"><?php esc_html_e( "Home", 'humanid-spam-filter' ) ?></a>
+                    <a href="<?php echo esc_html( $hidsf_link_to_dashboard ) ?>"><?php esc_html_e( "Home", 'humanid-spam-filter' ) ?></a>
                 </li>
                 <li class="active">
                     <a href="#" class="active"><?php esc_html_e( 'Users', 'humanid-spam-filter' ) ?></a>

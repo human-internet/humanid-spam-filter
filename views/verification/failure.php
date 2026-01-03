@@ -1,13 +1,14 @@
 <?php
 
 namespace humanid_spam_filter;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( isset( $_GET['message'] ) ) {
-	$message = sanitize_text_field( $_GET['message'] );
-	$message = strip_tags( (string) wp_unslash( $message ) );
+	$hidsf_message = sanitize_text_field( (string) wp_unslash( $_GET['message']) );
+	$hidsf_message = wp_strip_all_tags( $hidsf_message );
 	?>
     <script>
-        window.opener.verificationFailed(" <?php echo esc_html($message)?>")
+        window.opener.verificationFailed(" <?php echo esc_html($hidsf_message)?>")
         window.close();
     </script>
 

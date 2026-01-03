@@ -1,6 +1,7 @@
 <?php
 
 namespace humanid_spam_filter;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * Add models to be included

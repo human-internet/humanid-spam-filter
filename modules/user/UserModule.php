@@ -1,12 +1,13 @@
 <?php
 
 namespace humanid_spam_filter;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 use KMSubMenuPage;
 use KMValidator;
 use WPTools;
 
-$comment_id = ''; // used in comment.php
+$hidsf_comment_id = ''; // used in comment.php
 
 class UserModule extends Module {
 
@@ -25,9 +26,9 @@ class UserModule extends Module {
 	 * @since v1.0.0
 	 */
 	public function showCustomColumnOnCommentsPage( $column, $id ) {
-		global $comment_id;
+		global $hidsf_comment_id;
 		if ( 'human_id' == $column ) {
-			$comment_id = $id;
+			$hidsf_comment_id = $id;
 
 			$wordpress_tools = WPTools::getInstance( __FILE__ );
 			$wordpress_tools->renderView( 'users.comment' );
@@ -79,8 +80,8 @@ class UserModule extends Module {
 
 		if ( $validator->validate() ) {
 
-			$human_id = sanitize_text_field( $_POST['human_id'] );
-			$status   = sanitize_text_field( $_POST['status'] == 'true' );
+			$human_id = sanitize_text_field( wp_unslash( $_POST['human_id'] ) );
+			$status   = sanitize_text_field( wp_unslash( $_POST['status'] ) ) == 'true';
 			$user     = User::where( 'human_id', '=', $human_id )->get();
 
 			if ( sizeof( $user ) > 0 ) {

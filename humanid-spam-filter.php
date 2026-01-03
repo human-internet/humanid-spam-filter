@@ -33,13 +33,13 @@ require HIDSF_CORE_DIR . '/Module.php';
  * @since v1.0.0
  */
 function HIDSFErrorNotice( $message = '' ) {
-	if ( trim( $message ) != '' ):
-		?>
+    if ( trim( $message ) != '' ):
+        ?>
         <div class="error notice is-dismissible">
             <p><strong>Human ID Spam Filter: </strong><?php echo esc_html( $message ) ?></p>
         </div>
-	<?php
-	endif;
+    <?php
+    endif;
 }
 
 add_action( 'admin_notices', 'humanid_spam_filter\\HIDSFErrorNotice', 10, 1 );
@@ -49,48 +49,48 @@ add_action( 'admin_notices', 'humanid_spam_filter\\HIDSFErrorNotice', 10, 1 );
  * @since v1.0.0
  ***/
 function HIDSFLoader(): bool {
-	$error = false;
+    $error = false;
 
-	// scan directories for requires.php files
-	foreach ( scandir( __DIR__ ) as $dir ) {
-		if ( strpos( $dir, '.' ) === false && is_dir( __DIR__ . '/' . $dir ) && is_file( __DIR__ . '/' . $dir . '/requires.php' ) ) {
-			require_once __DIR__ . '/' . $dir . '/requires.php';
-		}
-	}
+    // scan directories for requires.php files
+    foreach ( scandir( __DIR__ ) as $dir ) {
+        if ( strpos( $dir, '.' ) === false && is_dir( __DIR__ . '/' . $dir ) && is_file( __DIR__ . '/' . $dir . '/requires.php' ) ) {
+            require_once __DIR__ . '/' . $dir . '/requires.php';
+        }
+    }
 
-	$requires = apply_filters( 'hidsf_requires_filter', [] );
+    $requires = apply_filters( 'hidsf_requires_filter', [] );
 
-	foreach ( $requires as $file ) {
-		if ( ! $filepath = file_exists( $file ) ) {
+    foreach ( $requires as $file ) {
+        if ( ! $filepath = file_exists( $file ) ) {
             /* translators: %s  Name of the file */
-			HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', 'humanid-spam-filter' ), $file ) );
-			$error = true;
-		} else {
-			require_once $file;
-		}
-	}
+            HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', 'humanid-spam-filter' ), $file ) );
+            $error = true;
+        } else {
+            require_once $file;
+        }
+    }
 
 
-	// scan directories for includes.php files
-	foreach ( scandir( __DIR__ ) as $dir ) {
-		if ( strpos( $dir, '.' ) === false && is_dir( __DIR__ . '/' . $dir ) && is_file( __DIR__ . '/' . $dir . '/includes.php' ) ) {
-			require_once __DIR__ . '/' . $dir . '/includes.php';
-		}
-	}
+    // scan directories for includes.php files
+    foreach ( scandir( __DIR__ ) as $dir ) {
+        if ( strpos( $dir, '.' ) === false && is_dir( __DIR__ . '/' . $dir ) && is_file( __DIR__ . '/' . $dir . '/includes.php' ) ) {
+            require_once __DIR__ . '/' . $dir . '/includes.php';
+        }
+    }
 
-	$includes = apply_filters( 'hidsf_includes_filter', [] );
+    $includes = apply_filters( 'hidsf_includes_filter', [] );
 
-	foreach ( $includes as $file ) {
-		if ( ! $filepath = file_exists( $file ) ) {
+    foreach ( $includes as $file ) {
+        if ( ! $filepath = file_exists( $file ) ) {
             /* translators: %s Name of the file */
             HIDSFErrorNotice( sprintf( __( 'Error locating <b>%s</b> for inclusion', 'humanid-spam-filter' ), $file ) );
-			$error = true;
-		} else {
-			include_once $file;
-		}
-	}
+            $error = true;
+        } else {
+            include_once $file;
+        }
+    }
 
-	return $error;
+    return $error;
 }
 
 /**
@@ -98,11 +98,11 @@ function HIDSFLoader(): bool {
  * @since v1.0.0
  */
 function HIDSFStart() {
-	$wordpress_tools = new WPTools( __FILE__ );
-	$wordpress_tools->migration_manager->runMigrations();
+    $wordpress_tools = new WPTools( __FILE__ );
+    $wordpress_tools->migration_manager->runMigrations();
 
-	$spam_filter = new HidSpamFilter();
-	$spam_filter->start();
+    $spam_filter = new HidSpamFilter();
+    $spam_filter->start();
 }
 
 
@@ -115,8 +115,8 @@ register_deactivation_hook( __FILE__, 'humanid_spam_filter\\HIDSFDeactivation' )
  * @since v1.0.0
  */
 function HIDSFDeactivation() {
-	delete_option( 'hidsf_is_permalink_updated' );
-	// set options to remove here
+    delete_option( 'hidsf_is_permalink_updated' );
+    // set options to remove here
 }
 
 
@@ -127,22 +127,21 @@ register_uninstall_hook( __FILE__, 'humanid_spam_filter\\HIDSFUninstall' );
  * @since v1.0.0
  */
 function HIDSFUninstall() {
-	global $wpdb;
+    global $wpdb;
 
-	delete_option( 'hidsf_is_permalink_updated' );
-	$instance = WPTools::getInstance( __FILE__ );
-	$instance->migration_manager->dropAll();
+    delete_option( 'hidsf_is_permalink_updated' );
+    $instance = WPTools::getInstance( __FILE__ );
+    $instance->migration_manager->dropAll();
 
-	//query the wp options table and delete all options that start with hidsf_
-	$query = $wpdb->prepare( "DELETE FROM $wpdb->options WHERE option_name LIKE 'hidsf_%'" );
-	$wpdb->query( $query );
+    //query the wp options table and delete all options that start with hidsf_
+    // Caching might not be necessary here since this happens just once - on uninstallation
+    $wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->options WHERE option_name LIKE %s", 'hidsf_%' ) );
 
 
-	// todo; drop migrations table
-	$env        = ( new KMEnv( __FILE__ ) )->getEnv();
-	$table_name = $wpdb->prefix . trim( $env['TABLE_PREFIX'] ) . 'migrations';
-	$query      = $wpdb->prepare( "DROP TABLE IF EXISTS {$table_name}" );
-	$wpdb->query( $query );
+    // todo; drop migrations table
+    $env        = ( new KMEnv( __FILE__ ) )->getEnv();
+    $table_name = $wpdb->prefix . esc_sql( trim( $env['TABLE_PREFIX'] ) ) . 'migrations';
+    $wpdb->query( $wpdb->prepare( "DROP TABLE IF EXISTS %s", $table_name ) );
 }
 
 register_activation_hook( __FILE__, 'humanid_spam_filter\\HIDSFActivation' );
@@ -152,13 +151,13 @@ register_activation_hook( __FILE__, 'humanid_spam_filter\\HIDSFActivation' );
  * @since v1.0.0
  */
 function HIDSFActivation() {
-	// set options to add here
+    // set options to add here
 }
 
-add_action( 'init', function () {
-	if ( ! HIDSFLoader() ) {
-		HIDSFStart();
-	}
+//add_action( 'init', function () {
+    if ( ! HIDSFLoader() ) {
+        HIDSFStart();
+    }
 // todo: for future use
-	load_plugin_textdomain( 'humanid-spam-filter', false, basename( dirname( __FILE__ ) ) . '/languages' );
-} );
+//    load_plugin_textdomain( 'humanid-spam-filter', false, basename( dirname( __FILE__ ) ) . '/languages' );
+//} );

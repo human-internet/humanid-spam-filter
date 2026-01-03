@@ -1,6 +1,7 @@
 <?php
 
 namespace humanid_spam_filter;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 use KMMenuPage;
 

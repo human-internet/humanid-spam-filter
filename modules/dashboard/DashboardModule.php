@@ -1,6 +1,7 @@
 <?php
 
 namespace humanid_spam_filter;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 use KMSetting;
 use KMSubMenuPage;
@@ -96,7 +97,7 @@ class DashboardModule extends Module {
 	 */
 	private function checkIfPermalinkIsUpdated() {
 		if ( isset( $_GET['updatePermalink'] ) ) {
-			$updatePermalink = sanitize_text_field( $_GET['updatePermalink'] );
+			$updatePermalink = sanitize_text_field( wp_unslash( $_GET['updatePermalink'] ) );
 			if ( $updatePermalink == 'yes' ) {
 				update_option( 'hidsf_is_permalink_updated', 1 );
 			}

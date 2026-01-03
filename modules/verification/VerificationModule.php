@@ -1,6 +1,7 @@
 <?php
 
 namespace humanid_spam_filter;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 use Exception;
 use WPTools;
@@ -28,7 +29,7 @@ class VerificationModule extends Module {
 	 */
 	public function saveComment( $comment_id ) {
 		if ( ( isset( $_POST['human_id_key'] ) ) && ( $_POST['human_id_key'] != '' ) ) {
-			$human_id_key = wp_filter_nohtml_kses( $_POST['human_id_key'] );
+			$human_id_key = wp_filter_nohtml_kses( wp_unslash( $_POST['human_id_key'] ) );
 			$human_id     = get_option( $human_id_key );
 			add_comment_meta( $comment_id, 'human_id', $human_id );
 			$user = User::where( 'human_id', '=', $human_id )->get();
@@ -48,19 +49,19 @@ class VerificationModule extends Module {
 	 */
 	public function validateComment( $comment_data ) {
 		if ( ! isset( $_POST['human_id_key'] ) ) {
-			wp_die( __( '<strong>Error</strong>: Please verify that you are not a bot.', 'humanid-spam-filter' ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', 'humanid-spam-filter' ) . '</a></p>' );
+			wp_die( esc_html( __( 'Error: Please verify that you are not a bot.', 'humanid-spam-filter' ) ) . '<p>« <a href="javascript:history.back()">' . esc_html( __( 'Back', 'humanid-spam-filter' ) ) . '</a></p>' );
 		}
-		$human_id_key = wp_filter_nohtml_kses( $_POST['human_id_key'] );
+		$human_id_key = wp_filter_nohtml_kses( wp_unslash( $_POST['human_id_key'] ) );
 		$human_id     = get_option( $human_id_key, '' );
 		if ( trim( $human_id ) == '' ) {
-			wp_die( __( '<strong>Error</strong>: Please verify that you are not a bot.', 'humanid-spam-filter' ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', 'humanid-spam-filter' ) . '</a></p>' );
+			wp_die( esc_html( __( 'Error: Please verify that you are not a bot.', 'humanid-spam-filter' ) ) . '<p>« <a href="javascript:history.back()">' . esc_html( __( 'Back', 'humanid-spam-filter' ) ) . '</a></p>' );
 		}
 
 		$user = User::where( 'human_id', '=', $human_id )->get();
 		if ( sizeof( $user ) > 0 ) {
 			$user = $user[0];
 			if ( $user->blocked == 1 ) {
-				wp_die( __( '<strong>Error</strong>: This website has blocked you from posting comments.', 'humanid-spam-filter' ) . '<p>« <a href="javascript:history.back()">' . __( 'Back', 'humanid-spam-filter' ) . '</a></p>' );
+				wp_die( esc_html( __( 'Error: This website has blocked you from posting comments.', 'humanid-spam-filter' ) ) . '<p>« <a href="javascript:history.back()">' . esc_html( __( 'Back', 'humanid-spam-filter' ) ) . '</a></p>' );
 			}
 		}
 
@@ -95,7 +96,7 @@ class VerificationModule extends Module {
 		} else {
 			$body = json_decode( $resp['body'] );
 			if ( $body->success ) {
-				echo $body->data->webLoginUrl;
+				echo ( $body->data->webLoginUrl ); // The url has been confirmed as safe. Escaping converts & to &amp; which makes the url incorrect during redirect.
 			} else {
 				wp_send_json_error( $body->message->data, 400 );
 			}

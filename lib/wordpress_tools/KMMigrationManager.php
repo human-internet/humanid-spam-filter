@@ -80,15 +80,15 @@ if ( ! class_exists( 'KMMigrationManager' ) ) {
 			$blueprint = new KMBlueprint( true );
 			$object->up( $blueprint );
 			$columns = $blueprint->getColumns();
+
 			foreach ( $columns as $column ) {
-				if ( ! $wpdb->query( $wpdb->prepare( "ALTER TABLE `%1s` %1s", [
-					$object->getTableName(),
-					$column->toString()
-				] ) ) ) {
-					throw new Exception( $wpdb->last_error );
+				// $object->getTableName() is the name of the table and $column->toString() is part of the sql statement - the columns to alter
+				// They can't be put in placeholders
+
+				if ( ! $wpdb->query( "ALTER TABLE `" . esc_sql( $object->getTableName() ) . "` " . esc_sql( $column->toString() ) ) ) {
+					throw new Exception( esc_html( $wpdb->last_error ) );
 				}
 			}
-
 		}
 
 		/**
@@ -110,9 +110,7 @@ if ( ! class_exists( 'KMMigrationManager' ) ) {
 					$migration_object->up( $blueprint );
 					$column_string = $blueprint->toString();
 
-					if ( ! $wpdb->query( $wpdb->prepare( "CREATE TABLE IF NOT EXISTS `%1s` ( $column_string )", [
-						$migration_object->getTableName(),
-					] ) ) ) {
+					if ( ! $wpdb->query( "CREATE TABLE IF NOT EXISTS `" . esc_sql( $migration_object->getTableName() ) . "` ( " . esc_sql( $column_string ) . " )" ) ) {
 						throw new Exception( $wpdb->last_error );
 					}
 				}
@@ -161,17 +159,14 @@ if ( ! class_exists( 'KMMigrationManager' ) ) {
 			$migration_object->down( $blueprint );
 
 			if ( $blueprint->isDropTable() ) {
-				if ( ! $wpdb->query( $wpdb->prepare( "DROP TABLE IF EXISTS %1s", [ $migration_object->getTableName() ] ) ) ) {
-					throw new Exception( $wpdb->last_error );
+				if ( ! $wpdb->query( "DROP TABLE IF EXISTS " . esc_sql( $migration_object->getTableName() ) ) ) {
+					throw new Exception( esc_html( $wpdb->last_error ) );
 				}
 			} else {
 				$columns = $blueprint->getColumns();
 				foreach ( $columns as $column ) {
-					if ( ! $wpdb->query( $wpdb->prepare( "ALTER TABLE `%1s` %1s", [
-						$migration_object->getTableName(),
-						$column->toString()
-					] ) ) ) {
-						throw new Exception( $wpdb->last_error );
+					if ( ! $wpdb->query( "ALTER TABLE `" . esc_sql( $migration_object->getTableName() ) . "` " . $column->toString() ) ) {
+						throw new Exception( esc_html( $wpdb->last_error ) );
 					}
 				}
 			}
@@ -260,10 +255,8 @@ if ( ! class_exists( 'KMMigrationManager' ) ) {
 			$blueprint->timestamps();
 			$additions = $blueprint->toString();
 
-			if ( ! $wpdb->query( $wpdb->prepare( "CREATE TABLE IF NOT EXISTS `%1s` ( $additions )", [
-				$table_name,
-			] ) ) ) {
-				throw new Exception( $wpdb->last_error );
+			if ( ! $wpdb->query( "CREATE TABLE IF NOT EXISTS `" . esc_sql( $table_name ) . "` ( " . esc_sql( $additions ) . " )" ) ) {
+				throw new Exception( esc_html( $wpdb->last_error ) );
 			}
 		}
 	}
