@@ -8,7 +8,7 @@
  * Plugin Name: humanID — Anti‑Spam Comment Filter
  * Plugin URI: https://github.com/human-internet/humanid-spam-filter
  * Description: Replace ReCAPTCHA with a faster, user-friendly solution and block spammers & bots permanently
- * Version: 2.1.1
+ * Version: 2.1.2
  * Author: humanID
  * Author URI: https://human-id.org/
  * License: GPL-2.0+

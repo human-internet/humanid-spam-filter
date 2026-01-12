@@ -4,7 +4,7 @@ Donate link: https://human-id.org/donate/
 Tags: anti-spam,comment spam,spam protection, contact form 7, human id
 Requires at least: 5.7
 Tested up to: 6.8
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -23,6 +23,10 @@ Try humanID today and see the difference it can make for your website's security
 4. Navigate to hID Setup from the admin panel
 
 == Changelog ==
+
+= 2.1.2 =
+* Update WordPress Tools
+*  Minor bug fixes
 
 = 2.1.1 =
 * Update WordPress Tools
